@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:kursol/features/my_course/domain/entities/course.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:go_router/go_router.dart';
+
 
 import '../../../../core/common/constants/colors/app_colors.dart';
+import '../../domain/entities/course.dart';
 
 class CourseCard extends StatelessWidget {
   final Course course;
@@ -94,7 +95,7 @@ class CourseCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "${course.progress} / 100",
+                      "${(course.progress * 1.24).toInt()} / 124",
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w500,
                       ),

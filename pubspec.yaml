@@ -11,7 +11,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   iconly: ^1.0.1
+  get_it: ^8.0.3
+  pdf: ^3.11.3
   percent_indicator: ^4.2.4
+  video_player: ^2.9.2
+  go_router: ^14.8.0
+  easy_localization: ^3.0.7+1
 
 dev_dependencies:
   flutter_test:
@@ -27,10 +32,10 @@ flutter_gen:
 flutter:
   uses-material-design: true
 
+  # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
-  #    - assets/icons
-
+     - assets/icons/
+     - assets/courses/
 
   fonts:
     - family: Urbanist
