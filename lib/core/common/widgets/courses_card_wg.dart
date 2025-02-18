@@ -1,100 +1,107 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kursol/features/my_course/domain/entities/course.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../../utils/responsiveness/app_responsive.dart';
-import '../../utils/textstyles/app_textstyles.dart';
-import '../constants/colors/app_colors.dart';
+import '../../../../core/common/constants/colors/app_colors.dart';
 
-class CoursesCardWg extends StatelessWidget {
-  final VoidCallback onTap;
-  final String courseName;
-  final String courseImg;
-  final String courseTime;
+class CourseCard extends StatelessWidget {
+  final Course course;
 
-  const CoursesCardWg({
-    super.key,
-    required this.onTap,
-    required this.courseImg,
-    required this.courseName,
-    required this.courseTime,
-  });
+  const CourseCard({super.key, required this.course});
+
+  Color getProgressColor(int progress) {
+    if (progress < 50) {
+      return AppColors.progressLow;
+    } else if (progress < 60) {
+      return AppColors.progressMediumLow;
+    } else if (progress < 75) {
+      return AppColors.progressMediumHigh;
+    } else if (progress < 100) {
+      return AppColors.progressHigh;
+    } else {
+      return AppColors.progressComplete;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        context.push('/course-detail/${course.id}');
+      },
       child: Container(
-        width: double.infinity,
-        height: appH(140),
-        padding: EdgeInsets.all(appH(20)),
-        margin: EdgeInsets.only(bottom: appH(20)),
         decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(32),
+          color: theme.cardColor,
+          borderRadius: BorderRadius.circular(24.0),
           boxShadow: [
-            BoxShadow(
-              color: AppColors.greyScale.grey300,
-              blurRadius: 10,
-              spreadRadius: 1,
-            ),
+            if (!isDarkMode)
+              BoxShadow(
+                // ignore: deprecated_member_use
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
           ],
         ),
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+        padding: const EdgeInsets.all(16.0),
         child: Row(
-          spacing: appW(16),
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // image
             ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(24.0),
               child: Image.asset(
-                courseImg, // Replaced !!!
-                width: appW(100),
-                height: appH(100),
+                course.imageUrl,
+                width: screenWidth * 0.22,
+                height: screenWidth * 0.22,
                 fit: BoxFit.cover,
               ),
             ),
-
-            // Course Details
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    courseName,
+                    course.title,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: AppTextStyles.urbanist.bold(
-                      color: AppColors.black,
-                      fontSize: 18,
+                    maxLines: 1,
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    course.duration,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: isDarkMode ? Colors.grey[400] : Colors.grey[700],
                     ),
                   ),
-                  Text(
-                    courseTime,
-                    style: AppTextStyles.urbanist.medium(
-                      color: AppColors.greyScale.grey700,
-                      fontSize: 14,
+                  const SizedBox(height: 10),
+                  LinearPercentIndicator(
+                    lineHeight: 10.0,
+                    percent: course.progress / 100,
+                    backgroundColor: isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
+                    progressColor: getProgressColor(course.progress),
+                    barRadius: const Radius.circular(12),
+                  ),
+                  const SizedBox(height: 6),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "${course.progress} / 100",
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-
-            // Circular Progress Indicator
-            CircularPercentIndicator(
-              radius: 35.0,
-              lineWidth: 8.0,
-              percent: 0.5,
-              center: Text(
-                "50%",
-                style: AppTextStyles.urbanist.bold(
-                  color: AppColors.black,
-                  fontSize: 18,
-                ),
-              ),
-              progressColor: AppColors.amber,
-              backgroundColor: AppColors.greyScale.grey200,
-              circularStrokeCap: CircularStrokeCap.round,
             ),
           ],
         ),

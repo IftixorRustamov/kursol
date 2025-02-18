@@ -25,6 +25,13 @@ abstract class AppColors {
   static const Color deepOrange = Color(0xFFFF5722);
   static const Color brown = Color(0xFF795548);
   static const Color blueGrey = Color(0xFF607D8B);
+
+  //indicator
+  static const Color progressLow = Color(0xFFE57373);
+  static const Color progressMediumLow = Color(0xFFFFB74D);
+  static const Color progressMediumHigh = Color(0xFFFFD54F);
+  static const Color progressHigh = Color(0xFF81C784);
+  static const Color progressComplete = Color(0xFF4CAF50);
 }
 
 class _PrimaryBlue {
