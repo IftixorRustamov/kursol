@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
+import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/navbar_wg.dart';
-import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import '../widgets/app_bar_widget.dart';
 import '../../data/repositories/dummy_courses.dart';
 import '../widgets/tab_bar_widget.dart';
@@ -29,8 +30,6 @@ class _MyCoursePageState extends State<MyCoursePage>
 
   @override
   Widget build(BuildContext context) {
-    AppResponsive.init(context); // ✅ MUAMMO HAL QILINDI
-
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -38,7 +37,7 @@ class _MyCoursePageState extends State<MyCoursePage>
           isDarkMode
               ? AppColors.greyScale.grey900
               : AppColors.greyScale.grey100,
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(),
       body: Column(
         children: [
           CourseTabBar(tabController: _tabController),
