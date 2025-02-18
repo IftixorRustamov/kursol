@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import '../../features/my_course/presentation/pages/completed_course_page.dart';
 import '../../features/my_course/presentation/pages/course_detail_page.dart';
 import '../../features/my_course/presentation/pages/my_course_page.dart';
 import '../../features/my_course/presentation/pages/video_player_page.dart';
@@ -27,15 +28,25 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: RoutePaths.completedCourses,
+      name: RouteNames.completedCourses,
+      builder: (context, state) {
+        final courseId = state.extra as String? ?? '';
+        return CompletedCoursePage(courseId: courseId);
+      },
+    ),
+    GoRoute(
       path: RoutePaths.videoPlayer,
       name: RouteNames.videoPlayer,
       builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>?;
+        final args = state.extra as Map<String, dynamic>? ?? {};
         return VideoPlayerPage(
-          videoUrl: args?['videoUrl'] ?? '',
-          title: args?['title'] ?? 'Untitled',
+          videoUrl: args['videoUrl'] ?? '',
+          title: args['title'] ?? 'Untitled',
         );
       },
     ),
+
+
   ],
 );

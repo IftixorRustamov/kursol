@@ -6,19 +6,19 @@ import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import '../widgets/app_bar_widget.dart';
 import '../../data/repositories/dummy_courses.dart';
 import '../widgets/tab_bar_widget.dart';
-import '../widgets/bottom_nav_bar_widget.dart';
 
 class MyCoursePage extends StatefulWidget {
   const MyCoursePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyCoursePageState createState() => _MyCoursePageState();
 }
 
 class _MyCoursePageState extends State<MyCoursePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedIndex = 1; // Default: "My Course"
+// Default: "My Course"
 
   @override
   void initState() {
@@ -26,15 +26,10 @@ class _MyCoursePageState extends State<MyCoursePage>
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  void _onNavBarTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    AppResponsive.init(context); // ✅ MUAMMO HAL QILINDI
+    AppResponsive.init(context);
 
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
@@ -86,6 +81,7 @@ class CourseListView extends StatelessWidget {
             boxShadow: [
               if (!isDarkMode)
                 BoxShadow(
+                  // ignore: deprecated_member_use
                   color: AppColors.greyScale.grey300.withOpacity(0.5),
                   blurRadius: 8,
                   offset: const Offset(0, 4),

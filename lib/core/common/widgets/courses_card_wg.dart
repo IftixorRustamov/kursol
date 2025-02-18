@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/features/my_course/domain/entities/course.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
 import '../../../../core/common/constants/colors/app_colors.dart';
 
 class CourseCard extends StatelessWidget {
@@ -30,9 +29,19 @@ class CourseCard extends StatelessWidget {
     final isDarkMode = theme.brightness == Brightness.dark;
     final screenWidth = MediaQuery.of(context).size.width;
 
+    // Calculate the number of completed lessons and total lessons
+    final completedLessons = course.progress; // This will be the completed lessons count
+    final totalLessons = 114; // You can adjust this to the actual total lesson count
+
     return GestureDetector(
       onTap: () {
-        context.push('/course-detail/${course.id}');
+        if (completedLessons == totalLessons) {
+          // If the course is complete, go to CompletedCoursePage
+          context.push('/completed-courses');
+        } else {
+          // If the course is not complete, go to CourseDetailPage
+          context.push('/course-detail/${course.id}');
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -83,18 +92,20 @@ class CourseCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
+                  // Linear progress indicator using lessons count
                   LinearPercentIndicator(
                     lineHeight: 10.0,
-                    percent: course.progress / 100,
+                    percent: completedLessons / totalLessons,
                     backgroundColor: isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
-                    progressColor: getProgressColor(course.progress),
+                    progressColor: getProgressColor(completedLessons),
                     barRadius: const Radius.circular(12),
                   ),
                   const SizedBox(height: 6),
+                  // Show completed lessons / total lessons
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "${course.progress} / 100",
+                      "$completedLessons / $totalLessons",
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w500,
                       ),

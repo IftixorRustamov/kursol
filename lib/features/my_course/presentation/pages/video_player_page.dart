@@ -129,23 +129,23 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
         ),
       ),
       body: GestureDetector(
-        onTap: _toggleControls, // Single tap to show/hide controls
+        onTap: _toggleControls,
         onDoubleTapDown: (details) {
           if (details.globalPosition.dx < screenWidth / 2) {
-            _seekBackward(); // Left side double-tap to rewind
+            _seekBackward();
           } else {
-            _seekForward(); // Right side double-tap to fast-forward
+            _seekForward();
           }
         },
         onLongPressStart: (details) {
           if (details.globalPosition.dx < screenWidth / 2) {
-            _videoController.setPlaybackSpeed(0.5); // Slow rewind
+            _videoController.setPlaybackSpeed(0.5);
           } else {
-            _videoController.setPlaybackSpeed(2.0); // Fast-forward
+            _videoController.setPlaybackSpeed(2.0);
           }
         },
         onLongPressEnd: (_) {
-          _videoController.setPlaybackSpeed(1.0); // Reset playback speed
+          _videoController.setPlaybackSpeed(1.0);
         },
         child: Stack(
           alignment: Alignment.center,
@@ -174,7 +174,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                       _videoController,
                       allowScrubbing: true,
                       colors: VideoProgressColors(
-                        playedColor: AppColors.blue, // Blue color for progress bar
+                        playedColor: AppColors.blue,
                         bufferedColor: Colors.grey,
                         backgroundColor: Colors.white30,
                       ),

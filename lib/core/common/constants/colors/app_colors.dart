@@ -27,11 +27,11 @@ abstract class AppColors {
   static const Color blueGrey = Color(0xFF607D8B);
 
   //indicator
-  static const Color progressLow = Color(0xFFE57373);
-  static const Color progressMediumLow = Color(0xFFFFB74D);
-  static const Color progressMediumHigh = Color(0xFFFFD54F);
-  static const Color progressHigh = Color(0xFF81C784);
-  static const Color progressComplete = Color(0xFF4CAF50);
+  static const Color progressLow = Color(0xFF35DEBC); // 0-49%
+  static const Color progressMediumLow = Color(0xFFFFE580); // 50-59%
+  static const Color progressMediumHigh = Color(0xFFFFAB38); // 60-74%
+  static const Color progressHigh = Color(0xFFFF4D67); // 75-99%
+  static const Color progressComplete = Color(0xFF246BFD); // 100%
 }
 
 class _PrimaryBlue {
