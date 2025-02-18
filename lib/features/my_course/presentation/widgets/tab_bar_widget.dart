@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/common/constants/colors/app_colors.dart';
-
+import 'package:kursol/core/common/constants/colors/app_colors.dart';
+import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
+import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 
 class CourseTabBar extends StatelessWidget {
   final TabController tabController;
@@ -10,37 +11,37 @@ class CourseTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    double screenWidth = MediaQuery.of(context).size.width;
-    double indicatorWidth = screenWidth * 0.4;
-    double tabPadding = screenWidth * 0.05;
-
+    double screenWidth = AppResponsive.screenWidth;
+    double indicatorWidth = appW(140); // Responsiv indikator eni
+    double tabPadding = appW(20); // Responsiv ichki padding
     return Column(
       children: [
         Container(
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: isDarkMode ? AppColors.darkGrey : AppColors.gray200,
-                width: 1.5,
+                color: isDarkMode ? AppColors.greyScale.grey600 : AppColors.greyScale.grey300,
+                width: appH(1.5),
               ),
             ),
           ),
           child: TabBar(
             controller: tabController,
-            labelColor: AppColors.primary,
-            unselectedLabelColor: AppColors.gray500,
+            labelColor: AppColors.primary.blue500,
+            unselectedLabelColor: AppColors.greyScale.grey500,
             indicatorColor: Colors.transparent,
-            labelStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Urbanist',
+            labelStyle: UrbanistTextStyles().semiBold(
+              color: AppColors.primary.blue500,
+              fontSize: appH(16),
             ),
-            unselectedLabelStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Urbanist',
+            unselectedLabelStyle: UrbanistTextStyles().medium(
+              color: AppColors.greyScale.grey500,
+              fontSize: appH(16),
             ),
-            tabs: const [Tab(text: 'Ongoing'), Tab(text: 'Completed')],
+            tabs: const [
+              Tab(text: 'Ongoing'),
+              Tab(text: 'Completed'),
+            ],
           ),
         ),
         Padding(
@@ -50,25 +51,22 @@ class CourseTabBar extends StatelessWidget {
             builder: (context, child) {
               double animationValue = tabController.animation?.value ?? 0.0;
               double progressLeft =
-                  animationValue *
-                  (screenWidth - 2 * tabPadding - indicatorWidth);
-
+                  animationValue * (screenWidth - 2 * tabPadding - indicatorWidth);
               return Stack(
                 children: [
                   Container(
-                    height: 4,
+                    height: appH(4),
                     width: double.infinity,
-                    color: AppColors.gray300,
+                    color: AppColors.greyScale.grey300,
                   ),
-
                   Positioned(
                     left: progressLeft,
                     child: Container(
-                      height: 4,
+                      height: appH(4),
                       width: indicatorWidth,
                       decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(50),
+                        color: AppColors.primary.blue500,
+                        borderRadius: BorderRadius.circular(appH(50)),
                       ),
                     ),
                   ),
@@ -77,7 +75,7 @@ class CourseTabBar extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: appH(10)),
       ],
     );
   }

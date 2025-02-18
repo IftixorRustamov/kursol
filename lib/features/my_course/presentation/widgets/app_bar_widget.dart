@@ -29,6 +29,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(IconlyLight.more_circle),
           onPressed: () {},
         ),
+        IconButton(
+          icon: const Icon(IconlyLight.more_circle),
+          onPressed: () {
+
+          },
+        ),
       ],
     );
   }

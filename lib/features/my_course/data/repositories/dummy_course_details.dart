@@ -27,7 +27,6 @@ final List<CourseDetailModel> dummyCourseDetails = [
           Lesson(id: '09', title: 'Using Figma Plugins', duration: '25 mins', isLocked: true),
           Lesson(id: '10', title: 'Using Figma Plugins', duration: '25 mins', isLocked: true),
           Lesson(id: '11', title: 'Using Figma Plugins', duration: '25 mins', isLocked: true),
-
         ],
       ),
     ],

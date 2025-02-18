@@ -174,7 +174,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                       _videoController,
                       allowScrubbing: true,
                       colors: VideoProgressColors(
-                        playedColor: AppColors.primary, // Blue color for progress bar
+                        playedColor: AppColors.blue, // Blue color for progress bar
                         bufferedColor: Colors.grey,
                         backgroundColor: Colors.white30,
                       ),
@@ -205,7 +205,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                         ),
                         IconButton(
                           icon: ImageIcon(
-                            AssetImage(_isFullScreen ? 'assets/icons/full_screen.png' : 'assets/icons/full_screen.png'),
+                            AssetImage(_isFullScreen ? 'assets/images/full_screen.png' : 'assets/images/full_screen.png'),
                             size: 30,
                             color: Colors.white,
                           ),

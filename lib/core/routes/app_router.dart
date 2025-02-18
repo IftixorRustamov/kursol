@@ -14,10 +14,15 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const MyCoursePage(),
     ),
     GoRoute(
+      path: RoutePaths.myCourse,
+      name: RouteNames.myCourse,
+      builder: (context, state) => const MyCoursePage(),
+    ),
+    GoRoute(
       path: RoutePaths.courseDetail,
       name: RouteNames.courseDetail,
       builder: (context, state) {
-        final String courseId = state.pathParameters['id'] ?? '';
+        final courseId = state.pathParameters['id'] ?? '';
         return CourseDetailPage(courseId: courseId);
       },
     ),
@@ -25,8 +30,11 @@ final GoRouter appRouter = GoRouter(
       path: RoutePaths.videoPlayer,
       name: RouteNames.videoPlayer,
       builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>;
-        return VideoPlayerPage(videoUrl: args['videoUrl'], title: args['title']);
+        final args = state.extra as Map<String, dynamic>?;
+        return VideoPlayerPage(
+          videoUrl: args?['videoUrl'] ?? '',
+          title: args?['title'] ?? 'Untitled',
+        );
       },
     ),
   ],
