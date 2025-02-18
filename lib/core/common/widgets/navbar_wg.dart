@@ -19,6 +19,7 @@ class NavbarWidget extends StatelessWidget {
           icon: Icon(currentIndex == 0 ? IconlyBold.home : IconlyLight.home),
           label: 'Home',
         ),
+
         BottomNavigationBarItem(
           icon: Icon(currentIndex == 1 ? IconlyBold.document : IconlyLight.document),
           label: 'My Course',
