@@ -18,6 +18,7 @@ class CourseDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
+
     final courseDetail = dummyCourseDetails.firstWhere((course) => course.id == courseId);
     final course = completedCourses.firstWhere(
           (course) => course.id == courseId,
@@ -25,19 +26,24 @@ class CourseDetailPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: isDarkMode ? AppColors.greyScale.grey900 : Colors.white,
+      backgroundColor: isDarkMode ? AppColors.background.dark : Colors.white,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         title: Text(
           courseDetail.title,
           style: UrbanistTextStyles().bold(
-            color: AppColors.black,
+            color: isDarkMode ? Colors.white : AppColors.black,
             fontSize: appH(22),
           ),
         ),
-        backgroundColor: theme.appBarTheme.backgroundColor,
+        backgroundColor: isDarkMode ? AppColors.background.dark : Colors.white, // ✅ AppBar foni Dark Mode uchun
         elevation: 0,
         leading: IconButton(
-          icon: Icon(IconlyLight.arrow_left, size: appH(28), color: theme.iconTheme.color),
+          icon: Icon(
+            IconlyLight.arrow_left,
+            size: appH(28),
+            color: isDarkMode ? Colors.white : Colors.black, // ✅ Dark Mode icon rangi
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -52,17 +58,24 @@ class CourseDetailPage extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(appH(18)),
+
         decoration: BoxDecoration(
-          color: isDarkMode ? AppColors.greyScale.grey800 : Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          color: isDarkMode ? AppColors.background.dark : Colors.white,
+          border: Border.all(
+            color: isDarkMode ? AppColors.greyScale.grey700 : AppColors.greyScale.grey300, // ✅ Dark Mode va Light Mode uchun border rangi
+            width: 0.4,
+          ),
           boxShadow: [
-            BoxShadow(
-              // ignore: deprecated_member_use
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: appH(12),
-              offset: Offset(0, -appH(3)),
-            ),
+            if (!isDarkMode)
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: appH(12),
+                offset: Offset(0, -appH(3)),
+              ),
           ],
         ),
+
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary.blue500,
@@ -71,10 +84,10 @@ class CourseDetailPage extends StatelessWidget {
           ),
           onPressed: () {
             if (course.progress == 100) {
-              // Agar kurs 100% bo'lsa, CompletedCoursePage ga o'tish
+
               context.push('/completed-courses');
             } else {
-              // Video sahifasiga o'tish
+
               context.push('/video-player', extra: {
                 'videoUrl': 'https://www.pexels.com/video/close-up-of-a-cpu-7140928/',
                 'title': courseDetail.title,

@@ -1,59 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/navbar_wg.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import '../widgets/app_bar_widget.dart';
 import '../../data/repositories/dummy_courses.dart';
-import '../widgets/tab_bar_widget.dart';
 
 class MyCoursePage extends StatefulWidget {
   const MyCoursePage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyCoursePageState createState() => _MyCoursePageState();
 }
 
-class _MyCoursePageState extends State<MyCoursePage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-// Default: "My Course"
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-
+class _MyCoursePageState extends State<MyCoursePage> {
   @override
   Widget build(BuildContext context) {
-    AppResponsive.init(context); // ✅ MUAMMO HAL QILINDI
-
+    AppResponsive.init(context);
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor:
-          isDarkMode
-              ? AppColors.greyScale.grey900
-              : AppColors.greyScale.grey100,
-      appBar: const CustomAppBar(),
-      body: Column(
-        children: [
-          CourseTabBar(tabController: _tabController),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                CourseListView(isCompleted: false),
-                CourseListView(isCompleted: true),
-              ],
-            ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.white,
+        appBar: CustomAppBar(),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: TabBarView(
+            children: const [
+              CourseListView(isCompleted: false),
+              CourseListView(isCompleted: true),
+            ],
           ),
-        ],
+        ),
+        bottomNavigationBar: NavbarWidget(),
       ),
-      bottomNavigationBar: NavbarWidget(),
     );
   }
 }
@@ -68,29 +50,20 @@ class CourseListView extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final courses = isCompleted ? completedCourses : ongoingCourses;
 
-    return ListView.builder(
-      padding: const EdgeInsets.all(8.0),
-      itemCount: courses.length,
-      itemBuilder: (context, index) {
-        final course = courses[index];
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          decoration: BoxDecoration(
-            color: isDarkMode ? AppColors.greyScale.grey800 : AppColors.white,
-            borderRadius: BorderRadius.circular(16.0),
-            boxShadow: [
-              if (!isDarkMode)
-                BoxShadow(
-                  // ignore: deprecated_member_use
-                  color: AppColors.greyScale.grey300.withOpacity(0.5),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-            ],
-          ),
-          child: CourseCard(course: course),
-        );
-      },
+    return Container(
+      color: isDarkMode ? AppColors.background.dark : AppColors.greyScale.grey200, // List fon rangi
+      child: ListView.builder(
+        padding: const EdgeInsets.all(8.0),
+        itemCount: courses.length,
+        itemBuilder: (context, index) {
+          final course = courses[index];
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: CourseCard(course: course),
+          );
+        },
+      ),
     );
   }
 }

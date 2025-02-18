@@ -4,6 +4,7 @@ abstract class AppColors {
   static const Color secondary = Color(0xFFFFD300);
   static const primary = _PrimaryBlue();
   static const greyScale = _GreyScale();
+  static const background = _Background(); // Yangi qo‘shildi
 
   static const Color white = Colors.white;
   static const Color black = Colors.black;
@@ -26,7 +27,7 @@ abstract class AppColors {
   static const Color brown = Color(0xFF795548);
   static const Color blueGrey = Color(0xFF607D8B);
 
-  //indicator
+  // Indicator Colors
   static const Color progressLow = Color(0xFF35DEBC); // 0-49%
   static const Color progressMediumLow = Color(0xFFFFE580); // 50-59%
   static const Color progressMediumHigh = Color(0xFFFFAB38); // 60-74%
@@ -60,5 +61,12 @@ class _GreyScale {
   final Color grey100 = const Color(0xFFF5F5F5);
   final Color grey50 = const Color(0xFFFAFAFA);
 
-  Color call() => grey500;
+}
+
+class _Background {
+  const _Background();
+
+  final Color dark = const Color(0xFF181A20);
+  final Color dark2 = const Color(0xFF1F222A);
+  final Color blueAccent = const Color(0xFF335EF7);
 }

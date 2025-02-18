@@ -20,7 +20,7 @@ class LessonListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: sections.map((section) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,7 @@ class LessonListWidget extends StatelessWidget {
                 Text(
                   section.title,
                   style: UrbanistTextStyles().semiBold(
-                    color: AppColors.greyScale.grey500,
+                    color: isDarkMode ? Colors.white : AppColors.greyScale.grey500, // ✅ Dark Mode moslashdi
                     fontSize: appH(18),
                   ),
                 ),
@@ -51,12 +51,11 @@ class LessonListWidget extends StatelessWidget {
                 return Container(
                   margin: EdgeInsets.only(bottom: appH(12)),
                   decoration: BoxDecoration(
-                    color: isDarkMode ? AppColors.greyScale.grey800 : Colors.white,
+                    color: isDarkMode ? AppColors.background.dark2 : Colors.white,
                     borderRadius: BorderRadius.circular(appH(18)),
                     boxShadow: [
                       if (!isDarkMode)
                         BoxShadow(
-                          // ignore: deprecated_member_use
                           color: Colors.black.withOpacity(0.05),
                           blurRadius: appH(12),
                           offset: Offset(0, appH(4)),
@@ -65,8 +64,9 @@ class LessonListWidget extends StatelessWidget {
                   ),
                   child: ListTile(
                     leading: CircleAvatar(
-                      // ignore: deprecated_member_use
-                      backgroundColor: AppColors.primary.blue100.withOpacity(0.2),
+                      backgroundColor: isDarkMode
+                          ? AppColors.primary.blue500.withOpacity(0.2)
+                          : AppColors.primary.blue200.withOpacity(0.2),
                       radius: appH(24),
                       child: Text(
                         lesson.id,
@@ -86,7 +86,7 @@ class LessonListWidget extends StatelessWidget {
                     subtitle: Text(
                       lesson.duration,
                       style: UrbanistTextStyles().regular(
-                        color: Colors.grey,
+                        color: isDarkMode ? AppColors.greyScale.grey400 : Colors.grey,
                         fontSize: appH(16),
                       ),
                     ),
