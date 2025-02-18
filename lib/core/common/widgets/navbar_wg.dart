@@ -31,7 +31,7 @@ class NavbarWidget extends StatelessWidget {
           label: 'Inbox',
         ),
         BottomNavigationBarItem(
-          icon: Icon(currentIndex == 3 ? IconlyBold.bag : IconlyLight.bag),
+          icon: Icon(currentIndex == 3 ? IconlyBold.buy : IconlyLight.buy),
           label: 'Transactions',
         ),
         BottomNavigationBarItem(
