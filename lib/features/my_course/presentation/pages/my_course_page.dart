@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
-import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/navbar_wg.dart';

@@ -8,12 +8,12 @@ import '../../constants/colors/app_colors.dart';
 class ActionAppBarWg extends StatelessWidget implements PreferredSizeWidget {
   const ActionAppBarWg({
     super.key,
-    required this.titleText,
+    this.titleText,
     required this.onBackPressed,
     this.actions,
   });
 
-  final String titleText;
+  final String? titleText;
   final VoidCallback onBackPressed;
   final List<Widget>? actions;
 
@@ -26,9 +26,8 @@ class ActionAppBarWg extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.white,
       elevation: 0.5,
       centerTitle: false,
-      toolbarHeight: 64,
       title: Text(
-        titleText,
+        titleText ?? "",
         style: AppTextStyles.urbanist.bold(
           color: AppColors.black,
           fontSize: 24,
