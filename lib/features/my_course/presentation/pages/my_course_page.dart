@@ -6,13 +6,12 @@ import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import '../widgets/app_bar_widget.dart';
 import '../../data/repositories/dummy_courses.dart';
 import '../widgets/tab_bar_widget.dart';
-import '../widgets/bottom_nav_bar_widget.dart';
 
 class MyCoursePage extends StatefulWidget {
   const MyCoursePage({super.key});
 
   @override
-  _MyCoursePageState createState() => _MyCoursePageState();
+  State<MyCoursePage> createState() => _MyCoursePageState();
 }
 
 class _MyCoursePageState extends State<MyCoursePage>

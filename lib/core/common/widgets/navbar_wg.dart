@@ -5,6 +5,8 @@ import '../../routes/route_names.dart';
 import '../constants/colors/app_colors.dart' show AppColors;
 
 class NavbarWidget extends StatelessWidget {
+  const NavbarWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     int currentIndex = _getCurrentIndex(context);
