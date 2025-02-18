@@ -29,7 +29,7 @@ class _MyCoursePageState extends State<MyCoursePage>
 
   @override
   Widget build(BuildContext context) {
-    AppResponsive.init(context);
+    AppResponsive.init(context); // ✅ MUAMMO HAL QILINDI
 
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 

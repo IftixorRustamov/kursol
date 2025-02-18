@@ -5,7 +5,6 @@ import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 import 'package:kursol/features/my_course/presentation/widgets/lesson_list_widget.dart';
 
 import '../../data/repositories/dummy_course_details.dart';
-import 'certificate_page.dart';
 
 class CompletedCoursePage extends StatelessWidget {
   final String courseId;
@@ -82,7 +81,7 @@ class CompletedCoursePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                     ),
                     onPressed: () async {
-                      await generateCertificate();
+
                     },
                     child: Text(
                       "Download Certificate",
