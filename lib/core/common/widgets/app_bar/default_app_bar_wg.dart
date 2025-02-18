@@ -12,14 +12,11 @@ class DefaultAppBarWg extends StatelessWidget implements PreferredSizeWidget {
     required this.titleText,
     this.onSearchPressed,
     required this.onMorePressed,
-    // this.actions,
   });
 
   final String titleText;
   final VoidCallback? onSearchPressed;
   final VoidCallback onMorePressed;
-
-  // final List<Widget>? actions;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
