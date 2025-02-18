@@ -1,41 +1,42 @@
+import 'package:kursol/config/gen/fonts.gen.dart';
+import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
+
 import 'app_textstyles.dart';
 import 'package:flutter/material.dart';
 
 class UrbanistTextStyles extends AppTextStyles {
-  static const String font = 'Urbanist';
-
   @override
   TextStyle bold({required Color color, required double fontSize}) => TextStyle(
-    fontSize: fontSize,
+    fontSize: AppResponsive.height(fontSize),
     color: color,
     fontWeight: FontWeight.bold,
-    fontFamily: font,
+    fontFamily: FontFamily.urbanist,
   );
 
   @override
   TextStyle semiBold({required Color color, required double fontSize}) =>
       TextStyle(
-        fontSize: fontSize,
+        fontSize: AppResponsive.height(fontSize),
         color: color,
         fontWeight: FontWeight.w600,
-        fontFamily: font,
+        fontFamily: FontFamily.urbanist,
       );
 
   @override
   TextStyle medium({required Color color, required double fontSize}) =>
       TextStyle(
-        fontSize: fontSize,
+        fontSize: AppResponsive.height(fontSize),
         color: color,
         fontWeight: FontWeight.w500,
-        fontFamily: font,
+        fontFamily: FontFamily.urbanist,
       );
 
   @override
   TextStyle regular({required Color color, required double fontSize}) =>
       TextStyle(
-        fontSize: fontSize,
+        fontSize: AppResponsive.height(fontSize),
         color: color,
         fontWeight: FontWeight.w400,
-        fontFamily: font,
+        fontFamily: FontFamily.urbanist,
       );
 }
