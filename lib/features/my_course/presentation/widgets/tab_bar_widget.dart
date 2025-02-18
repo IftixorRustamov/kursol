@@ -14,7 +14,6 @@ class CourseTabBar extends StatelessWidget {
     double screenWidth = AppResponsive.screenWidth;
     double indicatorWidth = appW(140); // Responsiv indikator eni
     double tabPadding = appW(20); // Responsiv ichki padding
-
     return Column(
       children: [
         Container(
@@ -53,7 +52,6 @@ class CourseTabBar extends StatelessWidget {
               double animationValue = tabController.animation?.value ?? 0.0;
               double progressLeft =
                   animationValue * (screenWidth - 2 * tabPadding - indicatorWidth);
-
               return Stack(
                 children: [
                   Container(

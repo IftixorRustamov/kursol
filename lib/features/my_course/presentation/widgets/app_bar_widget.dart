@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
+import 'package:iconly/iconly.dart'; // ✅ Iconly ni uladik
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -10,7 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           Image.asset(
-            'assets/images/logo.png',
+            'assets/icons/logo.png',
             height: 30,
           ),
           const SizedBox(width: 8),
@@ -23,9 +23,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: const Icon(IconlyLight.search),
-          onPressed: () {
-
-          },
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: const Icon(IconlyLight.more_circle),
+          onPressed: () {},
         ),
         IconButton(
           icon: const Icon(IconlyLight.more_circle),

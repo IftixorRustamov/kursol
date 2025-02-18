@@ -58,6 +58,7 @@ class _MyCoursePageState extends State<MyCoursePage>
           ),
         ],
       ),
+
       bottomNavigationBar: NavbarWidget(),
     );
   }

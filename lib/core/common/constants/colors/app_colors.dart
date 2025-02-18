@@ -32,6 +32,32 @@ abstract class AppColors {
   static const Color progressMediumHigh = Color(0xFFFFD54F);
   static const Color progressHigh = Color(0xFF81C784);
   static const Color progressComplete = Color(0xFF4CAF50);
+  
+  // Background Colors
+  static const Color backgroundBlue = Color(0xFFF6FAFD);
+  static const Color backgroundGreen = Color(0xFFF2FFFC);
+  static const Color backgroundOrange = Color(0xFFFFFBED);
+  static const Color backgroundPink = Color(0xFFFFF5F5);
+  static const Color backgroundYellow = Color(0xFFFFFEE0);
+  static const Color backgroundPurple = Color(0xFFFCF4FF);
+  
+    // Dark Colors
+  static const Color dark1 = Color(0xFF181A20);
+  static const Color dark2 = Color(0xFF1F222A);
+  static const Color dark3 = Color(0xFF35383F);
+  
+   // Transparent Colors
+  static const Color transparentBlue = Color(0x33335EF7);
+  static const Color transparentOrange = Color(0x33FF9800);
+  static const Color transparentYellow = Color(0x33FACC15);
+  static const Color transparentRed = Color(0x33F75555);
+  static const Color transparentGreen = Color(0x334CAF50);
+  static const Color transparentPurple = Color(0x339C27B0);
+  static const Color transparentCyan = Color(0x3300BCD4);
+  
+    // **Card Background Colors**
+  static const Color lightCardBackground = Color(0xFFF6FAFD); // Light Mode
+  static const Color darkCardBackground = Color(0xFF181A20); // Dark Mode
 }
 
 class _PrimaryBlue {

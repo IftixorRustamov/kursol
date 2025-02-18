@@ -1,5 +1,5 @@
 class Course {
-  final String id; // ID qo‘shildi
+  final String id;
   final String title;
   final String duration;
   final String imageUrl;
