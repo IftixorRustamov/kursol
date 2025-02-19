@@ -5,21 +5,28 @@ import '../../routes/route_names.dart';
 import '../constants/colors/app_colors.dart' show AppColors;
 
 class NavbarWidget extends StatelessWidget {
+  const NavbarWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     int currentIndex = _getCurrentIndex(context);
+
+    // Dark Mode tekshirish
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return BottomNavigationBar(
       currentIndex: currentIndex,
       onTap: (index) => _onItemTapped(context, index),
       selectedItemColor: AppColors.primary.blue500,
-      unselectedItemColor: Colors.grey,
+      unselectedItemColor: AppColors.greyScale.grey500,
       showUnselectedLabels: true,
+      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.white,
+      type: BottomNavigationBarType.fixed,
       items: [
         BottomNavigationBarItem(
           icon: Icon(currentIndex == 0 ? IconlyBold.home : IconlyLight.home),
           label: 'Home',
         ),
-
         BottomNavigationBarItem(
           icon: Icon(currentIndex == 1 ? IconlyBold.document : IconlyLight.document),
           label: 'My Course',
@@ -29,7 +36,7 @@ class NavbarWidget extends StatelessWidget {
           label: 'Inbox',
         ),
         BottomNavigationBarItem(
-          icon: Icon(currentIndex == 3 ? IconlyBold.bag : IconlyLight.bag),
+          icon: Icon(currentIndex == 3 ? IconlyBold.buy : IconlyLight.buy),
           label: 'Transactions',
         ),
         BottomNavigationBarItem(

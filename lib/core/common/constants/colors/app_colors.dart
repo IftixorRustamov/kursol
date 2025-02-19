@@ -4,6 +4,7 @@ abstract class AppColors {
   static const Color secondary = Color(0xFFFFD300);
   static const primary = _PrimaryBlue();
   static const greyScale = _GreyScale();
+  static const background = _Background(); // Yangi qo‘shildi
 
   static const Color white = Colors.white;
   static const Color black = Colors.black;
@@ -26,38 +27,12 @@ abstract class AppColors {
   static const Color brown = Color(0xFF795548);
   static const Color blueGrey = Color(0xFF607D8B);
 
-  //indicator
-  static const Color progressLow = Color(0xFFE57373);
-  static const Color progressMediumLow = Color(0xFFFFB74D);
-  static const Color progressMediumHigh = Color(0xFFFFD54F);
-  static const Color progressHigh = Color(0xFF81C784);
-  static const Color progressComplete = Color(0xFF4CAF50);
-  
-  // Background Colors
-  static const Color backgroundBlue = Color(0xFFF6FAFD);
-  static const Color backgroundGreen = Color(0xFFF2FFFC);
-  static const Color backgroundOrange = Color(0xFFFFFBED);
-  static const Color backgroundPink = Color(0xFFFFF5F5);
-  static const Color backgroundYellow = Color(0xFFFFFEE0);
-  static const Color backgroundPurple = Color(0xFFFCF4FF);
-  
-    // Dark Colors
-  static const Color dark1 = Color(0xFF181A20);
-  static const Color dark2 = Color(0xFF1F222A);
-  static const Color dark3 = Color(0xFF35383F);
-  
-   // Transparent Colors
-  static const Color transparentBlue = Color(0x33335EF7);
-  static const Color transparentOrange = Color(0x33FF9800);
-  static const Color transparentYellow = Color(0x33FACC15);
-  static const Color transparentRed = Color(0x33F75555);
-  static const Color transparentGreen = Color(0x334CAF50);
-  static const Color transparentPurple = Color(0x339C27B0);
-  static const Color transparentCyan = Color(0x3300BCD4);
-  
-    // **Card Background Colors**
-  static const Color lightCardBackground = Color(0xFFF6FAFD); // Light Mode
-  static const Color darkCardBackground = Color(0xFF181A20); // Dark Mode
+  // Indicator Colors
+  static const Color progressLow = Color(0xFF35DEBC); // 0-49%
+  static const Color progressMediumLow = Color(0xFFFFE580); // 50-59%
+  static const Color progressMediumHigh = Color(0xFFFFAB38); // 60-74%
+  static const Color progressHigh = Color(0xFFFF4D67); // 75-99%
+  static const Color progressComplete = Color(0xFF246BFD); // 100%
 }
 
 class _PrimaryBlue {
@@ -86,5 +61,12 @@ class _GreyScale {
   final Color grey100 = const Color(0xFFF5F5F5);
   final Color grey50 = const Color(0xFFFAFAFA);
 
-  Color call() => grey500;
+}
+
+class _Background {
+  const _Background();
+
+  final Color dark = const Color(0xFF181A20);
+  final Color dark2 = const Color(0xFF1F222A);
+  final Color blueAccent = const Color(0xFF335EF7);
 }

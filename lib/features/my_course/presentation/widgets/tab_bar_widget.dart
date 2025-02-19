@@ -12,15 +12,17 @@ class CourseTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     double screenWidth = AppResponsive.screenWidth;
-    double indicatorWidth = appW(140); // Responsiv indikator eni
-    double tabPadding = appW(20); // Responsiv ichki padding
+    double indicatorWidth = appW(140);
+    double tabPadding = appW(20);
+
     return Column(
       children: [
         Container(
           decoration: BoxDecoration(
+            color: isDarkMode ? AppColors.background.dark : AppColors.white,
             border: Border(
               bottom: BorderSide(
-                color: isDarkMode ? AppColors.greyScale.grey600 : AppColors.greyScale.grey300,
+                color: Colors.transparent, // ✅ Chiziqni olib tashlaydi
                 width: appH(1.5),
               ),
             ),
@@ -28,14 +30,14 @@ class CourseTabBar extends StatelessWidget {
           child: TabBar(
             controller: tabController,
             labelColor: AppColors.primary.blue500,
-            unselectedLabelColor: AppColors.greyScale.grey500,
-            indicatorColor: Colors.transparent,
+            unselectedLabelColor: isDarkMode ? AppColors.greyScale.grey400 : AppColors.greyScale.grey500,
+            indicatorColor: Colors.transparent, // ✅ Chiziqni olib tashlaydi
             labelStyle: UrbanistTextStyles().semiBold(
               color: AppColors.primary.blue500,
               fontSize: appH(16),
             ),
             unselectedLabelStyle: UrbanistTextStyles().medium(
-              color: AppColors.greyScale.grey500,
+              color: isDarkMode ? AppColors.greyScale.grey400 : AppColors.greyScale.grey500,
               fontSize: appH(16),
             ),
             tabs: const [
@@ -57,7 +59,7 @@ class CourseTabBar extends StatelessWidget {
                   Container(
                     height: appH(4),
                     width: double.infinity,
-                    color: AppColors.greyScale.grey300,
+                    color: Colors.transparent, // ✅ Ortiga tushib qoladigan fon rangini olib tashlaydi
                   ),
                   Positioned(
                     left: progressLeft,
