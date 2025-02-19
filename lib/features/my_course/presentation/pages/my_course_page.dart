@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/navbar_wg.dart';
+import '../../../../core/utils/textstyles/app_textstyles.dart';
 import '../widgets/app_bar_widget.dart';
 import '../../data/repositories/dummy_courses.dart';
 import '../widgets/tab_bar_widget.dart';
@@ -34,7 +36,6 @@ class _MyCoursePageState extends State<MyCoursePage>
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -70,27 +71,24 @@ class CourseListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final courses = isCompleted ? completedCourses : ongoingCourses;
-
     return ListView.builder(
       padding: const EdgeInsets.all(8.0),
       itemCount: courses.length,
       itemBuilder: (context, index) {
         final course = courses[index];
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          decoration: BoxDecoration(
-            color: isDarkMode ? AppColors.greyScale.grey800 : AppColors.white,
-            borderRadius: BorderRadius.circular(16.0),
-            boxShadow: [
-              if (!isDarkMode)
-                BoxShadow(
-                  color: AppColors.greyScale.grey300.withOpacity(0.5),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-            ],
+        return CourseCard(
+          onTap: () {
+            context.push('/course-detail/${course.id}');
+          },
+          courseImg: course.imageUrl,
+          courseTitle: course.title,
+          subWidget: Text(
+            course.duration,
+            style: AppTextStyles.urbanist.medium(
+              color: AppColors.greyScale.grey700,
+              fontSize: 14,
+            ),
           ),
-          child: CourseCard(course: course),
         );
       },
     );
