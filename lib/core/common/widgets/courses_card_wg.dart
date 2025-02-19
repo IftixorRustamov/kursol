@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/features/my_course/domain/entities/course.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
 import '../../../../core/common/constants/colors/app_colors.dart';
 
 class CourseCard extends StatelessWidget {
@@ -30,13 +29,20 @@ class CourseCard extends StatelessWidget {
     final isDarkMode = theme.brightness == Brightness.dark;
     final screenWidth = MediaQuery.of(context).size.width;
 
+    final completedLessons = course.progress;
+    final totalLessons = 114;
+
     return GestureDetector(
       onTap: () {
-        context.push('/course-detail/${course.id}');
+        if (completedLessons == totalLessons) {
+          context.push('/completed-courses');
+        } else {
+          context.push('/course-detail/${course.id}');
+        }
       },
       child: Container(
         decoration: BoxDecoration(
-          color: theme.cardColor,
+          color: isDarkMode ? AppColors.background.dark2: Colors.white,
           borderRadius: BorderRadius.circular(24.0),
           boxShadow: [
             if (!isDarkMode)
@@ -71,6 +77,7 @@ class CourseCard extends StatelessWidget {
                     course.title,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
+                      color: isDarkMode ? Colors.white : Colors.black,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -79,24 +86,25 @@ class CourseCard extends StatelessWidget {
                   Text(
                     course.duration,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: isDarkMode ? Colors.grey[400] : Colors.grey[700],
+                      color: isDarkMode ? AppColors.greyScale.grey400 : AppColors.greyScale.grey700,
                     ),
                   ),
                   const SizedBox(height: 10),
                   LinearPercentIndicator(
                     lineHeight: 10.0,
-                    percent: course.progress / 100,
-                    backgroundColor: isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
-                    progressColor: getProgressColor(course.progress),
+                    percent: completedLessons / totalLessons,
+                    backgroundColor: isDarkMode ? AppColors.greyScale.grey700 : AppColors.greyScale.grey300,
+                    progressColor: getProgressColor(completedLessons),
                     barRadius: const Radius.circular(12),
                   ),
                   const SizedBox(height: 6),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "${course.progress} / 100",
+                      "$completedLessons / $totalLessons",
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w500,
+                        color: isDarkMode ? Colors.white : Colors.black,
                       ),
                     ),
                   ),

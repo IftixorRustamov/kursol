@@ -6,5 +6,4 @@ class RouteNames {
   static const String profile = 'profile';
   static const String courseDetail = 'courseDetail';
   static const String videoPlayer = 'videoPlayer';
-  static const String courseDetails = 'courseDetails';
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kursol/core/common/constants/strings/strings.dart';
+import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/navbar_wg.dart';
@@ -17,7 +19,6 @@ class MyCoursePage extends StatefulWidget {
 class _MyCoursePageState extends State<MyCoursePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedIndex = 1; // Default: "My Course"
 
   @override
   void initState() {
@@ -25,24 +26,18 @@ class _MyCoursePageState extends State<MyCoursePage>
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  void _onNavBarTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    AppResponsive.init(context); // ✅ MUAMMO HAL QILINDI
+    AppResponsive.init(context);
 
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor:
-          isDarkMode
-              ? AppColors.greyScale.grey900
-              : AppColors.greyScale.grey100,
-      appBar: const CustomAppBar(),
+      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.greyScale.grey100,
+      appBar: DefaultAppBarWg(
+        titleText: AppStrings.myCourses,
+        onMorePressed: () {},
+      ),
       body: Column(
         children: [
           CourseTabBar(tabController: _tabController),
@@ -57,7 +52,6 @@ class _MyCoursePageState extends State<MyCoursePage>
           ),
         ],
       ),
-
       bottomNavigationBar: NavbarWidget(),
     );
   }
@@ -70,7 +64,7 @@ class CourseListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
     final courses = isCompleted ? completedCourses : ongoingCourses;
 
     return ListView.builder(
@@ -78,22 +72,7 @@ class CourseListView extends StatelessWidget {
       itemCount: courses.length,
       itemBuilder: (context, index) {
         final course = courses[index];
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          decoration: BoxDecoration(
-            color: isDarkMode ? AppColors.greyScale.grey800 : AppColors.white,
-            borderRadius: BorderRadius.circular(16.0),
-            boxShadow: [
-              if (!isDarkMode)
-                BoxShadow(
-                  color: AppColors.greyScale.grey300.withOpacity(0.5),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-            ],
-          ),
-          child: CourseCard(course: course),
-        );
+        return CourseCard(course: course);
       },
     );
   }
