@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:kursol/features/home/main_page.dart';
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
 import '../../features/my_course/presentation/pages/completed_course_page.dart';
@@ -9,8 +10,13 @@ import 'route_names.dart';
 import 'route_paths.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RoutePaths.eReceipt,
+  initialLocation: RoutePaths.main,
   routes: [
+    GoRoute(
+      path: RoutePaths.main,
+      name: RouteNames.main,
+      builder: (context, state) => const MainPage(),
+    ),
     GoRoute(
       path: RoutePaths.home,
       name: RouteNames.home,
@@ -58,7 +64,5 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-
-
   ],
 );

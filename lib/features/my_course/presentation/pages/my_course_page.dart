@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/widgets/navbar_wg.dart';
 import '../../../../core/common/constants/strings/strings.dart';
 import '../../../../core/common/widgets/app_bar/default_app_bar_wg.dart';
 import '../../../../core/utils/textstyles/app_textstyles.dart';
@@ -50,7 +49,6 @@ class _MyCoursePageState extends State<MyCoursePage>
           ),
         ],
       ),
-      bottomNavigationBar: NavbarWidget(),
     );
   }
 }
