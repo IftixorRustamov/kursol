@@ -35,19 +35,29 @@ final GoRouter appRouter = GoRouter(
       name: RouteNames.courseDetail,
       builder: (context, state) {
         final courseId = state.pathParameters['id'] ?? '';
-        return CourseDetailPage(courseId: courseId);
+        return OngoingCourse(courseId: courseId);
+      },
+    ),
+    GoRoute(
+      path: RoutePaths.completedCourses,
+      name: RouteNames.completedCourses,
+      builder: (context, state) {
+        final courseId = state.extra as String? ?? '';
+        return CompletedCoursePage(courseId: courseId);
       },
     ),
     GoRoute(
       path: RoutePaths.videoPlayer,
       name: RouteNames.videoPlayer,
       builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>?;
+        final args = state.extra as Map<String, dynamic>? ?? {};
         return VideoPlayerPage(
-          videoUrl: args?['videoUrl'] ?? '',
-          title: args?['title'] ?? 'Untitled',
+          videoUrl: args['videoUrl'] ?? '',
+          title: args['title'] ?? 'Untitled',
         );
       },
     ),
+
+
   ],
 );

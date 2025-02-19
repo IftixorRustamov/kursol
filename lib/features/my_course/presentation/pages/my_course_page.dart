@@ -19,7 +19,6 @@ class MyCoursePage extends StatefulWidget {
 class _MyCoursePageState extends State<MyCoursePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedIndex = 1; // Default: "My Course"
 
   @override
   void initState() {
@@ -27,24 +26,17 @@ class _MyCoursePageState extends State<MyCoursePage>
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  void _onNavBarTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor:
-          isDarkMode
-              ? AppColors.greyScale.grey900
-              : AppColors.greyScale.grey100,
-      appBar: CustomAppBar(),
+      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.greyScale.grey100,
+      appBar: DefaultAppBarWg(
+        titleText: AppStrings.myCourses,
+        onMorePressed: () {},
+      ),
       body: Column(
         children: [
-          CourseTabBar(tabController: _tabController),
+          CourseTabBar(tabController: _tabController, tabTitles: ["Ongoing", "Completed"],),
           Expanded(
             child: TabBarView(
               controller: _tabController,
@@ -56,7 +48,6 @@ class _MyCoursePageState extends State<MyCoursePage>
           ),
         ],
       ),
-
       bottomNavigationBar: NavbarWidget(),
     );
   }
@@ -69,13 +60,11 @@ class CourseListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final courses = isCompleted ? completedCourses : ongoingCourses;
     return ListView.builder(
       padding: const EdgeInsets.all(8.0),
       itemCount: courses.length,
       itemBuilder: (context, index) {
-        final course = courses[index];
+
         return CourseCard(
           onTap: () {
             context.push('/course-detail/${course.id}');

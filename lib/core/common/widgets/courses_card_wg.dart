@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
 import '../../../../core/common/constants/colors/app_colors.dart';
 import '../../utils/responsiveness/app_responsive.dart';
 import '../../utils/textstyles/app_textstyles.dart';
