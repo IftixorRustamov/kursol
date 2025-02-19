@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/navbar_wg.dart';
+import '../../../../core/common/constants/strings/strings.dart';
+import '../../../../core/common/widgets/app_bar/default_app_bar_wg.dart';
 import '../../../../core/utils/textstyles/app_textstyles.dart';
-import '../widgets/app_bar_widget.dart';
 import '../../data/repositories/dummy_courses.dart';
 import '../widgets/tab_bar_widget.dart';
 
@@ -29,14 +29,16 @@ class _MyCoursePageState extends State<MyCoursePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.greyScale.grey100,
       appBar: DefaultAppBarWg(
         titleText: AppStrings.myCourses,
         onMorePressed: () {},
       ),
       body: Column(
         children: [
-          CourseTabBar(tabController: _tabController, tabTitles: ["Ongoing", "Completed"],),
+          CourseTabBar(
+            tabController: _tabController,
+            tabTitles: ["Ongoing", "Completed"],
+          ),
           Expanded(
             child: TabBarView(
               controller: _tabController,
@@ -60,11 +62,12 @@ class CourseListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final courses = ongoingCourses;
     return ListView.builder(
       padding: const EdgeInsets.all(8.0),
       itemCount: courses.length,
       itemBuilder: (context, index) {
-
+        final course = courses[index];
         return CourseCard(
           onTap: () {
             context.push('/course-detail/${course.id}');

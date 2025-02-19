@@ -21,17 +21,18 @@ class OngoingCourse extends StatelessWidget {
     final isDarkMode = theme.brightness == Brightness.dark;
 
     final courseDetail = dummyCourseDetails.firstWhere(
-          (course) => course.id == courseId,
+      (course) => course.id == courseId,
     );
     final course = completedCourses.firstWhere(
-          (course) => course.id == courseId,
-      orElse: () => CourseModel(
-        id: '',
-        title: '',
-        duration: '',
-        imageUrl: '',
-        progress: 0,
-      ),
+      (course) => course.id == courseId,
+      orElse:
+          () => CourseModel(
+            id: '',
+            title: '',
+            duration: '',
+            imageUrl: '',
+            progress: 0,
+          ),
     );
 
     return Scaffold(
@@ -61,9 +62,10 @@ class OngoingCourse extends StatelessWidget {
             borderRadius: BorderRadius.vertical(top: Radius.circular(appH(10))),
             color: isDarkMode ? AppColors.background.dark : Colors.white,
             border: Border.all(
-              color: isDarkMode
-                  ? AppColors.greyScale.grey700
-                  : AppColors.greyScale.grey300,
+              color:
+                  isDarkMode
+                      ? AppColors.greyScale.grey700
+                      : AppColors.greyScale.grey300,
               width: 0.4,
             ),
             boxShadow: [
@@ -93,7 +95,8 @@ class OngoingCourse extends StatelessWidget {
                 context.push(
                   '/video-player',
                   extra: {
-                    'videoUrl': 'https://www.pexels.com/video/close-up-of-a-cpu-7140928/',
+                    'videoUrl':
+                        'https://www.pexels.com/video/close-up-of-a-cpu-7140928/',
                     'title': courseDetail.title,
                   },
                 );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/constants/strings/strings.dart';
 import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 import 'package:kursol/features/my_course/presentation/widgets/tab_bar_widget.dart';
 import 'package:kursol/features/my_course/presentation/widgets/lesson_list_widget.dart';

@@ -1,8 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
-import '../../features/my_course/presentation/pages/course_detail_page.dart';
+import '../../features/my_course/presentation/pages/completed_course_page.dart';
 import '../../features/my_course/presentation/pages/my_course_page.dart';
+import '../../features/my_course/presentation/pages/ongoing_course_page.dart';
 import '../../features/my_course/presentation/pages/video_player_page.dart';
 import 'route_names.dart';
 import 'route_paths.dart';
