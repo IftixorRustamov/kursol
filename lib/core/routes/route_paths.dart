@@ -6,4 +6,5 @@ class RoutePaths {
   static const String profile = '/profile';
   static const String courseDetail = '/course-detail/:id';
   static const String videoPlayer = '/video-player';
+  static const String courseDetails = '/courseDetails';
 }

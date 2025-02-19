@@ -21,9 +21,7 @@ class _ReviewDialogState extends State<ReviewDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -31,14 +29,14 @@ class _ReviewDialogState extends State<ReviewDialog> {
           children: [
             CircleAvatar(
               radius: 40,
-              backgroundColor: AppColors.primary.withOpacity(0.2),
-              child: Icon(Icons.edit, color: AppColors.primary, size: 40),
+              backgroundColor: AppColors.primary(),
+              child: Icon(Icons.edit, color: AppColors.primary(), size: 40),
             ),
             const SizedBox(height: 20),
             Text(
               "Course Completed!",
               style: TextStyle(
-                color: AppColors.primary,
+                color: AppColors.primary(),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -56,7 +54,7 @@ class _ReviewDialogState extends State<ReviewDialog> {
                 return IconButton(
                   icon: Icon(
                     index < _selectedRating ? Icons.star : Icons.star_border,
-                    color: AppColors.primary,
+                    color: AppColors.primary(),
                     size: 30,
                   ),
                   onPressed: () {
@@ -75,12 +73,13 @@ class _ReviewDialogState extends State<ReviewDialog> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              items: feedbackOptions.map((feedback) {
-                return DropdownMenuItem(
-                  value: feedback,
-                  child: Text(feedback),
-                );
-              }).toList(),
+              items:
+                  feedbackOptions.map((feedback) {
+                    return DropdownMenuItem(
+                      value: feedback,
+                      child: Text(feedback),
+                    );
+                  }).toList(),
               onChanged: (value) {
                 setState(() {
                   _selectedFeedback = value!;
@@ -90,21 +89,30 @@ class _ReviewDialogState extends State<ReviewDialog> {
             const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: AppColors.primary(),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 30,
+                ),
               ),
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text("Write Review", style: TextStyle(color: Colors.white, fontSize: 16)),
+              child: const Text(
+                "Write Review",
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
             ),
             const SizedBox(height: 10),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Cancel", style: TextStyle(color: AppColors.primary, fontSize: 16)),
+              child: Text(
+                "Cancel",
+                style: TextStyle(color: AppColors.primary(), fontSize: 16),
+              ),
             ),
           ],
         ),

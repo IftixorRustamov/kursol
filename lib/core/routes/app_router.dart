@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:kursol/features/course_details/presentation/pages/course_details.dart';
 import '../../features/my_course/presentation/pages/course_detail_page.dart';
 import '../../features/my_course/presentation/pages/my_course_page.dart';
 import '../../features/my_course/presentation/pages/video_player_page.dart';
@@ -6,7 +7,7 @@ import 'route_names.dart';
 import 'route_paths.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RoutePaths.home,
+  initialLocation: RoutePaths.courseDetails,
   routes: [
     GoRoute(
       path: RoutePaths.home,
@@ -35,6 +36,13 @@ final GoRouter appRouter = GoRouter(
           videoUrl: args?['videoUrl'] ?? '',
           title: args?['title'] ?? 'Untitled',
         );
+      },
+    ),
+    GoRoute(
+      path: RoutePaths.courseDetails,
+      name: RouteNames.courseDetails,
+      builder: (context, state) {
+        return CourseDetailsPage();
       },
     ),
   ],
