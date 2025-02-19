@@ -29,23 +29,20 @@ class CourseCard extends StatelessWidget {
     final isDarkMode = theme.brightness == Brightness.dark;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    // Calculate the number of completed lessons and total lessons
-    final completedLessons = course.progress; // This will be the completed lessons count
-    final totalLessons = 114; // You can adjust this to the actual total lesson count
+    final completedLessons = course.progress;
+    final totalLessons = 114;
 
     return GestureDetector(
       onTap: () {
         if (completedLessons == totalLessons) {
-          // If the course is complete, go to CompletedCoursePage
           context.push('/completed-courses');
         } else {
-          // If the course is not complete, go to CourseDetailPage
           context.push('/course-detail/${course.id}');
         }
       },
       child: Container(
         decoration: BoxDecoration(
-          color: theme.cardColor,
+          color: isDarkMode ? AppColors.background.dark2: Colors.white,
           borderRadius: BorderRadius.circular(24.0),
           boxShadow: [
             if (!isDarkMode)
@@ -80,6 +77,7 @@ class CourseCard extends StatelessWidget {
                     course.title,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
+                      color: isDarkMode ? Colors.white : Colors.black,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -88,26 +86,25 @@ class CourseCard extends StatelessWidget {
                   Text(
                     course.duration,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: isDarkMode ? Colors.grey[400] : Colors.grey[700],
+                      color: isDarkMode ? AppColors.greyScale.grey400 : AppColors.greyScale.grey700,
                     ),
                   ),
                   const SizedBox(height: 10),
-                  // Linear progress indicator using lessons count
                   LinearPercentIndicator(
                     lineHeight: 10.0,
                     percent: completedLessons / totalLessons,
-                    backgroundColor: isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
+                    backgroundColor: isDarkMode ? AppColors.greyScale.grey700 : AppColors.greyScale.grey300,
                     progressColor: getProgressColor(completedLessons),
                     barRadius: const Radius.circular(12),
                   ),
                   const SizedBox(height: 6),
-                  // Show completed lessons / total lessons
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
                       "$completedLessons / $totalLessons",
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w500,
+                        color: isDarkMode ? Colors.white : Colors.black,
                       ),
                     ),
                   ),

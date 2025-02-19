@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import '../../features/my_course/presentation/pages/completed_course_page.dart';
-import '../../features/my_course/presentation/pages/course_detail_page.dart';
+import '../../features/my_course/presentation/pages/ongoing_course_page.dart';
 import '../../features/my_course/presentation/pages/my_course_page.dart';
 import '../../features/my_course/presentation/pages/video_player_page.dart';
 import 'route_names.dart';
@@ -24,7 +24,7 @@ final GoRouter appRouter = GoRouter(
       name: RouteNames.courseDetail,
       builder: (context, state) {
         final courseId = state.pathParameters['id'] ?? '';
-        return CourseDetailPage(courseId: courseId);
+        return OngoingCourse(courseId: courseId);
       },
     ),
     GoRoute(

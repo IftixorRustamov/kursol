@@ -10,8 +10,9 @@ class MyApp extends StatelessWidget {
     AppResponsive.init(context);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData.light(),
-      // darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.system,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       routerConfig: appRouter,
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/config/gen/assets.gen.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
-
 import '../../../utils/textstyles/app_textstyles.dart';
 import '../../constants/colors/app_colors.dart';
 
@@ -23,15 +22,17 @@ class DefaultAppBarWg extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return AppBar(
-      backgroundColor: AppColors.white,
-      elevation: 0.5,
+      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.white,
+      elevation: 0,
       centerTitle: false,
       leading: Assets.images.logo.image(width: appW(32), height: appH(32)),
       title: Text(
         titleText,
         style: AppTextStyles.urbanist.bold(
-          color: AppColors.black,
+          color: isDarkMode ? Colors.white : AppColors.black,
           fontSize: 24,
         ),
       ),
@@ -39,11 +40,19 @@ class DefaultAppBarWg extends StatelessWidget implements PreferredSizeWidget {
         if (onSearchPressed != null)
           IconButton(
             onPressed: onSearchPressed,
-            icon: Icon(IconlyLight.search, size: appH(28)),
+            icon: Icon(
+              IconlyLight.search,
+              size: appH(28),
+              color: isDarkMode ? Colors.white : AppColors.black,
+            ),
           ),
         IconButton(
           onPressed: onMorePressed,
-          icon: Icon(IconlyLight.more_circle, size: appH(28)),
+          icon: Icon(
+            IconlyLight.more_circle,
+            size: appH(28),
+            color: isDarkMode ? Colors.white : AppColors.black,
+          ),
         ),
       ],
     );
