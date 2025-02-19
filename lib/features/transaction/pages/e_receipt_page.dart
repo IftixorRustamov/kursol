@@ -9,15 +9,18 @@ class EReceiptPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ActionAppBarWg(
-      onBackPressed: () {},
-      titleText: AppStrings.eReceipt,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(IconlyLight.more_circle, size: appH(28)),
-        ),
-      ],
+    return Scaffold(
+      appBar: ActionAppBarWg(
+        onBackPressed: () {},
+        titleText: AppStrings.eReceipt,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(IconlyLight.more_circle, size: appH(28)),
+          ),
+        ],
+      ),
+      body: Column(children: []),
     );
   }
 }
