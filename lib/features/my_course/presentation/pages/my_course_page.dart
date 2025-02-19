@@ -40,7 +40,7 @@ class _MyCoursePageState extends State<MyCoursePage>
       ),
       body: Column(
         children: [
-          CourseTabBar(tabController: _tabController),
+          CourseTabBar(tabController: _tabController, tabTitles: ["Ongoing", "Completed"],),
           Expanded(
             child: TabBarView(
               controller: _tabController,
