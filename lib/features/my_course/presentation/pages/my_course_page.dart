@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kursol/core/common/constants/strings/strings.dart';
-import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/navbar_wg.dart';
-import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
+import '../../../../core/utils/textstyles/app_textstyles.dart';
 import '../widgets/app_bar_widget.dart';
 import '../../data/repositories/dummy_courses.dart';
 import '../widgets/tab_bar_widget.dart';
@@ -28,10 +28,6 @@ class _MyCoursePageState extends State<MyCoursePage>
 
   @override
   Widget build(BuildContext context) {
-    AppResponsive.init(context);
-
-    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
-
     return Scaffold(
       backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.greyScale.grey100,
       appBar: DefaultAppBarWg(
@@ -64,15 +60,25 @@ class CourseListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    final courses = isCompleted ? completedCourses : ongoingCourses;
-
     return ListView.builder(
       padding: const EdgeInsets.all(8.0),
       itemCount: courses.length,
       itemBuilder: (context, index) {
-        final course = courses[index];
-        return CourseCard(course: course);
+
+        return CourseCard(
+          onTap: () {
+            context.push('/course-detail/${course.id}');
+          },
+          courseImg: course.imageUrl,
+          courseTitle: course.title,
+          subWidget: Text(
+            course.duration,
+            style: AppTextStyles.urbanist.medium(
+              color: AppColors.greyScale.grey700,
+              fontSize: 14,
+            ),
+          ),
+        );
       },
     );
   }

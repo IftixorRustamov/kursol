@@ -1,13 +1,14 @@
 import 'package:go_router/go_router.dart';
-import '../../features/my_course/presentation/pages/completed_course_page.dart';
-import '../../features/my_course/presentation/pages/ongoing_course_page.dart';
+import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
+import 'package:kursol/features/transaction/pages/transactions_page.dart';
+import '../../features/my_course/presentation/pages/course_detail_page.dart';
 import '../../features/my_course/presentation/pages/my_course_page.dart';
 import '../../features/my_course/presentation/pages/video_player_page.dart';
 import 'route_names.dart';
 import 'route_paths.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RoutePaths.home,
+  initialLocation: RoutePaths.eReceipt,
   routes: [
     GoRoute(
       path: RoutePaths.home,
@@ -18,6 +19,16 @@ final GoRouter appRouter = GoRouter(
       path: RoutePaths.myCourse,
       name: RouteNames.myCourse,
       builder: (context, state) => const MyCoursePage(),
+    ),
+    GoRoute(
+      path: RoutePaths.transactions,
+      name: RouteNames.transactions,
+      builder: (context, state) => const TransactionsPage(),
+    ),
+    GoRoute(
+      path: RoutePaths.eReceipt,
+      name: RouteNames.eReceipt,
+      builder: (context, state) => const EReceiptPage(),
     ),
     GoRoute(
       path: RoutePaths.courseDetail,
