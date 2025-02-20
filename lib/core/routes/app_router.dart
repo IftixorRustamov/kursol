@@ -16,67 +16,70 @@ import 'route_paths.dart';
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-class MyNavigatorObserver extends NavigatorObserver {
-  @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    logger.i('did push route');
-  }
-
-  @override
-  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    logger.i('did pop route');
-  }
-}
-
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   observers: [MyNavigatorObserver()],
-  initialLocation: RoutePaths.main,
+  initialLocation: RoutePaths.home,
   routes: [
-    ShellRoute(navigatorKey: _shellNavigatorKey, routes: []),
-    GoRoute(
-      path: RoutePaths.main,
-      name: RouteNames.main,
-      builder: (context, state) => const MainPage(),
-    ),
-    GoRoute(
-      path: RoutePaths.home,
-      name: RouteNames.home,
-      builder: (context, state) => const MyCoursePage(),
-    ),
-    GoRoute(
-      path: RoutePaths.myCourse,
-      name: RouteNames.myCourse,
-      builder: (context, state) => const MyCoursePage(),
-    ),
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder: (context, state, child) => MainPage(child: child),
+      routes: [
+        // * home
+        GoRoute(
+          path: RoutePaths.home,
+          name: RouteNames.home,
+          parentNavigatorKey: _shellNavigatorKey,
+          builder: (context, state) => const MyCoursePage(),
+        ),
 
-    // Transactions
-    GoRoute(
-      path: RoutePaths.transactions,
-      name: RouteNames.transactions,
-      builder: (context, state) => const TransactionsPage(),
+        // * Inbox
+        GoRoute(
+          path: RoutePaths.inbox,
+          name: RouteNames.inbox,
+          parentNavigatorKey: _shellNavigatorKey,
+          builder: (context, state) => const MyCoursePage(),
+        ),
+
+        // * My Course
+        GoRoute(
+          path: RoutePaths.myCourse,
+          name: RouteNames.myCourse,
+          parentNavigatorKey: _shellNavigatorKey,
+          builder: (context, state) => const MyCoursePage(),
+        ),
+
+        // * Transactions
+        GoRoute(
+          path: RoutePaths.transactions,
+          name: RouteNames.transactions,
+          parentNavigatorKey: _shellNavigatorKey,
+          builder: (context, state) => const TransactionsPage(),
+        ),
+
+        // *   Profile
+        GoRoute(
+          path: RoutePaths.profile,
+          name: RouteNames.profile,
+          parentNavigatorKey: _shellNavigatorKey,
+          builder: (context, state) => const ProfilePage(),
+          routes: <RouteBase>[
+            // * Edit Profile
+            GoRoute(
+              path: RoutePaths.editProfile,
+              name: RouteNames.editProfile,
+              // parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const EditProfilePage(),
+            ),
+          ],
+        ),
+      ],
     ),
     GoRoute(
       path: RoutePaths.eReceipt,
       name: RouteNames.eReceipt,
       builder: (context, state) => const EReceiptPage(),
     ),
-
-    // *   Profile
-    GoRoute(
-      path: RoutePaths.profile,
-      name: RouteNames.profile,
-      builder: (context, state) => const ProfilePage(),
-      routes: <RouteBase>[
-        // * Edit Profile
-        GoRoute(
-          path: RoutePaths.editProfile,
-          name: RouteNames.editProfile,
-          builder: (context, state) => const EditProfilePage(),
-        ),
-      ],
-    ),
-
     GoRoute(
       path: RoutePaths.courseDetail,
       name: RouteNames.courseDetail,
@@ -106,3 +109,15 @@ final GoRouter appRouter = GoRouter(
     ),
   ],
 );
+
+class MyNavigatorObserver extends NavigatorObserver {
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    logger.i('did push route $route');
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    logger.i('did pop route $route');
+  }
+}

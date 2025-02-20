@@ -29,7 +29,9 @@ class ProfilePage extends StatelessWidget {
             spacing: appH(20),
             children: [
               ProfileInfoWg(
-                onEdit: () => context.push(RoutePaths.editProfile ),
+                onEdit:
+                    () =>
+                        context.go(RoutePaths.profile + RoutePaths.editProfile),
                 name: "Iftixor Rustamov",
                 gmail: "iftixorrustamovv@gmail.com",
                 image: "assets/images/profile.png",
@@ -38,7 +40,7 @@ class ProfilePage extends StatelessWidget {
               ProfileSettingRowWg(
                 icon: IconlyLight.profile,
                 title: AppStrings.editProfile,
-                onPressed: () => context.push(RoutePaths.editProfile),
+                onPressed: () => context.go(RoutePaths.profile + RoutePaths.editProfile),
               ),
               ProfileSettingRowWg(
                 icon: IconlyLight.notification,
