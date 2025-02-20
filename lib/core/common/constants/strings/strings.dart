@@ -8,7 +8,6 @@ class AppStrings {
   static const String completed = "Completed";
   static const String eReceipt = "E-Receipt";
   static const String editProfile = "Edit Profile";
-  static const String security = "Security";
   static const String language = "Language";
   static const String privacyPolicy = "Privacy Policy";
   static const String helpCenter = "Help Center";
@@ -18,6 +17,8 @@ class AppStrings {
   static const String notification = "Notification";
   static const String payment = "Payment";
   static const String lessons = "Lessons";
+  static const String update = "Update";
+  static const String security = "Security";
   static const String certificates = "Certificates";
   static const String startCourseAgain = "Start Course Again";
   static const String continueCourse = "Continue Course";

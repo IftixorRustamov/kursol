@@ -40,7 +40,9 @@ class ProfilePage extends StatelessWidget {
               ProfileSettingRowWg(
                 icon: IconlyLight.profile,
                 title: AppStrings.editProfile,
-                onPressed: () => context.go(RoutePaths.profile + RoutePaths.editProfile),
+                onPressed:
+                    () =>
+                        context.go(RoutePaths.profile + RoutePaths.editProfile),
               ),
               ProfileSettingRowWg(
                 icon: IconlyLight.notification,
