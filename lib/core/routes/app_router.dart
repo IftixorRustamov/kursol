@@ -69,13 +69,14 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: RoutePaths.editProfile,
               name: RouteNames.editProfile,
-              // parentNavigatorKey: _rootNavigatorKey,
+              parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) => const EditProfilePage(),
             ),
           ],
         ),
       ],
     ),
+
     GoRoute(
       path: RoutePaths.eReceipt,
       name: RouteNames.eReceipt,
