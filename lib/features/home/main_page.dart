@@ -3,6 +3,7 @@ import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/strings/strings.dart';
 import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
 import 'package:kursol/features/my_course/presentation/pages/my_course_page.dart';
+import 'package:kursol/features/profile/profile_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
 
 import '../../core/common/constants/colors/app_colors.dart';
@@ -23,7 +24,7 @@ class _MainPageState extends State<MainPage> {
     MyCoursePage(),
     // inbox page
     TransactionsPage(),
-    // profile page
+    ProfilePage(),
   ];
 
   @override
