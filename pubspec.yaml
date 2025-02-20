@@ -19,6 +19,7 @@ dependencies:
   easy_localization: ^3.0.7+1
   permission_handler: ^11.3.1
   flutter_pdfview: ^1.4.0
+  logger: ^2.5.0
 
 
 dev_dependencies:
