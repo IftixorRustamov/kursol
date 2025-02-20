@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
+import 'package:kursol/features/home/features/home_page.dart';
 import 'package:kursol/features/home/main_page.dart';
 import 'package:kursol/features/profile/features/edit_profile/edit_profile_page.dart';
 import 'package:kursol/features/profile/profile_page.dart';
@@ -30,7 +31,7 @@ final GoRouter appRouter = GoRouter(
           path: RoutePaths.home,
           name: RouteNames.home,
           parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => const MyCoursePage(),
+          builder: (context, state) => HomePage(),
         ),
 
         // * Inbox
