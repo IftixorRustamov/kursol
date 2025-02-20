@@ -10,4 +10,5 @@ class RouteNames {
   static const String completedCourses = 'completedCourses';
   static const String profile = 'profile';
   static const String editProfile = 'editProfile';
+  static const String notification = 'notification';
 }
