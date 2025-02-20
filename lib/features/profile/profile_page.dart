@@ -37,6 +37,7 @@ class ProfilePage extends StatelessWidget {
                 image: "assets/images/profile.png",
               ),
               Divider(height: 1, color: AppColors.greyScale.grey200),
+              // * Edit Profile
               ProfileSettingRowWg(
                 icon: IconlyLight.profile,
                 title: AppStrings.editProfile,
@@ -44,10 +45,13 @@ class ProfilePage extends StatelessWidget {
                     () =>
                         context.go(RoutePaths.profile + RoutePaths.editProfile),
               ),
+              // * Notification
               ProfileSettingRowWg(
                 icon: IconlyLight.notification,
                 title: AppStrings.notification,
-                onPressed: () {},
+                onPressed: () {
+                  context.go(RoutePaths.profile + RoutePaths.notification);
+                },
               ),
               ProfileSettingRowWg(
                 icon: IconlyLight.wallet,
