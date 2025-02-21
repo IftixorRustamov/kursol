@@ -152,7 +152,7 @@ class _SearchPageState extends State<SearchPage> {
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(height: appH(24)),
+                  SizedBox(height: appH(15)),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -200,7 +200,7 @@ class _SearchPageState extends State<SearchPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: appH(20)),
+                  SizedBox(height: appH(15)),
                   Text(
                     'Price',
                     style: UrbanistTextStyles().bold(
@@ -233,7 +233,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
 
-                  SizedBox(height: appH(20)),
+                  // SizedBox(height: appH(10)),
                   Text(
                     'Rating',
                     style: UrbanistTextStyles().bold(
@@ -241,7 +241,7 @@ class _SearchPageState extends State<SearchPage> {
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(height: appH(24)),
+                  SizedBox(height: appH(15)),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(

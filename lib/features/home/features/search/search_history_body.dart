@@ -38,18 +38,10 @@ class SearchHistoryBody extends StatelessWidget {
           ),
           SizedBox(height: appH(10)),
           Divider(thickness: 1, color: AppColors.greyScale.grey200),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                _searchedHistory(),
-                _searchedHistory(),
-                _searchedHistory(),
-                _searchedHistory(),
-                _searchedHistory(),
-                _searchedHistory(),
-                _searchedHistory(),
-                _searchedHistory(),
-              ],
+          Expanded(
+            child: ListView.builder(
+              itemCount: 13,
+              itemBuilder: (context, index) => _searchedHistory(),
             ),
           ),
         ],
