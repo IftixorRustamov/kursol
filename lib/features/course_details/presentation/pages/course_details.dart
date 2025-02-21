@@ -1,8 +1,15 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
-import '../../../../core/common/constants/colors/app_colors.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconly/iconly.dart';
+import 'package:kursol/core/common/constants/colors/app_colors.dart';
+import 'package:kursol/core/common/widgets/video_player_wg.dart';
+import 'package:kursol/core/routes/route_names.dart';
+import 'package:kursol/core/routes/route_paths.dart';
+import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
+import 'package:kursol/features/course_details/presentation/widgets/CourseLessonWidget.dart';
+import 'package:kursol/features/course_details/presentation/widgets/course_info_widget.dart';
+import 'package:kursol/features/my_course/domain/entities/course_detail.dart';
+import '../../../my_course/data/repositories/dummy_course_details.dart';
 
 class CourseDetailsPage extends StatefulWidget {
   @override
@@ -12,253 +19,607 @@ class CourseDetailsPage extends StatefulWidget {
 class _CourseDetailsPageState extends State<CourseDetailsPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  late VideoPlayerController _videoController;
-  bool _isFullScreen = false;
-  bool _isLoading = true;
-  bool _hasError = false;
-  bool _controlsVisible = true;
-  Timer? _hideControlsTimer;
+  UrbanistTextStyles urbanistTextStyles = UrbanistTextStyles();
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    _initializeVideo();
-  }
-
-  void _initializeVideo() async {
-    try {
-      _videoController = VideoPlayerController.networkUrl(Uri.parse(
-          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
-        ..initialize().then((_) {
-          setState(() {
-            _isLoading = false;
-            _hasError = false;
-          });
-          _videoController.play();
-          _startHideControlsTimer();
-        }).catchError((error) {
-          print("Video yuklashda xatolik: $error");
-          setState(() {
-            _hasError = true;
-          });
-        });
-
-      _videoController.addListener(() {
-        setState(() {}); // Timeline yangilash uchun
-      });
-    } catch (e) {
-      print("Video yuklashda xatolik: $e");
-      setState(() {
-        _hasError = true;
-      });
-    }
   }
 
   @override
   void dispose() {
-    _videoController.dispose();
-    _hideControlsTimer?.cancel();
     _tabController.dispose();
     super.dispose();
   }
 
-  void _startHideControlsTimer() {
-    _hideControlsTimer?.cancel();
-    _hideControlsTimer = Timer(const Duration(seconds: 3), () {
-      setState(() {
-        _controlsVisible = false;
-      });
-    });
-  }
-
-  void _toggleFullScreen() {
-    setState(() {
-      _isFullScreen = !_isFullScreen;
-    });
-
-    if (_isFullScreen) {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
-    } else {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
-    }
-  }
-
-  void _toggleControls() {
-    setState(() {
-      _controlsVisible = !_controlsVisible;
-    });
-    if (_controlsVisible) {
-      _startHideControlsTimer();
-    }
-  }
-
-  void _togglePlayPause() {
-    setState(() {
-      _videoController.value.isPlaying
-          ? _videoController.pause()
-          : _videoController.play();
-    });
-    _startHideControlsTimer();
-  }
-
-  void _seekForward() {
-    final newPosition =
-        _videoController.value.position + const Duration(seconds: 10);
-    _videoController.seekTo(newPosition);
-  }
-
-  void _seekBackward() {
-    final newPosition =
-        _videoController.value.position - const Duration(seconds: 10);
-    _videoController.seekTo(newPosition);
-  }
-
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$minutes:$seconds";
-  }
-
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+    UrbanistTextStyles urbanistTextStyles = UrbanistTextStyles();
+    List<CourseSection> courseDetail = dummyCourseDetails
+        .firstWhere((course) => course.id == '1')
+        .sections;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Course Detail'),
-      ),
-      body: Column(
-        children: [
-          GestureDetector(
-            onTap: _toggleControls,
-            onDoubleTapDown: (details) {
-              if (details.globalPosition.dx < screenWidth / 2) {
-                _seekBackward();
-              } else {
-                _seekForward();
-              }
-            },
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Center(
-                  child: _hasError
-                      ? const Text(
-                    "Video yuklanmadi. Iltimos, internetni tekshiring!",
-                    style: TextStyle(color: Colors.white),
-                  )
-                      : _isLoading
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : _videoController.value.isInitialized
-                      ? AspectRatio(
-                    aspectRatio:
-                    _videoController.value.aspectRatio,
-                    child: VideoPlayer(_videoController),
-                  )
-                      : const CircularProgressIndicator(),
-                ),
-                if (_controlsVisible)
-                  Positioned(
-                    bottom: 20,
-                    left: 20,
-                    right: 20,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Course Header
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomVideoPlayer(
+                    videoUrl:
+                    "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Intro to UI/UX Design',
+                        style: urbanistTextStyles.bold(
+                          color: isDarkMode ? AppColors.white : AppColors.black,
+                          fontSize: 32,
+                        ),
+                      ),
+                      Icon(IconlyLight.bookmark, color: AppColors.blue),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        margin: EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: AppColors.lightBlue,
+                        ),
+                        child: Text(
+                            'UI/UX Design', style: urbanistTextStyles.bold(
+                          color: AppColors.white,
+                          fontSize: 10,
+                        )),
+                      ),
+                      Icon(IconlyBold.star, color: Colors.amber),
+                      const SizedBox(width: 5),
+                      Text(
+                        '4.8 (4,479 reviews)',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '\$40',
+                        style: urbanistTextStyles.bold(
+                          color: AppColors.blue,
+                          fontSize: 32,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        '\$75',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.blueGrey,
+                          decoration: TextDecoration.lineThrough,
+                          fontFamily: "Urbanist",
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CourseInfoWidget(
+                        icon: Icon(
+                          IconlyBold.user_3,
+                          color: AppColors.blue,
+                          size: 20,
+                        ),
+                        title: '9,839 Students',
+                      ),
+                      CourseInfoWidget(
+                        icon: Icon(
+                          IconlyBold.time_circle,
+                          color: AppColors.blue,
+                          size: 16,
+                        ),
+                        title: '2.5 Hours',
+                      ),
+                      CourseInfoWidget(
+                        icon: Icon(
+                          IconlyBold.document,
+                          color: AppColors.blue,
+                          size: 20,
+                        ),
+                        title: 'Certificate',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Tabs
+            TabBar(
+              controller: _tabController,
+              tabs: [
+                Tab(text: 'About',),
+                Tab(text: 'Lessons'),
+                Tab(text: 'Reviews'),
+              ],
+            ),
+            // TabBarView
+            SizedBox(
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height - 200,
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  // About Tab
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        VideoProgressIndicator(
-                          _videoController,
-                          allowScrubbing: true,
-                          colors: VideoProgressColors(
-                            playedColor: AppColors.blue,
-                            bufferedColor: Colors.grey,
-                            backgroundColor: Colors.white30,
+                        Text(
+                          'Mentor',
+                          style: urbanistTextStyles.bold(
+                            fontSize:26,
+                            color:isDarkMode ? AppColors.white : AppColors.black
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              _formatDuration(
-                                  _videoController.value.position),
-                              style: TextStyle(color: Colors.white),
+                        GestureDetector(
+                          onTap: () {
+                            context.push(RoutePaths.mentorProfile);
+                          },
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              child: Image(
+                                image: AssetImage(
+                                  'assets/images/mentor_avatar.png',
+                                ),
+                              ),
                             ),
-                            Text(
-                              _formatDuration(
-                                  _videoController.value.duration),
-                              style: TextStyle(color: Colors.white),
+                            title: Text(
+                              'Jonathan Williams',
+                                style: urbanistTextStyles.bold(
+                                    fontSize:22,
+                                    color:isDarkMode ? AppColors.white : AppColors.black
+                                ),
                             ),
-                          ],
+                            subtitle: Text(
+                              'Senior UI/UX Designer at Google',
+                              style: urbanistTextStyles.bold(
+                                  fontSize:16,
+                                  color:AppColors.greyScale.grey500
+                              ),
+                            ),
+                            trailing: Icon(
+                              IconlyLight.chat,
+                              size: 23,
+                              color: AppColors.blue,
+                            ),
+                          ),
                         ),
+                        Text(
+                          'About Course',
+                            style: urbanistTextStyles.bold(
+                                fontSize:26,
+                                color:isDarkMode ? AppColors.white : AppColors.black
+                            ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip. ",
+                          style: urbanistTextStyles.bold(
+                              fontSize:16,
+                              color:AppColors.greyScale.grey500
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Tools',
+                          style: urbanistTextStyles.bold(
+                              fontSize:26,
+                              color:isDarkMode ? AppColors.white : AppColors.black
+                          ),
+                        ),
+                        const SizedBox(height: 10),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.replay_10,
-                                  size: 40, color: Colors.white),
-                              onPressed: _seekBackward,
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                _videoController.value.isPlaying
-                                    ? Icons.pause
-                                    : Icons.play_arrow,
-                                size: 50,
-                                color: Colors.white,
+                            Image.asset('assets/images/figma_logo.png'),
+                            const SizedBox(width: 5),
+                            Text(
+                              "Figma",
+                              style: urbanistTextStyles.bold(
+                                  fontSize:20,
+                                  color:isDarkMode ? AppColors.white : AppColors.black
                               ),
-                              onPressed: _togglePlayPause,
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.forward_10,
-                                  size: 40, color: Colors.white),
-                              onPressed: _seekForward,
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                _isFullScreen
-                                    ? Icons.fullscreen_exit
-                                    : Icons.fullscreen,
-                                size: 40,
-                                color: Colors.white,
-                              ),
-                              onPressed: _toggleFullScreen,
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-              ],
+                  // Lessons Tab
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '124 Lessons',
+                                style: urbanistTextStyles.bold(
+                                  fontSize: 20,
+                                  color:
+                                  isDarkMode
+                                      ? AppColors.white
+                                      : AppColors.black,
+                                ),
+                              ),
+                              GestureDetector(
+                                child: Text(
+                                  'See All',
+                                  style: urbanistTextStyles.bold(
+                                    fontSize: 20,
+                                    color: AppColors.blue,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          CourseLessonWidget(
+                            sections: courseDetail,
+                            isDarkMode: isDarkMode,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // Reviews Tab
+                  ReviewsScreen(),
+                ],
+              ),
             ),
+            // Enroll Button
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                child: Text(
+                  "Enroll Course - \$440",
+                  style: TextStyle(color: AppColors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ReviewsScreen extends StatefulWidget {
+  @override
+  _ReviewsScreenState createState() => _ReviewsScreenState();
+}
+
+class _ReviewsScreenState extends State<ReviewsScreen> {
+  int _selectedFilter = 0;
+  UrbanistTextStyles urbanistTextStyles = UrbanistTextStyles();
+
+  final List<Map<String, dynamic>> reviews = [
+    {
+      'name': 'Marielle Wigington',
+      'rating': 5,
+      'comment':
+      'The course is very good, the explanation of the mentor is very clear and easy to understand! 😍😍',
+      'likes': 948,
+      'date': '2 weeks ago',
+      'avatar': 'assets/images/mentor_avatar.png',
+    },
+    {
+      'name': 'Marielle Wigington',
+      'rating': 4,
+      'comment':
+      'The course is very good, the explanation of the mentor is very clear and easy to understand! 😍😍',
+      'likes': 948,
+      'date': '2 weeks ago',
+      'avatar': 'assets/images/mentor_avatar.png',
+    },
+    {
+      'name': 'Marielle Wigington',
+      'rating': 4,
+      'comment':
+      'The course is very good, the explanation of the mentor is very clear and easy to understand! 😍😍',
+      'likes': 948,
+      'date': '2 weeks ago',
+      'avatar': 'assets/images/mentor_avatar.png',
+    },
+    {
+      'name': 'Marielle Wigington',
+      'rating': 5,
+      'comment':
+      'The course is very good, the explanation of the mentor is very clear and easy to understand! 😍😍',
+      'likes': 948,
+      'date': '2 weeks ago',
+      'avatar': 'assets/images/mentor_avatar.png',
+    },
+    {
+      'name': 'Marielle Wigington',
+      'rating': 5,
+      'comment':
+      'The course is very good, the explanation of the mentor is very clear and easy to understand! 😍😍',
+      'likes': 948,
+      'date': '2 weeks ago',
+      'avatar': 'assets/images/mentor_avatar.png',
+    },
+    {
+      'name': 'Marielle Wigington',
+      'rating': 5,
+      'comment':
+      'The course is very good, the explanation of the mentor is very clear and easy to understand! 😍😍',
+      'likes': 948,
+      'date': '2 weeks ago',
+      'avatar': 'assets/images/mentor_avatar.png',
+    },
+    {
+      'name': 'Marielle Wigington',
+      'rating': 5,
+      'comment':
+      'The course is very good, the explanation of the mentor is very clear and easy to understand! 😍😍',
+      'likes': 948,
+      'date': '2 weeks ago',
+      'avatar': 'assets/images/mentor_avatar.png',
+    },
+    // Add more reviews as needed
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
+    return SingleChildScrollView(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Rating Summary
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(IconlyBold.star, color: Colors.amber),
+                  const SizedBox(width: 10),
+                  Text(
+                    '4.8 (4,479 reviews)',
+                    style: urbanistTextStyles.bold(
+                      fontSize: 20,
+                      color: isDarkMode ? AppColors.white : AppColors.black,
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                child: Text(
+                  'See All',
+                  style: urbanistTextStyles.bold(
+                    fontSize: 20,
+                    color: AppColors.blue,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
+          SizedBox(height: 16),
+
+          // Rating Filters
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: [
-                Center(child: Text("About Course")),
-                Center(child: Text("Lessons List")),
-                Center(child: Text("Reviews")),
+                _buildFilterButton('All', 0),
+                _buildFilterButton('5', 1),
+                _buildFilterButton('4', 2),
+                _buildFilterButton('3', 3),
+                _buildFilterButton('2', 4),
+                _buildFilterButton('1', 5),
               ],
             ),
           ),
-          TabBar(
-            controller: _tabController,
-            tabs: [
-              Tab(text: 'About'),
-              Tab(text: 'Lessons'),
-              Tab(text: 'Reviews'),
+          SizedBox(height: 16),
+
+          // Reviews List
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: reviews.length,
+            itemBuilder: (context, index) {
+              return _buildReviewCard(reviews[index]);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterButton(String text, int index) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+    UrbanistTextStyles urbanistTextStyles = UrbanistTextStyles();
+
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: ElevatedButton(
+        onPressed: () {
+          setState(() {
+            _selectedFilter = index;
+          });
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: _selectedFilter == index ? AppColors.blue : Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            side:
+            _selectedFilter == index
+                ? BorderSide.none
+                : BorderSide(color: AppColors.blue, width: 2.0),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (text != 'All')
+              Icon(
+                Icons.star,
+                color:
+                _selectedFilter == index ? AppColors.white : AppColors.blue,
+                size: 16,
+              ),
+            SizedBox(width: text != 'All' ? 4 : 0),
+            Text(
+              text,
+              style: urbanistTextStyles.bold(
+                color:
+                _selectedFilter == index ? AppColors.white : AppColors.blue,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildReviewCard(Map<String, dynamic> review) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage(review['avatar']),
+                    radius: 20,
+                  ),
+                  SizedBox(width: 16),
+                  Text(
+                    review['name'],
+                    style: urbanistTextStyles.bold(
+                      color: isDarkMode ? AppColors.white : AppColors.black,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {});
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    side: BorderSide(color: Colors.blue, width: 2.0),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.star, color: AppColors.blue, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      review['rating'].toString(),
+                      style: urbanistTextStyles.bold(
+                        color: AppColors.blue,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text(review['comment'], style: urbanistTextStyles.bold(
+              color: isDarkMode ? AppColors.white : AppColors.black,
+              fontSize: 14),),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Row(
+                children: [
+                  Icon(IconlyBold.heart, color: Colors.red, size: 20),
+                  SizedBox(width: 4),
+                  Text('${review['likes']}', style: urbanistTextStyles.bold(
+                    color: isDarkMode ? AppColors.white : AppColors.black,
+                    fontSize: 12,)),
+                ],
+              ),
+              const SizedBox(width: 10,),
+              Text(
+                review['date'],
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
             ],
           ),
         ],
       ),
     );
   }
+
+  Widget _buildStarRating(int rating) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(5, (index) {
+        return Icon(
+          Icons.star,
+          color: index < rating ? Colors.amber : Colors.grey,
+          size: 16,
+        );
+      }),
+    );
+  }
 }
+
