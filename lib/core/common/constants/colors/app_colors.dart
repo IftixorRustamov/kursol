@@ -68,5 +68,6 @@ class _Background {
 
   final Color dark = const Color(0xFF181A20);
   final Color dark2 = const Color(0xFF1F222A);
+  final Color dark3 = const Color(0xFF35383F);
   final Color blueAccent = const Color(0xFF335EF7);
 }

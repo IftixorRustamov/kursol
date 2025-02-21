@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/features/my_course/domain/entities/course.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import '../../../../core/common/constants/colors/app_colors.dart';
+import 'package:kursol/core/common/constants/colors/app_colors.dart';
+import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 
 class CourseCard extends StatelessWidget {
   final Course course;
@@ -32,6 +33,8 @@ class CourseCard extends StatelessWidget {
     final completedLessons = course.progress;
     final totalLessons = 114;
 
+    final textStyles = UrbanistTextStyles();
+
     return GestureDetector(
       onTap: () {
         if (completedLessons == totalLessons) {
@@ -42,7 +45,7 @@ class CourseCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isDarkMode ? AppColors.background.dark2: Colors.white, // Dark Mode va Light Mode uchun fon rangi
+          color: isDarkMode ? AppColors.background.dark2 : Colors.white,
           borderRadius: BorderRadius.circular(24.0),
           boxShadow: [
             if (!isDarkMode)
@@ -73,38 +76,47 @@ class CourseCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // **Title text**
                   Text(
                     course.title,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: isDarkMode ? Colors.white : Colors.black, // Dark Mode uchun matn oq bo'ladi
+                    style: textStyles.bold(
+                      fontSize: 16,
+                      color: isDarkMode ? Colors.white : Colors.black,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   const SizedBox(height: 6),
+                  // **Duration text**
                   Text(
                     course.duration,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: isDarkMode ? AppColors.greyScale.grey400 : AppColors.greyScale.grey700, // Dark Mode va Light Mode uchun rang moslashdi
+                    style: textStyles.medium(
+                      fontSize: 14,
+                      color: isDarkMode
+                          ? AppColors.greyScale.grey400
+                          : AppColors.greyScale.grey700,
                     ),
                   ),
                   const SizedBox(height: 10),
+                  // **Progress bar**
                   LinearPercentIndicator(
                     lineHeight: 10.0,
                     percent: completedLessons / totalLessons,
-                    backgroundColor: isDarkMode ? AppColors.greyScale.grey700 : AppColors.greyScale.grey300, // Progress bar foni
-                    progressColor: getProgressColor(completedLessons), // Progress bar to‘lish rangi
+                    backgroundColor: isDarkMode
+                        ? AppColors.greyScale.grey700
+                        : AppColors.greyScale.grey300,
+                    progressColor: getProgressColor(completedLessons),
                     barRadius: const Radius.circular(12),
                   ),
                   const SizedBox(height: 6),
+                  // **Progress text**
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
                       "$completedLessons / $totalLessons",
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: isDarkMode ? Colors.white : Colors.black, // Dark Mode uchun oq rang
+                      style: textStyles.medium(
+                        fontSize: 12,
+                        color: isDarkMode ? Colors.white : Colors.black,
                       ),
                     ),
                   ),

@@ -1,41 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
+import 'package:kursol/core/common/constants/strings/strings.dart';
+import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/navbar_wg.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
-import '../widgets/app_bar_widget.dart';
 import '../../data/repositories/dummy_courses.dart';
+import '../widgets/tab_bar_widget.dart';
 
 class MyCoursePage extends StatefulWidget {
   const MyCoursePage({super.key});
 
   @override
-  _MyCoursePageState createState() => _MyCoursePageState();
+  State<MyCoursePage> createState() => _MyCoursePageState();
 }
 
-class _MyCoursePageState extends State<MyCoursePage> {
+class _MyCoursePageState extends State<MyCoursePage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     AppResponsive.init(context);
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.white,
-        appBar: CustomAppBar(),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TabBarView(
-            children: const [
-              CourseListView(isCompleted: false),
-              CourseListView(isCompleted: true),
-            ],
-          ),
-        ),
-        bottomNavigationBar: NavbarWidget(),
+    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
+    return Scaffold(
+      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.greyScale.grey100,
+      appBar: DefaultAppBarWg(
+        titleText: AppStrings.myCourses,
+        onMorePressed: () {},
       ),
+      body: Column(
+        children: [
+          CourseTabBar(tabController: _tabController, tabTitles: ["Ongoing", "Completed"],),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                CourseListView(isCompleted: false),
+                CourseListView(isCompleted: true),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: NavbarWidget(),
     );
   }
 }
@@ -47,23 +63,16 @@ class CourseListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final _ = MediaQuery.of(context).platformBrightness == Brightness.dark;
     final courses = isCompleted ? completedCourses : ongoingCourses;
 
-    return Container(
-      color: isDarkMode ? AppColors.background.dark : AppColors.greyScale.grey200, // List fon rangi
-      child: ListView.builder(
-        padding: const EdgeInsets.all(8.0),
-        itemCount: courses.length,
-        itemBuilder: (context, index) {
-          final course = courses[index];
-
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: CourseCard(course: course),
-          );
-        },
-      ),
+    return ListView.builder(
+      padding: const EdgeInsets.all(8.0),
+      itemCount: courses.length,
+      itemBuilder: (context, index) {
+        final course = courses[index];
+        return CourseCard(course: course);
+      },
     );
   }
 }

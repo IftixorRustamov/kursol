@@ -32,7 +32,7 @@ class LessonListWidget extends StatelessWidget {
                 Text(
                   section.title,
                   style: UrbanistTextStyles().semiBold(
-                    color: isDarkMode ? Colors.white : AppColors.greyScale.grey500, // ✅ Dark Mode moslashdi
+                    color: isDarkMode ? Colors.white : AppColors.greyScale.grey500,
                     fontSize: appH(18),
                   ),
                 ),
@@ -56,6 +56,7 @@ class LessonListWidget extends StatelessWidget {
                     boxShadow: [
                       if (!isDarkMode)
                         BoxShadow(
+                          // ignore: deprecated_member_use
                           color: Colors.black.withOpacity(0.05),
                           blurRadius: appH(12),
                           offset: Offset(0, appH(4)),
@@ -65,7 +66,9 @@ class LessonListWidget extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: isDarkMode
+                          // ignore: deprecated_member_use
                           ? AppColors.primary.blue500.withOpacity(0.2)
+                          // ignore: deprecated_member_use
                           : AppColors.primary.blue200.withOpacity(0.2),
                       radius: appH(24),
                       child: Text(
