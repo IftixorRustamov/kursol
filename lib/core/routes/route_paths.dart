@@ -6,6 +6,8 @@ class RoutePaths {
   static const String transactions = '/transactions';
   static const String courseDetail = '/course-detail/:id';
   static const String videoPlayer = '/video-player';
+  static const String courseDetails = '/courseDetails';
+  static const String mentorProfile = '/mentorProfile';
   static const String eReceipt = '/e-receipt';
   static const String completedCourses = '/completed-courses';
 
