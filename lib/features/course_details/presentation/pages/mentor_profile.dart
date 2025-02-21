@@ -5,11 +5,14 @@ import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 import '../../../../core/common/constants/colors/app_colors.dart';
 
 class MentorProfilePage extends StatefulWidget {
+  const MentorProfilePage({super.key});
+
   @override
-  _MentorProfilePageState createState() => _MentorProfilePageState();
+  State<MentorProfilePage> createState() => _MentorProfilePageState();
 }
 
-class _MentorProfilePageState extends State<MentorProfilePage> with SingleTickerProviderStateMixin {
+class _MentorProfilePageState extends State<MentorProfilePage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -101,12 +104,20 @@ class _MentorProfilePageState extends State<MentorProfilePage> with SingleTicker
         backgroundColor: isDarkMode ? AppColors.black : AppColors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(IconlyLight.arrow_left, color: isDarkMode ? AppColors.white : AppColors.black,size: 28,),
+          icon: Icon(
+            IconlyLight.arrow_left,
+            color: isDarkMode ? AppColors.white : AppColors.black,
+            size: 28,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: Icon(IconlyLight.more_circle, color: isDarkMode ? AppColors.white : AppColors.black,size: 28,),
+            icon: Icon(
+              IconlyLight.more_circle,
+              color: isDarkMode ? AppColors.white : AppColors.black,
+              size: 28,
+            ),
             onPressed: () {},
           ),
         ],
@@ -121,7 +132,9 @@ class _MentorProfilePageState extends State<MentorProfilePage> with SingleTicker
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage('https://via.placeholder.com/100'),
+                  backgroundImage: NetworkImage(
+                    'https://via.placeholder.com/100',
+                  ),
                 ),
                 SizedBox(height: 16),
                 Text(
@@ -131,10 +144,16 @@ class _MentorProfilePageState extends State<MentorProfilePage> with SingleTicker
                     fontSize: 24,
                   ),
                 ),
-                Text('Senior UI/UX Designer at Google',style: urbanistTextStyles.bold(
-                  color: isDarkMode ? AppColors.greyScale.grey600 : AppColors.black,
-                  fontSize: 14,
-                ),),
+                Text(
+                  'Senior UI/UX Designer at Google',
+                  style: urbanistTextStyles.bold(
+                    color:
+                        isDarkMode
+                            ? AppColors.greyScale.grey600
+                            : AppColors.black,
+                    fontSize: 14,
+                  ),
+                ),
                 SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -151,7 +170,10 @@ class _MentorProfilePageState extends State<MentorProfilePage> with SingleTicker
                     ElevatedButton.icon(
                       onPressed: () {},
                       icon: Icon(Icons.message, color: AppColors.white),
-                      label: Text('Message', style: TextStyle(color: AppColors.white)),
+                      label: Text(
+                        'Message',
+                        style: TextStyle(color: AppColors.white),
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.blue,
                         shape: RoundedRectangleBorder(
@@ -162,9 +184,12 @@ class _MentorProfilePageState extends State<MentorProfilePage> with SingleTicker
                     OutlinedButton.icon(
                       onPressed: () {},
                       icon: Icon(Icons.language, color: Colors.blue),
-                      label: Text('Website', style: TextStyle(color: Colors.blue)),
+                      label: Text(
+                        'Website',
+                        style: TextStyle(color: Colors.blue),
+                      ),
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.blue,width: 2),
+                        side: BorderSide(color: Colors.blue, width: 2),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
@@ -316,12 +341,16 @@ class _MentorProfilePageState extends State<MentorProfilePage> with SingleTicker
                           SizedBox(width: 4),
                           Text(
                             '${course['rating']}',
-                            style: TextStyle(color: AppColors.greyScale.grey900),
+                            style: TextStyle(
+                              color: AppColors.greyScale.grey900,
+                            ),
                           ),
                           SizedBox(width: 8),
                           Text(
                             '${course['students']} students',
-                            style: TextStyle(color: AppColors.greyScale.grey600),
+                            style: TextStyle(
+                              color: AppColors.greyScale.grey600,
+                            ),
                           ),
                         ],
                       ),

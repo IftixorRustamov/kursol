@@ -53,14 +53,6 @@ class _MainPageState extends State<MainPage> {
     ),
   ];
 
-  // final List<Widget> _pages = [
-  //   // home page
-  //   MyCoursePage(),
-  //   // inbox page
-  //   TransactionsPage(),
-  //   ProfilePage(),
-  // ];
-
   @override
   Widget build(BuildContext context) {
     void _goOtherTab(BuildContext context, int index) {
