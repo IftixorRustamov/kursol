@@ -14,5 +14,7 @@ class RoutePaths {
   // * Profile
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';
+  static const String profilePayment = '/profile-payment';
+  static const String paymentAddNewCard = '/payment-add-new-card';
   static const String notification = '/notification';
 }

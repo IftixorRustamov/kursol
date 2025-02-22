@@ -4,6 +4,7 @@ import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/constants/strings/strings.dart';
 import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
+import 'package:kursol/core/routes/route_names.dart';
 import 'package:kursol/core/routes/route_paths.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
@@ -56,7 +57,9 @@ class ProfilePage extends StatelessWidget {
               ProfileSettingRowWg(
                 icon: IconlyLight.wallet,
                 title: AppStrings.payment,
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(RouteNames.profilePayment);
+                },
               ),
               ProfileSettingRowWg(
                 icon: IconlyLight.shield_done,

@@ -5,6 +5,8 @@ import 'package:kursol/features/home/features/home_page.dart';
 import 'package:kursol/features/home/main_page.dart';
 import 'package:kursol/features/profile/features/edit_profile/edit_profile_page.dart';
 import 'package:kursol/features/profile/features/notification/profile_notification_page.dart';
+import 'package:kursol/features/profile/features/payment/payment_add_new_card_page.dart';
+import 'package:kursol/features/profile/features/payment/profile_payment_page.dart';
 import 'package:kursol/features/profile/profile_page.dart';
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
@@ -22,7 +24,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   observers: [MyNavigatorObserver()],
-  initialLocation: RoutePaths.courseDetails,
+  initialLocation: RoutePaths.home,
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -80,6 +82,22 @@ final GoRouter appRouter = GoRouter(
               name: RouteNames.notification,
               parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) => const ProfileNotificationPage(),
+            ),
+            // * Profile Payment
+            GoRoute(
+              path: RoutePaths.profilePayment,
+              name: RouteNames.profilePayment,
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const ProfilePaymentPage(),
+              routes: <RouteBase>[
+                // * Payment Add New Card
+                GoRoute(
+                  path: RoutePaths.paymentAddNewCard,
+                  name: RouteNames.paymentAddNewCard,
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => const PaymentAddNewCardPage(),
+                ),
+              ],
             ),
           ],
         ),
