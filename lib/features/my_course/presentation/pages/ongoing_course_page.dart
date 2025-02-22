@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/constants/strings/strings.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
-import 'package:kursol/core/common/widgets/custom_bottom_bar_wg.dart';
+import 'package:kursol/features/my_course/presentation/widgets/custom_bottom_bar_wg.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/features/my_course/presentation/widgets/lesson_list_widget.dart';
 import '../../data/repositories/dummy_course_details.dart';

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
+import 'package:kursol/features/my_course/presentation/widgets/course_completion_dialog.dart' show CourseCompletionDialog;
 import 'package:video_player/video_player.dart';
 
 class CustomVideoPlayer extends StatefulWidget {
@@ -38,6 +39,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
           _videoController.play();
           _startHideControlsTimer();
         }).catchError((error) {
+          print("Video yuklashda xatolik: $error");
           setState(() {
             _hasError = true;
           });
@@ -45,13 +47,20 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
       _videoController.addListener(() {
         setState(() {}); // Timeline yangilash
+
+        // ** Video tugaganini tekshirish va so'rovnomani ko'rsatish **
+        if (_videoController.value.position >= _videoController.value.duration) {
+          _showCompletionDialog();
+        }
       });
     } catch (e) {
+      print("Video yuklashda xatolik: $e");
       setState(() {
         _hasError = true;
       });
     }
   }
+
 
   @override
   void dispose() {
@@ -88,6 +97,29 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       ]);
     }
   }
+  void _showCompletionDialog() {
+    if (mounted) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return CourseCompletionDialog(
+            onSubmit: () {
+
+              Navigator.pop(context);
+
+            },
+            onCancel: () {
+
+              Navigator.pop(context);
+            },
+          );
+        },
+      );
+    }
+  }
+
+
 
   void _toggleControls() {
     setState(() {

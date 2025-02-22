@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kursol/core/common/constants/strings/strings.dart';
 import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
-import 'package:kursol/core/common/widgets/courses_card_wg.dart';
+import 'package:kursol/features/my_course/presentation/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/widgets/navbar_wg.dart';
+
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import '../../data/repositories/dummy_courses.dart';
 import '../widgets/tab_bar_widget.dart';
@@ -36,10 +36,11 @@ class _MyCoursePageState extends State<MyCoursePage>
       appBar: DefaultAppBarWg(
         titleText: AppStrings.myCourses,
         onMorePressed: () {},
+        onSearchPressed: () {},
       ),
       body: Column(
         children: [
-          CourseTabBar(tabController: _tabController, tabTitles: ["Ongoing", "Completed"],),
+          CourseTabBar(tabController: _tabController, tabTitles: [AppStrings.ongoing, AppStrings.completed],),
           Expanded(
             child: TabBarView(
               controller: _tabController,
@@ -51,7 +52,7 @@ class _MyCoursePageState extends State<MyCoursePage>
           ),
         ],
       ),
-      bottomNavigationBar: NavbarWidget(),
+
     );
   }
 }

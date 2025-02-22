@@ -36,13 +36,13 @@ class CourseDetailPage extends StatelessWidget {
             fontSize: appH(22),
           ),
         ),
-        backgroundColor: isDarkMode ? AppColors.background.dark : Colors.white, // ✅ AppBar foni Dark Mode uchun
+        backgroundColor: isDarkMode ? AppColors.background.dark : Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             IconlyLight.arrow_left,
             size: appH(28),
-            color: isDarkMode ? Colors.white : Colors.black, // ✅ Dark Mode icon rangi
+            color: isDarkMode ? Colors.white : Colors.black,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -63,7 +63,7 @@ class CourseDetailPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: isDarkMode ? AppColors.background.dark : Colors.white,
           border: Border.all(
-            color: isDarkMode ? AppColors.greyScale.grey700 : AppColors.greyScale.grey300, // ✅ Dark Mode va Light Mode uchun border rangi
+            color: isDarkMode ? AppColors.greyScale.grey700 : AppColors.greyScale.grey300,
             width: 0.4,
           ),
           boxShadow: [

@@ -25,8 +25,9 @@ class DefaultAppBarWg extends StatelessWidget implements PreferredSizeWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return AppBar(
-      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.white,
-      elevation: 0,
+      scrolledUnderElevation: 0,
+      backgroundColor: AppColors.white,
+      elevation: 0.5,
       centerTitle: false,
       leading: Assets.images.logo.image(width: appW(32), height: appH(32)),
       title: Text(
