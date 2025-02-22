@@ -15,4 +15,6 @@ abstract class RouteNames {
   static const String profilePayment = 'profilePayment';
   static const String paymentAddNewCard = 'paymentAddNewCard';
   static const String notification = 'notification';
+  static const String completedCourse = 'completedCourse';
+
 }

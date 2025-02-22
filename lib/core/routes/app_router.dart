@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
 import 'package:kursol/features/home/features/home_page.dart';
 import 'package:kursol/features/home/main_page.dart';
+import 'package:kursol/features/my_course/presentation/pages/completed_course_page.dart';
 import 'package:kursol/features/profile/features/edit_profile/edit_profile_page.dart';
 import 'package:kursol/features/profile/features/notification/profile_notification_page.dart';
 import 'package:kursol/features/profile/features/payment/payment_add_new_card_page.dart';
@@ -103,6 +104,15 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+    GoRoute(
+      path: RoutePaths.completedCourse,
+      name: RouteNames.completedCourse,
+      builder: (context, state) {
+        final courseId = state.pathParameters['id'] ?? '';
+        return CompletedCoursePage(courseId: courseId);
+      },
+    ),
+
 
     GoRoute(
       path: RoutePaths.eReceipt,

@@ -333,7 +333,10 @@ class _CourseDetailsPageState extends State<CourseDetailsPage>
 }
 
 class ReviewsScreen extends StatefulWidget {
+  const ReviewsScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ReviewsScreenState createState() => _ReviewsScreenState();
 }
 
@@ -480,7 +483,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
 
   Widget _buildFilterButton(String text, int index) {
     final theme = Theme.of(context);
-    final isDarkMode = theme.brightness == Brightness.dark;
+    final _ = theme.brightness == Brightness.dark;
     UrbanistTextStyles urbanistTextStyles = UrbanistTextStyles();
 
     return Padding(
@@ -626,16 +629,4 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
     );
   }
 
-  Widget _buildStarRating(int rating) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(5, (index) {
-        return Icon(
-          Icons.star,
-          color: index < rating ? Colors.amber : Colors.grey,
-          size: 16,
-        );
-      }),
-    );
-  }
 }

@@ -4,7 +4,7 @@ abstract class AppColors {
   static const Color secondary = Color(0xFFFFD300);
   static const primary = _PrimaryBlue();
   static const greyScale = _GreyScale();
-  static const background = _Background(); // Yangi qo‘shildi
+  static const background = _Background();
 
   static const Color white = Colors.white;
   static const Color black = Colors.black;
@@ -60,6 +60,7 @@ class _GreyScale {
   final Color grey200 = const Color(0xFFEEEEEE);
   final Color grey100 = const Color(0xFFF5F5F5);
   final Color grey50 = const Color(0xFFFAFAFA);
+
 }
 
 class _Background {
@@ -67,5 +68,6 @@ class _Background {
 
   final Color dark = const Color(0xFF181A20);
   final Color dark2 = const Color(0xFF1F222A);
+  final Color dark3 = const Color(0xFF35383F);
   final Color blueAccent = const Color(0xFF335EF7);
 }

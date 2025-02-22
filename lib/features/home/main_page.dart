@@ -55,7 +55,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    void _goOtherTab(BuildContext context, int index) {
+    void goOtherTab(BuildContext context, int index) {
       if (index == _currentIndex) return;
 
       GoRouter router = GoRouter.of(context);
@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage> {
           currentIndex: _currentIndex,
           selectedItemColor: AppColors.primary(),
           unselectedItemColor: AppColors.greyScale.grey500,
-          onTap: (int index) => _goOtherTab(context, index),
+          onTap: (int index) => goOtherTab(context, index),
           selectedLabelStyle: AppTextStyles.urbanist.bold(
             color: AppColors.primary(),
             fontSize: 10,

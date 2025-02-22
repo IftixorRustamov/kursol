@@ -25,6 +25,7 @@ abstract class AppStrings {
   static const String startCourseAgain = "Start Course Again";
   static const String continueCourse = "Continue Course";
 
+
   // * Profile
   static const String generalNotification = "General Notification";
   static const String sound = "Sound";
@@ -46,4 +47,10 @@ abstract class AppStrings {
   static const String cardName = "Card Name";
   static const String expiryDate = "Expiry Date";
   static const String cvv = "CVV";
+  static const String downloadCertificate = "Download Certificate";
+  static const String cancel = "Cancel";
+  static const String writeReview = "Write Review";
+  static const String pleaseLeaveReview = "Please leave a review for your course.";
+  static const String courseCompleted = "Course Completed!";
+
 }

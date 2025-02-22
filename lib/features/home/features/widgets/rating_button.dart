@@ -11,12 +11,12 @@ class RatingButton extends StatelessWidget {
   final String selectedCategory;
 
   const RatingButton({
-    Key? key,
+    super.key,
     required this.category,
     required this.label,
     required this.onSelected,
     required this.selectedCategory,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
