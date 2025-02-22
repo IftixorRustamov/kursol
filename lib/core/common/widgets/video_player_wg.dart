@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/features/my_course/presentation/widgets/course_completion_dialog.dart' show CourseCompletionDialog;
 import 'package:video_player/video_player.dart';
+import 'package:logger/logger.dart';
 
 class CustomVideoPlayer extends StatefulWidget {
   final String videoUrl;
@@ -20,7 +21,9 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   bool _isLoading = true;
   bool _hasError = false;
   bool _controlsVisible = true;
+  bool _dialogShown = false; // Prevent multiple dialogs
   Timer? _hideControlsTimer;
+  final Logger _logger = Logger();
 
   @override
   void initState() {
@@ -32,49 +35,63 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
     try {
       _videoController = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
         ..initialize().then((_) {
-          setState(() {
-            _isLoading = false;
-            _hasError = false;
-          });
+          if (mounted) {
+            setState(() {
+              _isLoading = false;
+              _hasError = false;
+            });
+          }
           _videoController.play();
           _startHideControlsTimer();
         }).catchError((error) {
-          print("Video yuklashda xatolik: $error");
-          setState(() {
-            _hasError = true;
-          });
+          _logger.e("Video loading error", error: error);
+          if (mounted) {
+            setState(() {
+              _hasError = true;
+            });
+          }
         });
 
-      _videoController.addListener(() {
-        setState(() {}); // Timeline yangilash
-
-        // ** Video tugaganini tekshirish va so'rovnomani ko'rsatish **
-        if (_videoController.value.position >= _videoController.value.duration) {
-          _showCompletionDialog();
-        }
-      });
+      _videoController.addListener(_videoListener);
     } catch (e) {
-      print("Video yuklashda xatolik: $e");
-      setState(() {
-        _hasError = true;
-      });
+      _logger.e("Video loading error", error: e);
+      if (mounted) {
+        setState(() {
+          _hasError = true;
+        });
+      }
     }
   }
 
+  void _videoListener() {
+    if (!mounted) return;
+
+    if (_videoController.value.position >= _videoController.value.duration && !_dialogShown) {
+      _dialogShown = true;
+      _showCompletionDialog();
+    }
+
+    setState(() {}); // Update UI as needed
+  }
 
   @override
   void dispose() {
-    _videoController.dispose();
     _hideControlsTimer?.cancel();
+    _videoController.removeListener(_videoListener);
+    if (_videoController.value.isInitialized) {
+      _videoController.dispose();
+    }
     super.dispose();
   }
 
   void _startHideControlsTimer() {
     _hideControlsTimer?.cancel();
     _hideControlsTimer = Timer(const Duration(seconds: 3), () {
-      setState(() {
-        _controlsVisible = false;
-      });
+      if (mounted) {
+        setState(() {
+          _controlsVisible = false;
+        });
+      }
     });
   }
 
@@ -97,6 +114,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       ]);
     }
   }
+
   void _showCompletionDialog() {
     if (mounted) {
       showDialog(
@@ -105,12 +123,9 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         builder: (BuildContext context) {
           return CourseCompletionDialog(
             onSubmit: () {
-
               Navigator.pop(context);
-
             },
             onCancel: () {
-
               Navigator.pop(context);
             },
           );
@@ -118,8 +133,6 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       );
     }
   }
-
-
 
   void _toggleControls() {
     setState(() {
@@ -131,22 +144,30 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   }
 
   void _togglePlayPause() {
+    if (!_videoController.value.isInitialized) return;
+
     setState(() {
-      _videoController.value.isPlaying
-          ? _videoController.pause()
-          : _videoController.play();
+      _videoController.value.isPlaying ? _videoController.pause() : _videoController.play();
     });
     _startHideControlsTimer();
   }
 
   void _seekForward() {
+    if (!_videoController.value.isInitialized) return;
+
     final newPosition = _videoController.value.position + const Duration(seconds: 10);
-    _videoController.seekTo(newPosition);
+    _videoController.seekTo(
+      newPosition < _videoController.value.duration ? newPosition : _videoController.value.duration,
+    );
   }
 
   void _seekBackward() {
+    if (!_videoController.value.isInitialized) return;
+
     final newPosition = _videoController.value.position - const Duration(seconds: 10);
-    _videoController.seekTo(newPosition);
+    _videoController.seekTo(
+      newPosition > Duration.zero ? newPosition : Duration.zero,
+    );
   }
 
   String _formatDuration(Duration duration) {
@@ -172,9 +193,17 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         children: [
           Center(
             child: _hasError
-                ? const Text(
-              "Video yuklanmadi. Iltimos, internetni tekshiring!",
-              style: TextStyle(color: Colors.white),
+                ? Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text(
+                "Video loading failed. Please check your internet connection!",
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
             )
                 : _isLoading
                 ? const CircularProgressIndicator(color: Colors.white)

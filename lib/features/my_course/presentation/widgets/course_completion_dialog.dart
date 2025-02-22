@@ -9,6 +9,7 @@ class CourseCompletionDialog extends StatefulWidget {
   const CourseCompletionDialog({super.key, required this.onSubmit, required this.onCancel});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CourseCompletionDialogState createState() => _CourseCompletionDialogState();
 }
 

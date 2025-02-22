@@ -1,4 +1,3 @@
-
 import '../models/course_model.dart';
 
 final List<CourseModel> ongoingCourses = [

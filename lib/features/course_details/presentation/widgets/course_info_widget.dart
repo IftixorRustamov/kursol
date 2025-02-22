@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 
+// ignore: must_be_immutable
 class CourseInfoWidget extends StatelessWidget {
   Icon icon;
   String title;

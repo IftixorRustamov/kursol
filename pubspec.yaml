@@ -43,7 +43,7 @@ flutter:
      - assets/icons/
      - assets/courses/
      - assets/images/
-     - assets/animations/
+
 
   fonts:
     - family: Urbanist
