@@ -21,6 +21,7 @@ dependencies:
   permission_handler: ^11.3.1
   flutter_pdfview: ^1.4.0
   logger: ^2.5.0
+  lottie: ^3.3.1
 
 
 dev_dependencies:
@@ -42,6 +43,7 @@ flutter:
      - assets/icons/
      - assets/courses/
      - assets/images/
+
 
   fonts:
     - family: Urbanist

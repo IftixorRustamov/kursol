@@ -18,7 +18,7 @@ class CourseTabBar extends StatelessWidget implements PreferredSizeWidget {
       labelColor: AppColors.primary.blue500,
       unselectedLabelColor: isDarkMode ? AppColors.greyScale.grey400 : Colors.grey,
       labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      tabs: tabTitles.map((title) => Tab(text: title)).toList(), // ✅ Dynamic tab titles
+      tabs: tabTitles.map((title) => Tab(text: title)).toList(),
     );
   }
 

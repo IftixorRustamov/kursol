@@ -11,14 +11,15 @@ class CategoryButton extends StatefulWidget {
   final String selectedCategory;
 
   const CategoryButton({
-    Key? key,
+    super.key,
     required this.category,
     required this.label,
     required this.onSelected,
     required this.selectedCategory,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _CategoryButtonState createState() => _CategoryButtonState();
 }
 

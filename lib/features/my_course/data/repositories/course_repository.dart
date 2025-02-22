@@ -1,6 +1,8 @@
-import '../models/course_model.dart';
+import 'package:kursol/features/my_course/domain/entities/course.dart';
+
 
 abstract class CourseRepository {
-  List<CourseModel> getOngoingCourses();
-  List<CourseModel> getCompletedCourses();
+  List<Course> getOngoingCourses();
+  List<Course> getCompletedCourses();
+  Future<Course> getCourseById(String courseId);
 }

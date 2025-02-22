@@ -22,4 +22,10 @@ class AppStrings {
   static const String certificates = "Certificates";
   static const String startCourseAgain = "Start Course Again";
   static const String continueCourse = "Continue Course";
+  static const String downloadCertificate = "Download Certificate";
+  static const String cancel = "Cancel";
+  static const String writeReview = "Write Review";
+  static const String pleaseLeaveReview = "Please leave a review for your course.";
+  static const String courseCompleted = "Course Completed!";
+
 }

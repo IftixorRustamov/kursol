@@ -38,11 +38,12 @@ class CourseCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (completedLessons == totalLessons) {
-          context.push('/completed-courses');
+          context.push('/completed-course/${course.id}');
         } else {
           context.push('/course-detail/${course.id}');
         }
       },
+
       child: Container(
         decoration: BoxDecoration(
           color: isDarkMode ? AppColors.background.dark2 : Colors.white,
