@@ -24,7 +24,10 @@ abstract class AppStrings {
   static const String certificates = "Certificates";
   static const String startCourseAgain = "Start Course Again";
   static const String continueCourse = "Continue Course";
-
+  static const String courseCompleted = "Course Completed!";
+  static const String writeReview = "Write Review";
+  static const String pleaseLeaveReview =
+      "Please leave a review for your course";
 
   // * Profile
   static const String generalNotification = "General Notification";
@@ -47,10 +50,25 @@ abstract class AppStrings {
   static const String cardName = "Card Name";
   static const String expiryDate = "Expiry Date";
   static const String cvv = "CVV";
-  static const String downloadCertificate = "Download Certificate";
+  static const String rememberMe = "Remember me";
+  static const String faceId = "Face ID";
+  static const String biometricId = "Biometric ID";
+  static const String googleAuthenticator = "Google Authenticator";
+  static const String changePin = "Change PIN";
+  static const String changePassword = "Change Password";
+  static const String englishUS = "English (US)";
+  static const String russian = "Russian";
+  static const String uzbek = "Uzbek";
+  static const String suggested = "Suggested";
+  static const String typesOfData = "1. Types of Data We Collect";
+  static const String invite = "Invite";
+  static const String invited = "Invited";
+  static const String faq = "FAQ";
+  static const String contactUs = "Contact Us";
+  static const String general = "General";
+  static const String account = "Account";
+  static const String course = "Course";
+  static const String wantToLogOut = "Are you sure you want to log out?";
+  static const String yesLogOut = "Yes, Logout";
   static const String cancel = "Cancel";
-  static const String writeReview = "Write Review";
-  static const String pleaseLeaveReview = "Please leave a review for your course.";
-  static const String courseCompleted = "Course Completed!";
-
 }

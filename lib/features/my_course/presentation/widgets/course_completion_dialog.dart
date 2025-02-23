@@ -6,7 +6,11 @@ class CourseCompletionDialog extends StatefulWidget {
   final VoidCallback onSubmit;
   final VoidCallback onCancel;
 
-  const CourseCompletionDialog({super.key, required this.onSubmit, required this.onCancel});
+  const CourseCompletionDialog({
+    super.key,
+    required this.onSubmit,
+    required this.onCancel,
+  });
 
   @override
   // ignore: library_private_types_in_public_api
@@ -15,16 +19,19 @@ class CourseCompletionDialog extends StatefulWidget {
 
 class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
   int _selectedStars = 4;
-  final TextEditingController _reviewController =
-  TextEditingController(text: "The courses & mentors are great! 🔥");
+  final TextEditingController _reviewController = TextEditingController(
+    text: "The courses & mentors are great! 🔥",
+  );
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      backgroundColor: isDarkMode ? AppColors.background.dark2 : AppColors.white,
+      backgroundColor:
+          isDarkMode ? AppColors.background.dark2 : AppColors.white,
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -32,7 +39,6 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
           children: [
             Image.asset("assets/images/review.png", width: 120, height: 120),
             const SizedBox(height: 16),
-
 
             Text(
               AppStrings.courseCompleted,
@@ -44,17 +50,18 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
             ),
             const SizedBox(height: 8),
 
-
             Text(
               AppStrings.pleaseLeaveReview,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color: isDarkMode ? AppColors.greyScale.grey400 : AppColors.greyScale.grey700,
+                color:
+                    isDarkMode
+                        ? AppColors.greyScale.grey400
+                        : AppColors.greyScale.grey700,
               ),
             ),
             const SizedBox(height: 16),
-
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +83,6 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
 
             const SizedBox(height: 16),
 
-
             TextFormField(
               controller: _reviewController,
               decoration: InputDecoration(
@@ -89,10 +95,16 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
                   borderSide: BorderSide(color: AppColors.primary()),
                 ),
                 filled: true,
-                fillColor: isDarkMode ? AppColors.background.dark3 : AppColors.greyScale.grey100,
+                fillColor:
+                    isDarkMode
+                        ? AppColors.background.dark3
+                        : AppColors.greyScale.grey100,
                 hintText: "The courses & mentors are great! 🔥",
                 hintStyle: TextStyle(
-                  color: isDarkMode ? AppColors.greyScale.grey400 : AppColors.greyScale.grey600,
+                  color:
+                      isDarkMode
+                          ? AppColors.greyScale.grey400
+                          : AppColors.greyScale.grey600,
                 ),
               ),
               maxLines: 2,
@@ -101,20 +113,25 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
               ),
             ),
 
-
             const SizedBox(height: 16),
-
 
             ElevatedButton(
               onPressed: widget.onSubmit,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary(),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 14,
+                ),
               ),
-              child: const Text(AppStrings.writeReview, style: TextStyle(fontSize: 16, color: Colors.white)),
+              child: const Text(
+                AppStrings.writeReview,
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
             ),
-
 
             TextButton(
               onPressed: widget.onCancel,

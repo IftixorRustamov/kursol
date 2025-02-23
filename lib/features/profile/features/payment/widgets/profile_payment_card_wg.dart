@@ -7,13 +7,13 @@ import '../../../../../core/utils/textstyles/app_textstyles.dart';
 class ProfilePaymentCardWg extends StatelessWidget {
   final String image;
   final String text;
-  final String status;
+  final String? status;
 
   const ProfilePaymentCardWg({
     super.key,
     required this.image,
     required this.text,
-    required this.status,
+    this.status,
   });
 
   @override
@@ -43,7 +43,7 @@ class ProfilePaymentCardWg extends StatelessWidget {
             ],
           ),
           Text(
-            status,
+            status ?? "",
             style: AppTextStyles.urbanist.bold(
               color: AppColors.primary(),
               fontSize: 18,
