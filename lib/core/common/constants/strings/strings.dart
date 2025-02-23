@@ -24,6 +24,10 @@ abstract class AppStrings {
   static const String certificates = "Certificates";
   static const String startCourseAgain = "Start Course Again";
   static const String continueCourse = "Continue Course";
+  static const String courseCompleted = "Course Completed!";
+  static const String writeReview = "Write Review";
+  static const String pleaseLeaveReview =
+      "Please leave a review for your course";
 
   // * Profile
   static const String generalNotification = "General Notification";

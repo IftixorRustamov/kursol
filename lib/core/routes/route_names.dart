@@ -10,6 +10,7 @@ abstract class RouteNames {
   static const String mentorProfile = 'mentorProfile';
   static const String eReceipt = 'eReceipt';
   static const String completedCourses = 'completedCourses';
+  static const String completedCourse = 'completedCourse';
 
   // * Profile
   static const String profile = 'profile';
