@@ -10,6 +10,8 @@ abstract class RoutePaths {
   static const String mentorProfile = '/mentorProfile';
   static const String eReceipt = '/e-receipt';
   static const String completedCourses = '/completed-courses';
+  static const String completedCourse = '/completed-course/:id';
+
 
   // * Profile
   static const String profile = '/profile';

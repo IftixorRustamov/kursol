@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/constants/strings/strings.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
-import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
+import 'package:kursol/features/my_course/presentation/widgets/custom_bottom_bar_wg.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/features/my_course/presentation/widgets/lesson_list_widget.dart';
 import '../../data/repositories/dummy_course_details.dart';
@@ -52,67 +52,23 @@ class OngoingCourse extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: appW(16),
-            vertical: appH(18),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(appH(10))),
-            color: isDarkMode ? AppColors.background.dark : Colors.white,
-            border: Border.all(
-              color:
-                  isDarkMode
-                      ? AppColors.greyScale.grey700
-                      : AppColors.greyScale.grey300,
-              width: 0.4,
-            ),
-            boxShadow: [
-              if (!isDarkMode)
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: appH(12),
-                  offset: Offset(0, -appH(3)),
-                ),
-            ],
-          ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary.blue500,
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(vertical: appH(16)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(appH(30)),
-                side: BorderSide.none,
-              ),
-              elevation: 0,
-            ),
-            onPressed: () {
-              if (course.progress == 100) {
-                context.push('/completed-courses');
-              } else {
-                context.push(
-                  '/video-player',
-                  extra: {
-                    'videoUrl':
-                        'https://www.pexels.com/video/close-up-of-a-cpu-7140928/',
-                    'title': courseDetail.title,
-                  },
-                );
-              }
-            },
-            child: Text(
-              course.progress == 100
-                  ? AppStrings.startCourseAgain
-                  : AppStrings.continueCourse,
-              style: UrbanistTextStyles().semiBold(
-                color: Colors.white,
-                fontSize: appH(16),
-              ),
-            ),
-          ),
-        ),
+      bottomNavigationBar: CustomBottomBar(
+        isDarkMode: isDarkMode,
+        onPressed: () {
+          if (course.progress == 100) {
+            context.push('/completed-courses');
+          } else {
+            context.push(
+              '/video-player',
+              extra: {
+                'videoUrl':
+                    'https://www.pexels.com/video/close-up-of-a-cpu-7140928/',
+                'title': courseDetail.title,
+              },
+            );
+          }
+        },
+        buttonText: AppStrings.continueCourse,
       ),
     );
   }
