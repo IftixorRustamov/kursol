@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
-import 'package:kursol/features/my_course/presentation/widgets/tab_bar_widget.dart';
 import 'package:kursol/features/my_course/presentation/widgets/lesson_list_widget.dart';
+import '../../../../core/common/widgets/custom_tab_bar_wg.dart';
 import '../../data/repositories/dummy_course_details.dart';
 
 class CompletedCoursePage extends StatefulWidget {
@@ -59,7 +59,7 @@ class _CompletedCoursePageState extends State<CompletedCoursePage>
             icon: Icon(IconlyLight.arrow_left, color: isDarkMode ? Colors.white : Colors.black),
             onPressed: () => Navigator.pop(context),
           ),
-          bottom: CourseTabBar(tabController: _tabController, tabTitles: ["Lessons", "Certificates"],),
+          bottom: CustomTabBar(tabController: _tabController, tabTitles: ["Lessons", "Certificates"],),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

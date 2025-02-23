@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
@@ -7,7 +6,7 @@ import 'package:kursol/features/profile/widgets/profile_blank_container_wg.dart'
 
 import '../../../../core/common/constants/strings/strings.dart';
 import '../../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
-import '../../../../core/common/widgets/default_button.dart';
+import '../../../../core/common/widgets/default_button_wg.dart';
 import '../../../../core/utils/responsiveness/app_responsive.dart';
 import '../../../../core/utils/textstyles/app_textstyles.dart';
 

@@ -4,9 +4,9 @@ import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import '../../../../core/common/constants/strings/strings.dart';
 import '../../../../core/common/widgets/app_bar/default_app_bar_wg.dart';
+import '../../../../core/common/widgets/custom_tab_bar_wg.dart';
 import '../../../../core/utils/textstyles/app_textstyles.dart';
 import '../../data/repositories/dummy_courses.dart';
-import '../widgets/tab_bar_widget.dart';
 
 class MyCoursePage extends StatefulWidget {
   const MyCoursePage({super.key});
@@ -34,7 +34,7 @@ class _MyCoursePageState extends State<MyCoursePage>
       ),
       body: Column(
         children: [
-          CourseTabBar(
+          CustomTabBar(
             tabController: _tabController,
             tabTitles: ["Ongoing", "Completed"],
           ),

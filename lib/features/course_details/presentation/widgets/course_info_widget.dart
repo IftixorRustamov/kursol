@@ -3,10 +3,10 @@ import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 
 class CourseInfoWidget extends StatelessWidget {
-  Icon icon;
-  String title;
+  final Icon icon;
+  final String title;
 
-  CourseInfoWidget({required this.icon, required this.title, super.key});
+  const CourseInfoWidget({required this.icon, required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,11 @@ class CourseInfoWidget extends StatelessWidget {
         icon,
         SizedBox(width: 5),
         Text(
-            title,
-            style: urbanistTextStyles.bold(
-              fontSize: 16, color:isDarkMode?AppColors.white : AppColors.black,
-            )
+          title,
+          style: urbanistTextStyles.bold(
+            fontSize: 16,
+            color: isDarkMode ? AppColors.white : AppColors.black,
+          ),
         ),
       ],
     );

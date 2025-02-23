@@ -59,7 +59,7 @@ class CourseCard extends StatelessWidget {
                   Text(
                     courseTitle,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: 1,
                     style: AppTextStyles.urbanist.bold(
                       color: AppColors.black,
                       fontSize: 18,

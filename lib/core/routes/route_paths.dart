@@ -1,4 +1,4 @@
-class RoutePaths {
+abstract class RoutePaths {
   static const String main = '/main';
   static const String home = '/home';
   static const String myCourse = '/my-course';
@@ -17,4 +17,9 @@ class RoutePaths {
   static const String profilePayment = '/profile-payment';
   static const String paymentAddNewCard = '/payment-add-new-card';
   static const String notification = '/notification';
+  static const String profileSecurity = '/profile-security';
+  static const String profileLanguage = '/profile-language';
+  static const String profilePrivacy = '/profile-privacy';
+  static const String profileInviteFriends = '/profile-invite-friends';
+  static const String profileHelpCenter = '/profile-help-center';
 }

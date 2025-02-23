@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/common/constants/colors/app_colors.dart';
-import '../../utils/responsiveness/app_responsive.dart';
+import '../../../../../core/common/constants/colors/app_colors.dart';
+import '../../../utils/responsiveness/app_responsive.dart';
 
 class BaseCardWg extends StatelessWidget {
   final VoidCallback onTap;
@@ -30,8 +30,7 @@ class BaseCardWg extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: AppColors.greyScale.grey300,
-              blurRadius: 10,
-              spreadRadius: 1,
+              blurRadius: 2,
             ),
           ],
         ),

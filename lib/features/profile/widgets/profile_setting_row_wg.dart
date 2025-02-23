@@ -6,16 +6,16 @@ import '../../../core/utils/responsiveness/app_responsive.dart';
 import '../../../core/utils/textstyles/app_textstyles.dart';
 
 class ProfileSettingRowWg extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final String title;
   final String? secondaryText;
   final VoidCallback onPressed;
 
   const ProfileSettingRowWg({
     super.key,
-    required this.icon,
     required this.title,
     required this.onPressed,
+    this.icon,
     this.secondaryText,
   });
 
@@ -25,9 +25,11 @@ class ProfileSettingRowWg extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
-          spacing: appW(20),
+          spacing: icon != null ? appW(20) : 0,
           children: [
-            Icon(icon, size: appH(28), color: AppColors.greyScale.grey900),
+            icon != null
+                ? Icon(icon, size: appH(28), color: AppColors.greyScale.grey900)
+                : SizedBox.shrink(),
             Text(
               title,
               style: AppTextStyles.urbanist.semiBold(

@@ -22,8 +22,6 @@ class DefaultAppBarWg extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return AppBar(
       scrolledUnderElevation: 0,
       backgroundColor: AppColors.white,
@@ -33,7 +31,7 @@ class DefaultAppBarWg extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         titleText,
         style: AppTextStyles.urbanist.bold(
-          color: isDarkMode ? Colors.white : AppColors.black,
+          color: AppColors.black,
           fontSize: 24,
         ),
       ),
@@ -44,7 +42,7 @@ class DefaultAppBarWg extends StatelessWidget implements PreferredSizeWidget {
             icon: Icon(
               IconlyLight.search,
               size: appH(28),
-              color: isDarkMode ? Colors.white : AppColors.black,
+              color: AppColors.black,
             ),
           ),
         IconButton(
@@ -52,7 +50,7 @@ class DefaultAppBarWg extends StatelessWidget implements PreferredSizeWidget {
           icon: Icon(
             IconlyLight.more_circle,
             size: appH(28),
-            color: isDarkMode ? Colors.white : AppColors.black,
+            color: AppColors.black,
           ),
         ),
       ],

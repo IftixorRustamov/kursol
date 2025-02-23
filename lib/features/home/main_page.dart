@@ -76,7 +76,7 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: AppColors.white,
       body: widget.child,
       bottomNavigationBar: SizedBox(
-        height: appH(90),
+        height: appH(95),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           iconSize: appW(28),
