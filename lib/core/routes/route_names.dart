@@ -14,5 +14,13 @@ class RouteNames {
   static const String editProfile = 'editProfile';
   static const String notification = 'notification';
   static const String completedCourse = 'completedCourse';
+  static const String fillYourProfile = 'fillYourProfile';
+  static const String createNewPin = 'createNewPin';
+  static const String fingerPrint = 'fingerPrint';
+  static const String forgotPassword = 'forgotPassword';
+  static const String sendCodeForgotPassword = 'sendCodeForgotPassword';
+  static const String createNewPassword = 'createNewPassword';
+
+
 
 }

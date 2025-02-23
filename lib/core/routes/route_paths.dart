@@ -17,4 +17,15 @@ class RoutePaths {
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';
   static const String notification = '/notification';
+
+  // fillYourProfile
+  static const String fillYourProfile = '/fill-your-profile';
+  static const String createNewPin = '/create-new-pin';
+  static const String fingerPrint = '/finger-print';
+
+  // Forgot Password
+  static const String forgotPassword = '/forgot-password';
+  static const String sendCodeForgotPassword = '/send-code-forgot-password';
+  static const String createNewPassword = '/create-new-password';
+
 }

@@ -27,5 +27,16 @@ class AppStrings {
   static const String writeReview = "Write Review";
   static const String pleaseLeaveReview = "Please leave a review for your course.";
   static const String courseCompleted = "Course Completed!";
+  static const String fillYourProfile = "Fill Your Profile";
+  static const String profileContinue = "Continue";
+  static const String createNewPin = "Create New PIN";
+  static const String addPinNumber = "Add a PIN number to make your account more secure.";
+  static const String setYourFingerprint = "Set Your Fingerprint";
+  static const String addFingerPrint = "Add a fingerprint to make your account more secure.";
+  static const String congratulations = "Congratulations!";
+  static const String forgotPassword = "Forgot Password";
+  static const String createNewPassword = "Create New Password";
+  static const String accountIsReady = "Your account is ready to use. You will be redirected to the Home page in a few seconds.";
+  static const String selectWhichContact = "Select which contact details should we use to reset your password";
 
 }
