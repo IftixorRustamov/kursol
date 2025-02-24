@@ -60,7 +60,6 @@ class _GreyScale {
   final Color grey200 = const Color(0xFFEEEEEE);
   final Color grey100 = const Color(0xFFF5F5F5);
   final Color grey50 = const Color(0xFFFAFAFA);
-
 }
 
 class _Background {
