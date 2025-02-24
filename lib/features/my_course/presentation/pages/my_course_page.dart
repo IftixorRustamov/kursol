@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kursol/core/common/constants/strings/strings.dart';
-import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
-import 'package:kursol/features/my_course/presentation/widgets/courses_card_wg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kursol/core/common/widgets/courses_card_wg.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
-
-import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
+import '../../../../core/common/constants/strings/strings.dart';
+import '../../../../core/common/widgets/app_bar/default_app_bar_wg.dart';
+import '../../../../core/common/widgets/custom_tab_bar_wg.dart';
+import '../../../../core/utils/textstyles/app_textstyles.dart';
 import '../../data/repositories/dummy_courses.dart';
-import '../widgets/tab_bar_widget.dart';
 
 class MyCoursePage extends StatefulWidget {
   const MyCoursePage({super.key});
@@ -27,20 +27,17 @@ class _MyCoursePageState extends State<MyCoursePage>
 
   @override
   Widget build(BuildContext context) {
-    AppResponsive.init(context);
-
-    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
-
     return Scaffold(
-      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.greyScale.grey100,
       appBar: DefaultAppBarWg(
         titleText: AppStrings.myCourses,
         onMorePressed: () {},
-        onSearchPressed: () {},
       ),
       body: Column(
         children: [
-          CourseTabBar(tabController: _tabController, tabTitles: [AppStrings.ongoing, AppStrings.completed],),
+          CustomTabBar(
+            tabController: _tabController,
+            tabTitles: [AppStrings.ongoing, AppStrings.completed],
+          ),
           Expanded(
             child: TabBarView(
               controller: _tabController,
@@ -52,7 +49,6 @@ class _MyCoursePageState extends State<MyCoursePage>
           ),
         ],
       ),
-
     );
   }
 }
@@ -64,7 +60,6 @@ class CourseListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MediaQuery.of(context).platformBrightness == Brightness.dark;
     final courses = isCompleted ? completedCourses : ongoingCourses;
 
     return ListView.builder(
@@ -72,7 +67,25 @@ class CourseListView extends StatelessWidget {
       itemCount: courses.length,
       itemBuilder: (context, index) {
         final course = courses[index];
-        return CourseCard(course: course);
+
+        return CourseCard(
+          onTap: () {
+            if (isCompleted) {
+              context.push('/completed-course/${course.id}');
+            } else {
+              context.push('/course-detail/${course.id}');
+            }
+          },
+          courseImg: course.imageUrl,
+          courseTitle: course.title,
+          subWidget: Text(
+            course.duration,
+            style: AppTextStyles.urbanist.medium(
+              color: AppColors.greyScale.grey700,
+              fontSize: 14,
+            ),
+          ),
+        );
       },
     );
   }

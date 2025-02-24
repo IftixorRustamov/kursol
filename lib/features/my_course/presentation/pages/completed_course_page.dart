@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/constants/strings/strings.dart';
+import 'package:kursol/core/common/widgets/custom_tab_bar_wg.dart';
 import 'package:kursol/features/my_course/presentation/widgets/custom_bottom_bar_wg.dart';
 import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 import 'package:kursol/features/my_course/presentation/widgets/sertificate_wg.dart';
-import 'package:kursol/features/my_course/presentation/widgets/tab_bar_widget.dart';
 import 'package:kursol/features/my_course/presentation/widgets/lesson_list_widget.dart';
 import '../../data/repositories/dummy_course_details.dart';
 
@@ -33,9 +33,9 @@ class _CompletedCoursePageState extends State<CompletedCoursePage>
     _tabController.addListener(() {
       setState(() {
         buttonText =
-            _tabController.index == 1
-                ? AppStrings.downloadCertificate
-                : AppStrings.startCourseAgain;
+        _tabController.index == 1
+            ? AppStrings.downloadCertificate
+            : AppStrings.startCourseAgain;
       });
     });
   }
@@ -52,7 +52,7 @@ class _CompletedCoursePageState extends State<CompletedCoursePage>
     final isDarkMode = theme.brightness == Brightness.dark;
 
     final courseDetail = dummyCourseDetails.firstWhere(
-      (course) => course.id == widget.courseId,
+          (course) => course.id == widget.courseId,
       orElse: () => dummyCourseDetails.first,
     );
 
@@ -69,7 +69,7 @@ class _CompletedCoursePageState extends State<CompletedCoursePage>
             ),
           ),
           backgroundColor:
-              isDarkMode ? AppColors.background.dark : AppColors.white,
+          isDarkMode ? AppColors.background.dark : AppColors.white,
           elevation: 0,
           leading: IconButton(
             icon: Icon(
@@ -78,7 +78,7 @@ class _CompletedCoursePageState extends State<CompletedCoursePage>
             ),
             onPressed: () => Navigator.pop(context),
           ),
-          bottom: CourseTabBar(
+          bottom: CustomTabBar(
             tabController: _tabController,
             tabTitles: [AppStrings.lessons, AppStrings.certificates],
           ),
@@ -97,7 +97,7 @@ class _CompletedCoursePageState extends State<CompletedCoursePage>
               ),
               // Certificates Tab
               Center(
-                  child: CertificateWidget(),
+                child: CertificateWidget(),
               ),
             ],
           ),

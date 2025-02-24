@@ -21,16 +21,15 @@ class ActionAppBarWg extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return AppBar(
-      backgroundColor: isDarkMode ? AppColors.background.dark : AppColors.white,
+      backgroundColor: AppColors.white,
       elevation: 0,
+      scrolledUnderElevation: 0,
       centerTitle: false,
       title: Text(
         titleText ?? "",
         style: AppTextStyles.urbanist.bold(
-          color: isDarkMode ? Colors.white : AppColors.black,
+          color: AppColors.black,
           fontSize: 24,
         ),
       ),
@@ -39,19 +38,14 @@ class ActionAppBarWg extends StatelessWidget implements PreferredSizeWidget {
         icon: Icon(
           IconlyLight.arrow_left,
           size: appH(28),
-          color: isDarkMode ? Colors.white : AppColors.black,
+          color: AppColors.black,
         ),
       ),
       actions: actions,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-          color: isDarkMode ? AppColors.background.dark : AppColors.white,
-          border: Border(
-            bottom: BorderSide(
-              color: isDarkMode ? AppColors.greyScale.grey800 : AppColors.greyScale.grey300,
-              width: 1.0,
-            ),
-          ),
+          color: AppColors.white,
+
         ),
       ),
     );

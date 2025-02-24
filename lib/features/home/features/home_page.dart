@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
+import 'package:kursol/core/routes/route_names.dart';
 import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 import 'package:kursol/features/home/features/search/search_page.dart';
 import 'package:kursol/features/home/features/widgets/category_button_widget.dart';
@@ -274,6 +276,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: 3,
                 itemBuilder: (context, index) {
                   return CourseCard(
+                    onTap: () => context.pushNamed(RouteNames.courseDetails),
                     imagePath: 'assets/images/Rectangle2.png',
                     category: 'Entrepreneurship',
                     title: 'Digital Entrepreneur...',
