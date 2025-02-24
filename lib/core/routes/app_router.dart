@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/create_new_password.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/create_new_pin.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/fill_your_profile.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/finger_print.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/forgot_password.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/send_code_forgot_password.dart';
 import 'package:kursol/features/home/features/home_page.dart';
 import 'package:kursol/features/home/main_page.dart';
 import 'package:kursol/features/my_course/presentation/pages/completed_course_page.dart';
@@ -30,7 +36,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   observers: [MyNavigatorObserver()],
-  initialLocation: RoutePaths.home,
+  initialLocation: RoutePaths.forgotPassword,
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -194,6 +200,51 @@ final GoRouter appRouter = GoRouter(
       name: RouteNames.mentorProfile,
       builder: (context, state) {
         return MentorProfilePage();
+      },
+    ),
+
+    // fillYourProfile
+    GoRoute(
+      path: RoutePaths.fillYourProfile,
+      name: RouteNames.fillYourProfile,
+      builder: (context, state) {
+        return FillProfilePage();
+      },
+    ),
+    GoRoute(
+      path: RoutePaths.createNewPin,
+      name: RouteNames.createNewPin,
+      builder: (context, state) {
+        return CreateNewPin();
+      },
+    ),
+    GoRoute(
+      path: RoutePaths.fingerPrint,
+      name: RouteNames.fingerPrint,
+      builder: (context, state) {
+        return Fingerprint();
+      },
+    ),
+    // forgotPassword
+    GoRoute(
+      path: RoutePaths.forgotPassword,
+      name: RouteNames.forgotPassword,
+      builder: (context, state) {
+        return ForgotPassword();
+      },
+    ),
+    GoRoute(
+      path: RoutePaths.sendCodeForgotPassword,
+      name: RouteNames.sendCodeForgotPassword,
+      builder: (context, state) {
+        return SendCodeForgotPassword();
+      },
+    ),
+    GoRoute(
+      path: RoutePaths.createNewPassword,
+      name: RouteNames.createNewPassword,
+      builder: (context, state) {
+        return CreateNewPassword();
       },
     ),
   ],
