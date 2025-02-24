@@ -125,7 +125,7 @@ class _FingerprintState extends State<Fingerprint> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 18),
                     ),
-                    onPressed: () => context.go(RoutePaths.home),
+                    onPressed: () => showSuccessDialog(context),
                     child: Text("Skip",
                         style: AppTextStyles.urbanist.bold(
                             color: AppColors.primary.blue500, fontSize: 16)),

@@ -25,14 +25,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       backgroundColor: AppColors.white,
       appBar: ActionAppBarWg(
         onBackPressed: () {
-
+            context.go(RoutePaths.signin);
         },
 
         titleText: AppStrings.forgotPassword,
       ),
 
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24 , vertical: 33),
         
         child: SingleChildScrollView(
 
