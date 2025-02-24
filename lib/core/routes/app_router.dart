@@ -197,7 +197,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RoutePaths.signin,
       name: RouteNames.signin,
-      builder: (context, state) => SignInScreen(),
+      builder: (context, state) => const SignInScreen(),
     ),
 
 
