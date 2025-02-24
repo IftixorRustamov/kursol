@@ -73,7 +73,9 @@ class _FillProfilePageState extends State<FillProfilePage> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: ActionAppBarWg(
-        onBackPressed: () {},
+        onBackPressed: () {
+          context.go(RoutePaths.signup);
+        },
         titleText: AppStrings.fillYourProfile,
       ),
       body: SingleChildScrollView(
