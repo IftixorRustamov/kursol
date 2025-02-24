@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
-import 'package:kursol/features/auth/forget_reset_password/presentation/widgets/show_succes_dialog.dart';
+import 'package:kursol/features/auth/forget_reset_password/widgets/show_succes_dialog.dart';
 
 import '../../../../../core/common/constants/colors/app_colors.dart';
 import '../../../../../core/common/constants/strings/strings.dart';
