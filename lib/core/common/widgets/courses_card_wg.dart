@@ -20,17 +20,19 @@ class CourseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: double.infinity,
         height: appH(140),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: isDarkMode ? AppColors.background.dark2 : AppColors.white,
           borderRadius: BorderRadius.circular(32),
           boxShadow: [
             BoxShadow(
-              color: AppColors.greyScale.grey300,
+              color: isDarkMode ? AppColors.background.dark3.withOpacity(0.3) : AppColors.greyScale.grey300,
               blurRadius: 10,
               spreadRadius: 1,
             ),
@@ -40,17 +42,17 @@ class CourseCard extends StatelessWidget {
         margin: EdgeInsets.only(bottom: appH(20)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: appW(16),
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.asset(
-                courseImg, // Replaced !!!
+                courseImg,
                 width: appW(100),
                 height: appH(100),
                 fit: BoxFit.cover,
               ),
             ),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +63,7 @@ class CourseCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: AppTextStyles.urbanist.bold(
-                      color: AppColors.black,
+                      color: isDarkMode ? AppColors.white : AppColors.black,
                       fontSize: 18,
                     ),
                   ),
@@ -72,14 +74,15 @@ class CourseCard extends StatelessWidget {
                         width: appW(171),
                         lineHeight: 10.0,
                         percent: 40 / 100,
-                        backgroundColor: Colors.grey[700],
+                        backgroundColor: isDarkMode ? AppColors.greyScale.grey700 : AppColors.greyScale.grey300,
                         progressColor: AppColors.amber,
                         barRadius: const Radius.circular(12),
                       ),
+                      const SizedBox(width: 8),
                       Text(
                         "${40} / 100",
                         style: AppTextStyles.urbanist.bold(
-                          color: AppColors.black,
+                          color: isDarkMode ? AppColors.white : AppColors.black,
                           fontSize: 18,
                         ),
                       ),

@@ -37,6 +37,8 @@ abstract class AppStrings {
   static const String accountIsReady = "Your account is ready to use. You will be redirected to the Home page in a few seconds.";
   static const String selectWhichContact = "Select which contact details should we use to reset your password";
   static const String writeReview = "Write Review";
+  static const String downloadCertificate = "Download Certificate";
+
   static const String pleaseLeaveReview =
       "Please leave a review for your course";
 

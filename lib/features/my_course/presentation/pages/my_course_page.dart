@@ -36,7 +36,7 @@ class _MyCoursePageState extends State<MyCoursePage>
         children: [
           CustomTabBar(
             tabController: _tabController,
-            tabTitles: ["Ongoing", "Completed"],
+            tabTitles: [AppStrings.ongoing, AppStrings.completed],
           ),
           Expanded(
             child: TabBarView(
@@ -60,15 +60,21 @@ class CourseListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final courses = ongoingCourses;
+    final courses = isCompleted ? completedCourses : ongoingCourses;
+
     return ListView.builder(
       padding: const EdgeInsets.all(8.0),
       itemCount: courses.length,
       itemBuilder: (context, index) {
         final course = courses[index];
+
         return CourseCard(
           onTap: () {
-            context.push('/course-detail/${course.id}');
+            if (isCompleted) {
+              context.push('/completed-course/${course.id}');
+            } else {
+              context.push('/course-detail/${course.id}');
+            }
           },
           courseImg: course.imageUrl,
           courseTitle: course.title,
