@@ -24,7 +24,7 @@ class SettingsSwitchWg extends StatelessWidget {
         Text(
           text,
           style: AppTextStyles.urbanist.semiBold(
-            color: AppColors.greyScale.grey800,
+            color: AppColors.greyScale.grey900,
             fontSize: 18,
           ),
         ),

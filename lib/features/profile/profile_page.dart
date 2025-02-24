@@ -8,6 +8,7 @@ import 'package:kursol/core/routes/route_names.dart';
 import 'package:kursol/core/routes/route_paths.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
+import 'package:kursol/features/profile/widgets/logout_bottom_sheet_wg.dart';
 import 'package:kursol/features/profile/widgets/profile_info_wg.dart';
 import 'package:kursol/features/profile/widgets/profile_setting_row_wg.dart';
 
@@ -54,6 +55,7 @@ class ProfilePage extends StatelessWidget {
                   context.go(RoutePaths.profile + RoutePaths.notification);
                 },
               ),
+              // * Payment
               ProfileSettingRowWg(
                 icon: IconlyLight.wallet,
                 title: AppStrings.payment,
@@ -61,16 +63,22 @@ class ProfilePage extends StatelessWidget {
                   context.pushNamed(RouteNames.profilePayment);
                 },
               ),
+              // * Security
               ProfileSettingRowWg(
                 icon: IconlyLight.shield_done,
                 title: AppStrings.security,
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(RouteNames.profileSecurity);
+                },
               ),
+              // * Language
               ProfileSettingRowWg(
                 icon: Icons.language, //
                 title: AppStrings.language,
                 secondaryText: "English (US)",
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(RouteNames.profileLanguage);
+                },
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,45 +100,52 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.toggle_off)),
+                  Switch.adaptive(value: false, onChanged: (val) {}),
                 ],
               ),
+              // * Privacy Policy
               ProfileSettingRowWg(
                 icon: IconlyLight.lock,
                 title: AppStrings.privacyPolicy,
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(RouteNames.profilePrivacy);
+                },
               ),
+              // * Help Center
               ProfileSettingRowWg(
                 icon: IconlyLight.info_square,
                 title: AppStrings.helpCenter,
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(RouteNames.profileHelpCenter);
+                },
               ),
+              // * Invite Friends
               ProfileSettingRowWg(
                 icon: IconlyLight.user_1,
                 title: AppStrings.inviteFriends,
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(RouteNames.profileInviteFriends);
+                },
               ),
-              ProfileSettingRowWg(
-                icon: IconlyLight.user_1,
-                title: AppStrings.inviteFriends,
-                onPressed: () {},
-              ),
-              Row(
-                spacing: appW(20),
-                children: [
-                  Icon(
-                    IconlyLight.logout,
-                    size: appH(28),
-                    color: AppColors.red,
-                  ),
-                  Text(
-                    AppStrings.logOut,
-                    style: AppTextStyles.urbanist.semiBold(
+              InkWell(
+                onTap: () => showLogoutModal(context),
+                child: Row(
+                  spacing: appW(20),
+                  children: [
+                    Icon(
+                      IconlyLight.logout,
+                      size: appH(28),
                       color: AppColors.red,
-                      fontSize: 18,
                     ),
-                  ),
-                ],
+                    Text(
+                      AppStrings.logOut,
+                      style: AppTextStyles.urbanist.semiBold(
+                        color: AppColors.red,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

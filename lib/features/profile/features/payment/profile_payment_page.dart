@@ -4,10 +4,11 @@ import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/constants/strings/strings.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
-import 'package:kursol/core/common/widgets/default_button.dart';
 import 'package:kursol/core/routes/route_names.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/features/profile/features/payment/widgets/profile_payment_card_wg.dart';
+
+import '../../../../core/common/widgets/default_button_wg.dart';
 
 class ProfilePaymentPage extends StatelessWidget {
   const ProfilePaymentPage({super.key});
