@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/constants/strings/strings.dart';
-import 'package:kursol/core/common/widgets/base_card_wg.dart';
+import 'package:kursol/core/common/widgets/cards/base_card_wg.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
 
@@ -27,6 +27,8 @@ class TransactionsCardWg extends StatelessWidget {
       mainWidgets: [
         Text(
           title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
           style: AppTextStyles.urbanist.bold(
             color: AppColors.black,
             fontSize: 18,

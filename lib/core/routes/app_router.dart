@@ -11,7 +11,14 @@ import 'package:kursol/features/home/features/home_page.dart';
 import 'package:kursol/features/home/main_page.dart';
 import 'package:kursol/features/my_course/presentation/pages/completed_course_page.dart';
 import 'package:kursol/features/profile/features/edit_profile/edit_profile_page.dart';
+import 'package:kursol/features/profile/features/help_center/profile_help_center_page.dart';
+import 'package:kursol/features/profile/features/invite_friends/profile_invite_friends_page.dart';
+import 'package:kursol/features/profile/features/language/profile_language_page.dart';
 import 'package:kursol/features/profile/features/notification/profile_notification_page.dart';
+import 'package:kursol/features/profile/features/payment/payment_add_new_card_page.dart';
+import 'package:kursol/features/profile/features/payment/profile_payment_page.dart';
+import 'package:kursol/features/profile/features/privacy_policy/profile_policy_page.dart';
+import 'package:kursol/features/profile/features/security/profile_security_page.dart';
 import 'package:kursol/features/profile/profile_page.dart';
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
@@ -65,6 +72,14 @@ final GoRouter appRouter = GoRouter(
           name: RouteNames.transactions,
           parentNavigatorKey: _shellNavigatorKey,
           builder: (context, state) => const TransactionsPage(),
+          routes: <RouteBase>[
+            GoRoute(
+              path: RoutePaths.eReceipt,
+              name: RouteNames.eReceipt,
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const EReceiptPage(),
+            ),
+          ]
         ),
 
         // *   Profile
@@ -88,6 +103,57 @@ final GoRouter appRouter = GoRouter(
               parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) => const ProfileNotificationPage(),
             ),
+            // * Profile Payment
+            GoRoute(
+              path: RoutePaths.profilePayment,
+              name: RouteNames.profilePayment,
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const ProfilePaymentPage(),
+              routes: <RouteBase>[
+                // * Payment Add New Card
+                GoRoute(
+                  path: RoutePaths.paymentAddNewCard,
+                  name: RouteNames.paymentAddNewCard,
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => const PaymentAddNewCardPage(),
+                ),
+              ],
+            ),
+            // * Security
+            GoRoute(
+              path: RoutePaths.profileSecurity,
+              name: RouteNames.profileSecurity,
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const ProfileSecurityPage(),
+            ),
+            // * Language
+            GoRoute(
+              path: RoutePaths.profileLanguage,
+              name: RouteNames.profileLanguage,
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const ProfileLanguagePage(),
+            ),
+            // * Privacy Policy
+            GoRoute(
+              path: RoutePaths.profilePrivacy,
+              name: RouteNames.profilePrivacy,
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const ProfilePrivacyPage(),
+            ),
+            // * Help Center
+            GoRoute(
+              path: RoutePaths.profileHelpCenter,
+              name: RouteNames.profileHelpCenter,
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const ProfileHelpCenterPage(),
+            ),
+            // * Invite Friends
+            GoRoute(
+              path: RoutePaths.profileInviteFriends,
+              name: RouteNames.profileInviteFriends,
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const ProfileInviteFriendsPage(),
+            ),
           ],
         ),
       ],
@@ -102,11 +168,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
 
-    GoRoute(
-      path: RoutePaths.eReceipt,
-      name: RouteNames.eReceipt,
-      builder: (context, state) => const EReceiptPage(),
-    ),
+
     GoRoute(
       path: RoutePaths.courseDetail,
       name: RouteNames.courseDetail,

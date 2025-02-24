@@ -1,4 +1,4 @@
-class RouteNames {
+abstract class RouteNames {
   static const String home = 'home';
   static const String main = 'main';
   static const String myCourse = 'myCourse';
@@ -10,9 +10,6 @@ class RouteNames {
   static const String mentorProfile = 'mentorProfile';
   static const String eReceipt = 'eReceipt';
   static const String completedCourses = 'completedCourses';
-  static const String profile = 'profile';
-  static const String editProfile = 'editProfile';
-  static const String notification = 'notification';
   static const String completedCourse = 'completedCourse';
   static const String fillYourProfile = 'fillYourProfile';
   static const String createNewPin = 'createNewPin';
@@ -23,4 +20,15 @@ class RouteNames {
 
 
 
+  // * Profile
+  static const String profile = 'profile';
+  static const String editProfile = 'editProfile';
+  static const String profilePayment = 'profilePayment';
+  static const String profileSecurity = 'profileSecurity';
+  static const String paymentAddNewCard = 'paymentAddNewCard';
+  static const String notification = 'notification';
+  static const String profileLanguage = 'profileLanguage';
+  static const String profilePrivacy = 'profilePrivacy';
+  static const String profileInviteFriends = 'profileInviteFriends';
+  static const String profileHelpCenter = 'profileHelpCenter';
 }
