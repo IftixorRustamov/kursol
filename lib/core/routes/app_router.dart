@@ -1,7 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/create_new_password.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/create_new_pin.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/fill_your_profile.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/finger_print.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/forgot_password.dart';
+import 'package:kursol/features/auth/profile/presentation/pages/send_code_forgot_password.dart';
+import 'package:kursol/features/home/features/bookmark/bookmark_page.dart';
+import 'package:kursol/features/home/features/courses/popular_courses.dart';
 import 'package:kursol/features/home/features/home_page.dart';
+import 'package:kursol/features/home/features/mentors/mentors_page.dart';
+import 'package:kursol/features/home/features/notification/notification_page.dart';
 import 'package:kursol/features/home/main_page.dart';
 import 'package:kursol/features/my_course/presentation/pages/completed_course_page.dart';
 import 'package:kursol/features/profile/features/edit_profile/edit_profile_page.dart';
@@ -47,11 +57,40 @@ final GoRouter appRouter = GoRouter(
       routes: [
         // * home
         GoRoute(
-          path: RoutePaths.home,
-          name: RouteNames.home,
-          parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => HomePage(),
-        ),
+            path: RoutePaths.home,
+            name: RouteNames.home,
+            parentNavigatorKey: _shellNavigatorKey,
+            builder: (context, state) => HomePage(),
+            routes: <RouteBase>[
+              // * Notification
+              GoRoute(
+                path: RoutePaths.homeNotification,
+                name: RouteNames.homeNotification,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const NotificationPage(),
+              ),
+              // * Bookmark
+              GoRoute(
+                path: RoutePaths.homeBookmark,
+                name: RouteNames.homeBookmark,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const BookmarkPage(),
+              ),
+              // * Mentors
+              GoRoute(
+                path: RoutePaths.homeMentors,
+                name: RouteNames.homeMentors,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const MentorsPage(),
+              ),
+              // * Courses
+              GoRoute(
+                path: RoutePaths.homePopularCourses,
+                name: RouteNames.homePopularCourses,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const PopularCourses(),
+              ),
+            ]),
         // * Inbox
         GoRoute(
           path: RoutePaths.inbox,
@@ -70,19 +109,18 @@ final GoRouter appRouter = GoRouter(
 
         // * Transactions
         GoRoute(
-          path: RoutePaths.transactions,
-          name: RouteNames.transactions,
-          parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => const TransactionsPage(),
-          routes: <RouteBase>[
-            GoRoute(
-              path: RoutePaths.eReceipt,
-              name: RouteNames.eReceipt,
-              parentNavigatorKey: _rootNavigatorKey,
-              builder: (context, state) => const EReceiptPage(),
-            ),
-          ]
-        ),
+            path: RoutePaths.transactions,
+            name: RouteNames.transactions,
+            parentNavigatorKey: _shellNavigatorKey,
+            builder: (context, state) => const TransactionsPage(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: RoutePaths.eReceipt,
+                name: RouteNames.eReceipt,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const EReceiptPage(),
+              ),
+            ]),
 
         // *   Profile
         GoRoute(
@@ -200,7 +238,6 @@ final GoRouter appRouter = GoRouter(
       name: RouteNames.signin,
       builder: (context, state) => const SignInScreen(),
     ),
-
 
     GoRoute(
       path: RoutePaths.courseDetail,

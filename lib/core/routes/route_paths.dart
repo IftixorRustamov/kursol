@@ -17,6 +17,12 @@ abstract class RoutePaths {
   static const String completedCourses = '/completed-courses';
   static const String completedCourse = '/completed-course/:id';
 
+  // * home
+  static const String homeNotification = '/home-notification';
+  static const String homeBookmark = '/home-bookmark';
+  static const String homeMentors = '/home-mentors';
+  static const String homePopularCourses = '/home-popular-courses';
+
   // * Profile
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';

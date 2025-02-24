@@ -24,6 +24,12 @@ abstract class RouteNames {
   static const String sendCodeForgotPassword = 'sendCodeForgotPassword';
   static const String createNewPassword = 'createNewPassword';
 
+  // * Home
+  static const String homeNotification = 'homeNotification';
+  static const String homeBookmark = 'homeBookmark';
+  static const String homeMentors = 'homeMentors';
+  static const String homePopularCourses = 'homePopularCourses';
+
   // * Profile
   static const String profile = 'profile';
   static const String editProfile = 'editProfile';

@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           children: [
             CircleAvatar(
-              radius: 30,
+              radius: appH(30),
               backgroundImage: AssetImage('assets/images/boy.png'),
             ),
             SizedBox(width: appW(10)),
@@ -65,29 +65,22 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            const Spacer(),
-            IconButton(
-              icon: Icon(IconlyLight.notification, size: appH(28)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const NotificationPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: Icon(IconlyLight.bookmark, size: appH(28)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const BookmarkPage()),
-                );
-              },
-            ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: Icon(IconlyLight.notification, size: appH(28)),
+            onPressed: () {
+              context.pushNamed(RouteNames.homeNotification);
+            },
+          ),
+          IconButton(
+            icon: Icon(IconlyLight.bookmark, size: appH(28)),
+            onPressed: () {
+              context.pushNamed(RouteNames.homeBookmark);
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: appW(16)),
@@ -172,12 +165,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MentorsPage(),
-                        ),
-                      );
+                      context.pushNamed(RouteNames.homeMentors);
                     },
                     child: Text(
                       "See All",
@@ -220,12 +208,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PopularCourses(),
-                        ),
-                      );
+                      context.pushNamed(RouteNames.homePopularCourses);
                     },
                     child: Text(
                       "See All",
