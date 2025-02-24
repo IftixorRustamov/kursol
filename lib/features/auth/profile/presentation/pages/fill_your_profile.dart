@@ -7,18 +7,15 @@ import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-
 import '../../../../../core/common/constants/colors/app_colors.dart';
 import '../../../../../core/common/constants/strings/strings.dart';
 import '../../../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
-import '../../../../../core/common/widgets/default_button.dart';
+import '../../../../../core/common/widgets/default_button_wg.dart';
 import '../../../../../core/routes/route_paths.dart';
 import '../../../../../core/utils/responsiveness/app_responsive.dart';
 import '../../../../../core/utils/textstyles/app_textstyles.dart';
 import '../widgets/build_date_field.dart';
 import '../widgets/build_text_field.dart';
-
-
 
 class FillProfilePage extends StatefulWidget {
   @override
@@ -31,6 +28,7 @@ class _FillProfilePageState extends State<FillProfilePage> {
   List<String> genders = ['Male', 'Female', 'Other'];
   File? _image;
   final ImagePicker _picker = ImagePicker();
+
   Future<void> _pickImage(ImageSource source) async {
     try {
       final pickedFile = await _picker.pickImage(source: source);
@@ -43,6 +41,7 @@ class _FillProfilePageState extends State<FillProfilePage> {
       print("Image picker error: $e");
     }
   }
+
   void showImagePickerOptions() {
     showModalBottomSheet(
       context: context,
@@ -74,29 +73,25 @@ class _FillProfilePageState extends State<FillProfilePage> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: ActionAppBarWg(
-        onBackPressed: () {
-
-        },
-
+        onBackPressed: () {},
         titleText: AppStrings.fillYourProfile,
       ),
       body: SingleChildScrollView(
-
         child: Padding(
-          padding: const EdgeInsets.only(left: 24, right: 24 , bottom: 48),
+          padding: const EdgeInsets.only(left: 24, right: 24, bottom: 48),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: appH(20),
             children: [
-
               SizedBox(height: 20),
               Stack(
                 children: [
                   CircleAvatar(
                     radius: appH(70),
                     backgroundColor: Colors.grey[300],
-                    backgroundImage: _image != null ? FileImage(_image!) : AssetImage("assets/images/empty_profile.png"),
-
+                    backgroundImage: _image != null
+                        ? FileImage(_image!)
+                        : AssetImage("assets/images/empty_profile.png"),
                   ),
                   Positioned(
                     bottom: 0,
@@ -112,10 +107,9 @@ class _FillProfilePageState extends State<FillProfilePage> {
                   ),
                 ],
               ),
-
               buildTextField("Full Name"),
               buildTextField("Nickname"),
-              buildDateField(_dateController,context),
+              buildDateField(_dateController, context),
               buildTextField("Email", suffixIcon: IconlyLight.message),
               IntlPhoneField(
                 showDropdownIcon: false,
@@ -125,14 +119,13 @@ class _FillProfilePageState extends State<FillProfilePage> {
                     color: AppColors.greyScale.grey500,
                     fontSize: 14,
                   ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                   filled: true,
                   fillColor: AppColors.greyScale.grey50,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none
-                  ),
+                      borderSide: BorderSide.none),
                 ),
                 style: AppTextStyles.urbanist.semiBold(
                   color: AppColors.greyScale.grey900,
@@ -141,20 +134,17 @@ class _FillProfilePageState extends State<FillProfilePage> {
                 initialCountryCode: 'US',
               ),
               _buildGenderDropdown(),
-
-              DefaultButtonWg(title: AppStrings.profileContinue, onPressed: () {
-                context.go(RoutePaths.createNewPin);
-              }),
+              DefaultButtonWg(
+                  title: AppStrings.profileContinue,
+                  onPressed: () {
+                    context.go(RoutePaths.createNewPin);
+                  }),
             ],
           ),
         ),
       ),
     );
   }
-
-
-
-
 
   Widget _buildGenderDropdown() {
     return Padding(
@@ -173,13 +163,12 @@ class _FillProfilePageState extends State<FillProfilePage> {
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,
           ),
-
         ),
         value: selectedGender,
         alignment: AlignmentDirectional.center,
         dropdownColor: AppColors.greyScale.grey50,
-        icon: Icon(Icons.keyboard_arrow_down, color: AppColors.greyScale.grey600),
-
+        icon:
+            Icon(Icons.keyboard_arrow_down, color: AppColors.greyScale.grey600),
         items: genders.map((String gender) {
           return DropdownMenuItem<String>(
             value: gender,
@@ -192,7 +181,6 @@ class _FillProfilePageState extends State<FillProfilePage> {
             ),
           );
         }).toList(),
-
         onChanged: (String? newValue) {
           setState(() {
             selectedGender = newValue;
@@ -201,5 +189,4 @@ class _FillProfilePageState extends State<FillProfilePage> {
       ),
     );
   }
-
 }

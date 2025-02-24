@@ -79,6 +79,7 @@ class _PopularCoursesState extends State<PopularCourses> {
                 itemCount: 8,
                 itemBuilder: (context, index) {
                   return CourseCard(
+                    onTap: (){},
                     imagePath: 'assets/images/Rectangle2.png',
                     category: 'Entrepreneurship',
                     title: 'Digital Entrepreneur...',

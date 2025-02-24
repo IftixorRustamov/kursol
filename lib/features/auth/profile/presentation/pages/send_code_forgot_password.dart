@@ -5,7 +5,7 @@ import 'package:kursol/core/routes/route_paths.dart';
 import '../../../../../core/common/constants/colors/app_colors.dart';
 import '../../../../../core/common/constants/strings/strings.dart';
 import '../../../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
-import '../../../../../core/common/widgets/default_button.dart';
+import '../../../../../core/common/widgets/default_button_wg.dart';
 import '../../../../../core/utils/responsiveness/app_responsive.dart';
 import '../../../../../core/utils/textstyles/app_textstyles.dart';
 

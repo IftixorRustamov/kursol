@@ -78,6 +78,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                 itemCount: 8,
                 itemBuilder: (context, index) {
                   return CourseCard(
+                    onTap: (){},
                     imagePath: 'assets/images/Rectangle2.png',
                     category: 'Entrepreneurship',
                     title: 'Digital Entrepreneur...',
@@ -126,6 +127,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
               SizedBox(height: appH(10)),
               Divider(thickness: 1, color: AppColors.greyScale.grey200),
               CourseCard(
+                onTap: (){},
                 imagePath: 'assets/images/Rectangle2.png',
                 category: 'Entrepreneurship',
                 title: 'Digital Entrepreneur...',

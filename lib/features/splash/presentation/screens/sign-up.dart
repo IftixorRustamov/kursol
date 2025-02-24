@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kursol/core/routes/route_paths.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -103,7 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   onPressed: () {
-                    context.go("/home");
+                    context.go(RoutePaths.fillYourProfile);
                   },
                   child: Text(
                     "Sign up",

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kursol/core/common/common.dart';
+import 'package:kursol/core/routes/route_paths.dart';
+import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -61,7 +64,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
@@ -71,7 +73,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -95,7 +96,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ],
                 ),
-
                 FilledButton(
                   style: FilledButton.styleFrom(
                     backgroundColor: Color(0xff335EF7),
@@ -114,10 +114,18 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ],
             ),
-
             SizedBox(height: 10),
             Column(
               children: [
+                TextButton(
+                    onPressed: () {
+                      context.go(RoutePaths.forgotPassword);
+                    },
+                    child: Text(
+                      "Forgot the password?",
+                      style: AppTextStyles.urbanist.semiBold(
+                          color: AppColors.primary.blue500, fontSize: 16),
+                    )),
                 Row(
                   spacing: 20,
                   children: [

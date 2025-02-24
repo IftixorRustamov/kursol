@@ -58,7 +58,6 @@ class CourseDetailPage extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(appH(18)),
-
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: isDarkMode ? AppColors.background.dark : Colors.white,

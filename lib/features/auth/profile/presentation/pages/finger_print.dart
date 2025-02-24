@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../../../../core/common/constants/colors/app_colors.dart';
 import '../../../../../core/common/constants/strings/strings.dart';
 import '../../../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
-import '../../../../../core/common/widgets/default_button.dart';
+import '../../../../../core/common/widgets/default_button_wg.dart';
 import '../../../../../core/routes/route_paths.dart';
 import '../../../../../core/utils/responsiveness/app_responsive.dart';
 import '../../../../../core/utils/textstyles/app_textstyles.dart';
@@ -38,7 +37,6 @@ class _FingerprintState extends State<Fingerprint> {
     });
   }
 
-
   Future<void> _authenticate() async {
     if (!_isAvailable) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -51,7 +49,6 @@ class _FingerprintState extends State<Fingerprint> {
     }
 
     try {
-
       bool authenticated = await auth.authenticate(
         localizedReason: 'Iltimos, barmog‘ingizni skanerga qo‘ying.',
         options: const AuthenticationOptions(
@@ -61,18 +58,18 @@ class _FingerprintState extends State<Fingerprint> {
       );
 
       if (!mounted) return;
-      if(authenticated == true){
+      if (authenticated == true) {
         showSuccessDialog(context);
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(authenticated ? "Fingerprint tasdiqlandi!" : "Tasdiqlash muvaffaqiyatsiz."),
+          content: Text(authenticated
+              ? "Fingerprint tasdiqlandi!"
+              : "Tasdiqlash muvaffaqiyatsiz."),
           backgroundColor: authenticated ? Colors.green : Colors.red,
-
         ),
       );
     } catch (e) {
-
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -92,7 +89,6 @@ class _FingerprintState extends State<Fingerprint> {
         onBackPressed: () {
           context.go(RoutePaths.createNewPin);
         },
-
         titleText: AppStrings.setYourFingerprint,
       ),
       body: Padding(
@@ -102,35 +98,49 @@ class _FingerprintState extends State<Fingerprint> {
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: appH(76),
           children: [
-             Text(AppStrings.addFingerPrint ,
+            Text(
+              AppStrings.addFingerPrint,
               textAlign: TextAlign.center,
-              style: AppTextStyles.urbanist.regular(color: AppColors.greyScale.grey900, fontSize: 18),
+              style: AppTextStyles.urbanist
+                  .regular(color: AppColors.greyScale.grey900, fontSize: 18),
             ),
-
-            Image.asset("assets/images/fingerprint.png", height: appH(236) , width: appW(228),),
-
-             Text(
+            Image.asset(
+              "assets/images/fingerprint.png",
+              height: appH(236),
+              width: appW(228),
+            ),
+            Text(
               "Please put your finger on the fingerprint scanner to get started.",
               textAlign: TextAlign.center,
-              style:AppTextStyles.urbanist.regular(color: AppColors.greyScale.grey900, fontSize: 18),
+              style: AppTextStyles.urbanist
+                  .regular(color: AppColors.greyScale.grey900, fontSize: 18),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary.blue100,
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary.blue100,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 18),
+                    ),
+                    onPressed: () => context.go(RoutePaths.home),
+                    child: Text("Skip",
+                        style: AppTextStyles.urbanist.bold(
+                            color: AppColors.primary.blue500, fontSize: 16)),
                   ),
-                  onPressed: () => context.go(RoutePaths.home),
-                  child:  Text("Skip", style:AppTextStyles.urbanist.bold(color: AppColors.primary.blue500, fontSize:16 )),
-                ),),
+                ),
                 SizedBox(
                   width: appW(12),
                 ),
-               Expanded(child: DefaultButtonWg(title: AppStrings.profileContinue, onPressed: () {
-                 _authenticate();
-               }),)
+                Expanded(
+                  child: DefaultButtonWg(
+                      title: AppStrings.profileContinue,
+                      onPressed: () {
+                        _authenticate();
+                      }),
+                )
               ],
             ),
           ],

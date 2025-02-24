@@ -14,6 +14,7 @@ class CourseCard extends StatefulWidget {
   final double rating;
   final int students;
   final VoidCallback onBookmarkPressed;
+  final VoidCallback onTap;
 
   const CourseCard({
     super.key,
@@ -25,6 +26,7 @@ class CourseCard extends StatefulWidget {
     required this.rating,
     required this.students,
     required this.onBookmarkPressed,
+    required this.onTap,
   });
 
   @override
@@ -62,85 +64,88 @@ class _CourseCardState extends State<CourseCard> {
             ),
           ),
           SizedBox(width: appH(16)),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: appW(12),
-                        vertical: appH(4),
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffEFF3FF),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        widget.category,
-                        style: UrbanistTextStyles().bold(
-                          color: AppColors.primary.blue500,
-                          fontSize: 14,
+          GestureDetector(
+            onTap: widget.onTap,
+            child: Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: appW(12),
+                          vertical: appH(4),
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffEFF3FF),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          widget.category,
+                          style: UrbanistTextStyles().bold(
+                            color: AppColors.primary.blue500,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: toggleBookmark,
-                      // Toggle bookmark state on press
-                      icon: Icon(
-                        isBookmarked
-                            ? IconlyBold.bookmark
-                            : IconlyLight.bookmark,
-                        // Default to bookmark.png
-                        color: AppColors.primary.blue500,
+                      IconButton(
+                        onPressed: toggleBookmark,
+                        // Toggle bookmark state on press
+                        icon: Icon(
+                          isBookmarked
+                              ? IconlyBold.bookmark
+                              : IconlyLight.bookmark,
+                          // Default to bookmark.png
+                          color: AppColors.primary.blue500,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Text(
-                  widget.title,
-                  style: UrbanistTextStyles().bold(
-                    fontSize: 18,
-                    color: AppColors.greyScale.grey900,
+                    ],
                   ),
-                ),
-                SizedBox(height: appH(7)),
-                Row(
-                  children: [
-                    Text(
-                      "\$${widget.price}",
-                      style: UrbanistTextStyles().bold(
-                        color: AppColors.primary.blue500,
-                        fontSize: 18,
-                      ),
+                  Text(
+                    widget.title,
+                    style: UrbanistTextStyles().bold(
+                      fontSize: 18,
+                      color: AppColors.greyScale.grey900,
                     ),
-                    SizedBox(width: appW(8)),
-                    Text(
-                      "\$${widget.oldPrice}",
-                      style: TextStyle(
-                        fontSize: appH(12),
-                        decoration: TextDecoration.lineThrough,
+                  ),
+                  SizedBox(height: appH(7)),
+                  Row(
+                    children: [
+                      Text(
+                        "\$${widget.price}",
+                        style: UrbanistTextStyles().bold(
+                          color: AppColors.primary.blue500,
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: appH(5)),
-                Row(
-                  children: [
-                    Icon(IconlyBold.star, color: Color(0xffFB9400)),
-                    SizedBox(width: appW(4)),
-                    Text(
-                      '${widget.rating}  |  ${widget.students} students',
-                      style: UrbanistTextStyles().medium(
-                        fontSize: 12,
-                        color: AppColors.greyScale.grey700,
+                      SizedBox(width: appW(8)),
+                      Text(
+                        "\$${widget.oldPrice}",
+                        style: TextStyle(
+                          fontSize: appH(12),
+                          decoration: TextDecoration.lineThrough,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  SizedBox(height: appH(5)),
+                  Row(
+                    children: [
+                      Icon(IconlyBold.star, color: Color(0xffFB9400)),
+                      SizedBox(width: appW(4)),
+                      Text(
+                        '${widget.rating}  |  ${widget.students} students',
+                        style: UrbanistTextStyles().medium(
+                          fontSize: 12,
+                          color: AppColors.greyScale.grey700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
