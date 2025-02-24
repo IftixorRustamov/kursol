@@ -1,6 +1,11 @@
 abstract class RoutePaths {
   static const String main = '/main';
   static const String home = '/home';
+  static const String splash = '/splash';
+  static const String auth = '/auth';
+  static const String signup = '/sign-up';
+  static const String signin = '/sign-in';
+  static const String onboarding = '/onboarding';
   static const String myCourse = '/my-course';
   static const String inbox = '/inbox';
   static const String transactions = '/transactions';
@@ -11,7 +16,6 @@ abstract class RoutePaths {
   static const String eReceipt = '/e-receipt';
   static const String completedCourses = '/completed-courses';
   static const String completedCourse = '/completed-course/:id';
-
 
   // * Profile
   static const String profile = '/profile';

@@ -20,6 +20,7 @@ import 'package:kursol/features/profile/features/payment/profile_payment_page.da
 import 'package:kursol/features/profile/features/privacy_policy/profile_policy_page.dart';
 import 'package:kursol/features/profile/features/security/profile_security_page.dart';
 import 'package:kursol/features/profile/profile_page.dart';
+import 'package:kursol/features/splash/splash.dart';
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
 import '../../features/course_details/presentation/pages/course_details_page.dart';
@@ -36,7 +37,8 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   observers: [MyNavigatorObserver()],
-  initialLocation: RoutePaths.forgotPassword,
+  initialLocation: RoutePaths.splash,
+
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -49,7 +51,6 @@ final GoRouter appRouter = GoRouter(
           parentNavigatorKey: _shellNavigatorKey,
           builder: (context, state) => HomePage(),
         ),
-
         // * Inbox
         GoRoute(
           path: RoutePaths.inbox,
@@ -167,6 +168,37 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
+    // splash
+    GoRoute(
+      path: RoutePaths.splash,
+      name: RouteNames.splash,
+      builder: (context, state) => SplashScreen(),
+    ),
+    //onboarding
+    GoRoute(
+      path: RoutePaths.onboarding,
+      name: RouteNames.onboarding,
+      builder: (context, state) => OnboardingScreen(),
+    ),
+    //auth
+    GoRoute(
+      path: RoutePaths.auth,
+      name: RouteNames.auth,
+      builder: (context, state) => AuthScreen(),
+    ),
+
+    //signup
+    GoRoute(
+      path: RoutePaths.signup,
+      name: RouteNames.signup,
+      builder: (context, state) => SignUpScreen(),
+    ),
+    //signin
+    GoRoute(
+      path: RoutePaths.signin,
+      name: RouteNames.signin,
+      builder: (context, state) => SignInScreen(),
+    ),
 
 
     GoRoute(
