@@ -106,12 +106,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SearchPage(),
-                      ),
-                    );
+                    context.pushNamed(RouteNames.homeSearch);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

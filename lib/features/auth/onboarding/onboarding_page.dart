@@ -3,14 +3,15 @@ import 'package:go_router/go_router.dart';
 
 import '../widgets/boarding_widget.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+
+class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({super.key});
 
   @override
-  OnboardingScreenState createState() => OnboardingScreenState();
+  OnboardingPageState createState() => OnboardingPageState();
 }
 
-class OnboardingScreenState extends State<OnboardingScreen> {
+class OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 

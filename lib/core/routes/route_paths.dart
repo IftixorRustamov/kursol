@@ -22,6 +22,7 @@ abstract class RoutePaths {
   static const String homeBookmark = '/home-bookmark';
   static const String homeMentors = '/home-mentors';
   static const String homePopularCourses = '/home-popular-courses';
+  static const String homeSearch = '/home-search';
 
   // * Profile
   static const String profile = '/profile';

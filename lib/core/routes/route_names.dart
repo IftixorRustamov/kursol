@@ -29,6 +29,7 @@ abstract class RouteNames {
   static const String homeBookmark = 'homeBookmark';
   static const String homeMentors = 'homeMentors';
   static const String homePopularCourses = 'homePopularCourses';
+  static const String homeSearch = 'homeSearch';
 
   // * Profile
   static const String profile = 'profile';
