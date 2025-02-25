@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kursol/core/common/common.dart';
 import 'package:kursol/core/routes/route_paths.dart';
 import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
-import 'package:sign_in_button/sign_in_button.dart';
+
+import '../../../../core/common/constants/colors/app_colors.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

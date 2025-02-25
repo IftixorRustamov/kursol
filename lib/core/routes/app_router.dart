@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/create_new_password.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/create_new_pin.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/fill_your_profile.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/finger_print.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/forgot_password.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/send_code_forgot_password.dart';
 import 'package:kursol/features/home/features/bookmark/bookmark_page.dart';
 import 'package:kursol/features/home/features/courses/popular_courses.dart';
 import 'package:kursol/features/home/features/home_page.dart';

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import '../../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
+import '../../../../core/common/widgets/custom_choice_chip_wg.dart';
 import '../../../../core/utils/responsiveness/app_responsive.dart';
 import '../../../../core/utils/textstyles/urbanist_textstyles.dart';
 import '../widgets/course_card_widget.dart';
-import '../widgets/category_button_widget.dart';
 
 class BookmarkPage extends StatefulWidget {
   const BookmarkPage({super.key});
@@ -15,13 +15,14 @@ class BookmarkPage extends StatefulWidget {
 }
 
 class _BookmarkPageState extends State<BookmarkPage> {
-  String selectedCategory = "All";
+  int selectedIndex = 0;
 
-  void _onCategorySelected(String category) {
-    setState(() {
-      selectedCategory = category;
-    });
-  }
+  final List<String> options = [
+    '🔥 All',
+    '💡 3D Design',
+    '💰 Business',
+    '🎨 Design',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,36 +42,24 @@ class _BookmarkPageState extends State<BookmarkPage> {
         padding: EdgeInsets.symmetric(horizontal: appW(14)),
         child: Column(
           children: [
-            SizedBox(height: appH(10)),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CategoryButton(
-                    category: 'All',
-                    label: '🔥 All',
-                    onSelected: _onCategorySelected,
-                    selectedCategory: selectedCategory,
-                  ),
-                  CategoryButton(
-                    category: '3D Design',
-                    label: '💡 3D Design',
-                    onSelected: _onCategorySelected,
-                    selectedCategory: selectedCategory,
-                  ),
-                  CategoryButton(
-                    category: 'Business',
-                    label: '💰 Business',
-                    onSelected: _onCategorySelected,
-                    selectedCategory: selectedCategory,
-                  ),
-                  CategoryButton(
-                    category: 'Design',
-                    label: '🎨 Design',
-                    onSelected: _onCategorySelected,
-                    selectedCategory: selectedCategory,
-                  ),
-                ],
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: appH(45),
+              child: ListView.builder(
+                itemCount: options.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => CustomChoiceChipWg(
+                  index: index,
+                  label: options[index],
+                  selectedIndex: selectedIndex,
+                  onSelected: (selected) {
+                    setState(() {
+                      selectedIndex = selected ? index : selectedIndex;
+                    });
+                  },
+                ),
               ),
             ),
             Expanded(
@@ -78,7 +67,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                 itemCount: 8,
                 itemBuilder: (context, index) {
                   return CourseCard(
-                    onTap: (){},
+                    onTap: () {},
                     imagePath: 'assets/images/Rectangle2.png',
                     category: 'Entrepreneurship',
                     title: 'Digital Entrepreneur...',
@@ -127,7 +116,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
               SizedBox(height: appH(10)),
               Divider(thickness: 1, color: AppColors.greyScale.grey200),
               CourseCard(
-                onTap: (){},
+                onTap: () {},
                 imagePath: 'assets/images/Rectangle2.png',
                 category: 'Entrepreneurship',
                 title: 'Digital Entrepreneur...',

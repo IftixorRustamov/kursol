@@ -5,13 +5,9 @@ import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/routes/route_names.dart';
 import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 import 'package:kursol/features/home/features/search/search_page.dart';
-import 'package:kursol/features/home/features/widgets/category_button_widget.dart';
 import 'package:kursol/features/home/features/widgets/course_card_widget.dart';
+import '../../../core/common/widgets/custom_choice_chip_wg.dart';
 import '../../../core/utils/responsiveness/app_responsive.dart';
-import 'bookmark/bookmark_page.dart';
-import 'courses/popular_courses.dart';
-import 'mentors/mentors_page.dart';
-import 'notification/notification_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,13 +17,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String selectedCategory = "All";
+  int selectedIndex = 0;
 
-  void _onCategorySelected(String category) {
-    setState(() {
-      selectedCategory = category;
-    });
-  }
+  final List<String> options = [
+    '🔥 All',
+    '💡 3D Design',
+    '💰 Business',
+    '🎨 Design',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -221,35 +218,21 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(height: appH(10)),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    CategoryButton(
-                      category: 'All',
-                      label: '🔥 All',
-                      onSelected: _onCategorySelected,
-                      selectedCategory: selectedCategory,
-                    ),
-                    CategoryButton(
-                      category: '3D Design',
-                      label: '💡 3D Design',
-                      onSelected: _onCategorySelected,
-                      selectedCategory: selectedCategory,
-                    ),
-                    CategoryButton(
-                      category: 'Business',
-                      label: '💰 Business',
-                      onSelected: _onCategorySelected,
-                      selectedCategory: selectedCategory,
-                    ),
-                    CategoryButton(
-                      category: 'Design',
-                      label: '🎨 Design',
-                      onSelected: _onCategorySelected,
-                      selectedCategory: selectedCategory,
-                    ),
-                  ],
+              SizedBox(
+                height: appH(40),
+                child: ListView.builder(
+                  itemCount: options.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => CustomChoiceChipWg(
+                    index: index,
+                    label: options[index],
+                    selectedIndex: selectedIndex,
+                    onSelected: (selected) {
+                      setState(() {
+                        selectedIndex = selected ? index : selectedIndex;
+                      });
+                    },
+                  ),
                 ),
               ),
               SizedBox(height: appH(8)),
