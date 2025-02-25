@@ -36,8 +36,8 @@ class _MainPageState extends State<MainPage> {
     MyCustomBottomNavBarItem(
       icon: Icon(IconlyLight.chat),
       activeIcon: Icon(IconlyBold.chat),
-      label: AppStrings.inbox,
-      initialLocation: RoutePaths.inbox,
+      label: AppStrings.test,
+      initialLocation: RoutePaths.test,
     ),
     MyCustomBottomNavBarItem(
       icon: Icon(IconlyLight.buy),

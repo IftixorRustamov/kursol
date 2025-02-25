@@ -1,8 +1,21 @@
 // dynamic string lar qo'shilmasin
 
 abstract class AppStrings {
+  static const String rememberMe = "Remember me";
+
+  // * Auth
+  static const String loginToYourAccount = "Login to your Account";
+  static const String createYourAccount = "Create your Account";
+  static const String signIn = "Sign in";
+  static const String signUp = "Sign up";
+  static const String password = "Password";
+  static const String email = "Email";
+  static const String orContinueWith = "or continue with";
+  static const String dontHaveAccount = "Don’t have an account?";
+  static const String alreadyHaveAccount = "Already have an account?";
+
   static const String home = "Home";
-  static const String inbox = "Inbox";
+  static const String test = "Test";
   static const String transactions = "Transactions";
   static const String profile = "Profile";
   static const String myCourses = "My Courses";
@@ -28,16 +41,23 @@ abstract class AppStrings {
   static const String fillYourProfile = "Fill Your Profile";
   static const String profileContinue = "Continue";
   static const String createNewPin = "Create New PIN";
-  static const String addPinNumber = "Add a PIN number to make your account more secure.";
+  static const String addPinNumber =
+      "Add a PIN number to make your account more secure.";
   static const String setYourFingerprint = "Set Your Fingerprint";
-  static const String addFingerPrint = "Add a fingerprint to make your account more secure.";
+  static const String addFingerPrint =
+      "Add a fingerprint to make your account more secure.";
   static const String congratulations = "Congratulations!";
   static const String forgotPassword = "Forgot Password";
   static const String createNewPassword = "Create New Password";
-  static const String accountIsReady = "Your account is ready to use. You will be redirected to the Home page in a few seconds.";
-  static const String selectWhichContact = "Select which contact details should we use to reset your password";
+  static const String accountIsReady =
+      "Your account is ready to use. You will be redirected to the Home page in a few seconds.";
+  static const String selectWhichContact =
+      "Select which contact details should we use to reset your password";
   static const String writeReview = "Write Review";
   static const String downloadCertificate = "Download Certificate";
+  static const String avaibleTests = "Avaible Tests";
+  static const String completedTests = "Completed Tests";
+  static const String startTest = "Start Test";
 
   static const String pleaseLeaveReview =
       "Please leave a review for your course";
@@ -63,7 +83,6 @@ abstract class AppStrings {
   static const String cardName = "Card Name";
   static const String expiryDate = "Expiry Date";
   static const String cvv = "CVV";
-  static const String rememberMe = "Remember me";
   static const String faceId = "Face ID";
   static const String biometricId = "Biometric ID";
   static const String googleAuthenticator = "Google Authenticator";
@@ -84,4 +103,5 @@ abstract class AppStrings {
   static const String wantToLogOut = "Are you sure you want to log out?";
   static const String yesLogOut = "Yes, Logout";
   static const String cancel = "Cancel";
+  static const String search = "Search";
 }

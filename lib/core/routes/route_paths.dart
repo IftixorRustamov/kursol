@@ -7,7 +7,10 @@ abstract class RoutePaths {
   static const String signin = '/sign-in';
   static const String onboarding = '/onboarding';
   static const String myCourse = '/my-course';
-  static const String inbox = '/inbox';
+  static const String test = '/test';
+  static const String testDetail = '/testDetail';
+  static const String testSolving = '/test-solving';
+  static const String testResult = '/test-result';
   static const String transactions = '/transactions';
   static const String courseDetail = '/course-detail/:id';
   static const String videoPlayer = '/video-player';
@@ -16,6 +19,14 @@ abstract class RoutePaths {
   static const String eReceipt = '/e-receipt';
   static const String completedCourses = '/completed-courses';
   static const String completedCourse = '/completed-course/:id';
+
+
+  // * home
+  static const String homeNotification = '/home-notification';
+  static const String homeBookmark = '/home-bookmark';
+  static const String homeMentors = '/home-mentors';
+  static const String homePopularCourses = '/home-popular-courses';
+  static const String homeSearch = '/home-search';
 
   // * Profile
   static const String profile = '/profile';

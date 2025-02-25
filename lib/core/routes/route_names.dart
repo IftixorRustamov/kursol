@@ -8,7 +8,10 @@ abstract class RouteNames {
   static const String onboarding = 'onboarding';
   static const String main = 'main';
   static const String myCourse = 'myCourse';
-  static const String inbox = 'inbox';
+  static const String test = 'test';
+  static const String testDetail = 'testDetail';
+  static const String testSolving = 'testSolving';
+  static const String testResult = 'testResult';
   static const String transactions = 'transactions';
   static const String videoPlayer = 'videoPlayer';
   static const String courseDetails = 'courseDetails';
@@ -23,6 +26,14 @@ abstract class RouteNames {
   static const String forgotPassword = 'forgotPassword';
   static const String sendCodeForgotPassword = 'sendCodeForgotPassword';
   static const String createNewPassword = 'createNewPassword';
+
+
+  // * Home
+  static const String homeNotification = 'homeNotification';
+  static const String homeBookmark = 'homeBookmark';
+  static const String homeMentors = 'homeMentors';
+  static const String homePopularCourses = 'homePopularCourses';
+  static const String homeSearch = 'homeSearch';
 
   // * Profile
   static const String profile = 'profile';

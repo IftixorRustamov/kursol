@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/create_new_password.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/create_new_pin.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/fill_your_profile.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/finger_print.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/forgot_password.dart';
-import 'package:kursol/features/auth/profile/presentation/pages/send_code_forgot_password.dart';
+import 'package:kursol/features/auth/auth_page.dart';
+import 'package:kursol/features/auth/onboarding/onboarding_page.dart';
+import 'package:kursol/features/auth/sign_in/sign_in_page.dart';
+import 'package:kursol/features/auth/sign_up/sign_up_page.dart';
+import 'package:kursol/features/auth/splash/splash_page.dart';
+import 'package:kursol/features/home/features/bookmark/bookmark_page.dart';
+import 'package:kursol/features/home/features/courses/popular_courses.dart';
 import 'package:kursol/features/home/features/home_page.dart';
+import 'package:kursol/features/home/features/mentors/mentors_page.dart';
+import 'package:kursol/features/home/features/notification/notification_page.dart';
+import 'package:kursol/features/home/features/search/search_page.dart';
 import 'package:kursol/features/home/main_page.dart';
 import 'package:kursol/features/my_course/presentation/pages/completed_course_page.dart';
 import 'package:kursol/features/profile/features/edit_profile/edit_profile_page.dart';
@@ -20,9 +24,19 @@ import 'package:kursol/features/profile/features/payment/profile_payment_page.da
 import 'package:kursol/features/profile/features/privacy_policy/profile_policy_page.dart';
 import 'package:kursol/features/profile/features/security/profile_security_page.dart';
 import 'package:kursol/features/profile/profile_page.dart';
-import 'package:kursol/features/splash/splash.dart';
+import 'package:kursol/features/test/presentation/test_detail_page.dart';
+import 'package:kursol/features/test/presentation/test_page.dart';
+import 'package:kursol/features/test/presentation/test_result_page.dart';
+import 'package:kursol/features/test/presentation/test_solving_page.dart';
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
+import '../../features/auth/forget_reset_password/pages/create_new_password.dart';
+import '../../features/auth/forget_reset_password/pages/forgot_password.dart';
+import '../../features/auth/forget_reset_password/pages/send_code_forgot_password.dart';
+
+import '../../features/auth/profile/pages/create_new_pin.dart';
+import '../../features/auth/profile/pages/fill_your_profile.dart';
+import '../../features/auth/profile/pages/finger_print.dart';
 import '../../features/course_details/presentation/pages/course_details_page.dart';
 import '../../features/course_details/presentation/pages/mentor_profile.dart';
 import '../../features/my_course/presentation/pages/my_course_page.dart';
@@ -37,26 +51,92 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   observers: [MyNavigatorObserver()],
-  initialLocation: RoutePaths.splash,
-
+  initialLocation: RoutePaths.home,
   routes: [
+    // *  Splash
+    GoRoute(
+      path: RoutePaths.splash,
+      name: RouteNames.splash,
+      builder: (context, state) => const SplashPage(),
+    ),
+    // * Onboarding
+    GoRoute(
+      path: RoutePaths.onboarding,
+      name: RouteNames.onboarding,
+      builder: (context, state) => const OnboardingPage(),
+    ),
+    // * Auth
+    GoRoute(
+      path: RoutePaths.auth,
+      name: RouteNames.auth,
+      builder: (context, state) => const AuthPage(),
+    ),
+    // * SignUp
+    GoRoute(
+      path: RoutePaths.signup,
+      name: RouteNames.signup,
+      builder: (context, state) => const SignUpPage(),
+    ),
+    // * SignIn
+    GoRoute(
+      path: RoutePaths.signin,
+      name: RouteNames.signin,
+      builder: (context, state) => const SignInPage(),
+    ),
+
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => MainPage(child: child),
       routes: [
         // * home
         GoRoute(
-          path: RoutePaths.home,
-          name: RouteNames.home,
-          parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => HomePage(),
-        ),
+            path: RoutePaths.home,
+            name: RouteNames.home,
+            parentNavigatorKey: _shellNavigatorKey,
+            builder: (context, state) => HomePage(),
+            routes: <RouteBase>[
+              // * Notification
+              GoRoute(
+                path: RoutePaths.homeNotification,
+                name: RouteNames.homeNotification,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const NotificationPage(),
+              ),
+              // * Bookmark
+              GoRoute(
+                path: RoutePaths.homeBookmark,
+                name: RouteNames.homeBookmark,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const BookmarkPage(),
+              ),
+              // * Mentors
+              GoRoute(
+                path: RoutePaths.homeMentors,
+                name: RouteNames.homeMentors,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const MentorsPage(),
+              ),
+              // * Courses
+              GoRoute(
+                path: RoutePaths.homePopularCourses,
+                name: RouteNames.homePopularCourses,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const PopularCourses(),
+              ),
+              // * Search
+              GoRoute(
+                path: RoutePaths.homeSearch,
+                name: RouteNames.homeSearch,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const SearchPage(),
+              ),
+            ]),
         // * Inbox
         GoRoute(
-          path: RoutePaths.inbox,
-          name: RouteNames.inbox,
+          path: RoutePaths.test,
+          name: RouteNames.test,
           parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => const MyCoursePage(),
+          builder: (context, state) => const TestPage(),
         ),
 
         // * My Course
@@ -69,19 +149,18 @@ final GoRouter appRouter = GoRouter(
 
         // * Transactions
         GoRoute(
-          path: RoutePaths.transactions,
-          name: RouteNames.transactions,
-          parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => const TransactionsPage(),
-          routes: <RouteBase>[
-            GoRoute(
-              path: RoutePaths.eReceipt,
-              name: RouteNames.eReceipt,
-              parentNavigatorKey: _rootNavigatorKey,
-              builder: (context, state) => const EReceiptPage(),
-            ),
-          ]
-        ),
+            path: RoutePaths.transactions,
+            name: RouteNames.transactions,
+            parentNavigatorKey: _shellNavigatorKey,
+            builder: (context, state) => const TransactionsPage(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: RoutePaths.eReceipt,
+                name: RouteNames.eReceipt,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => const EReceiptPage(),
+              ),
+            ]),
 
         // *   Profile
         GoRoute(
@@ -159,6 +238,40 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+
+    GoRoute(
+      path: RoutePaths.testDetail,
+      name: RouteNames.testDetail,
+
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>?;
+        final testTitle = args?['testTitle'] ?? 'Unknown Test';
+        return TestDetailPage(testTitle: testTitle);
+      },
+    ),
+
+    GoRoute(
+      path: '/test-solving',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>?;
+        final subject = args?['subject'] ?? 'Unknown Subject';
+        return TestSolvingPage(subject: subject);
+      },
+    ),
+    GoRoute(
+      path: '/test-result',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>? ?? {};
+        return TestResultPage(
+          testTitle: args['testTitle'] ?? 'Test Results',
+          testImage: args['testImage'] ?? '',
+          correctAnswers: args['correctAnswers'] ?? 0,
+          incorrectAnswers: args['incorrectAnswers'] ?? 0,
+          unanswered: args['unanswered'] ?? 0,
+        );
+      },
+    ),
+
     GoRoute(
       path: RoutePaths.completedCourse,
       name: RouteNames.completedCourse,
@@ -167,39 +280,6 @@ final GoRouter appRouter = GoRouter(
         return CompletedCoursePage(courseId: courseId);
       },
     ),
-
-    // splash
-    GoRoute(
-      path: RoutePaths.splash,
-      name: RouteNames.splash,
-      builder: (context, state) => SplashScreen(),
-    ),
-    //onboarding
-    GoRoute(
-      path: RoutePaths.onboarding,
-      name: RouteNames.onboarding,
-      builder: (context, state) => OnboardingScreen(),
-    ),
-    //auth
-    GoRoute(
-      path: RoutePaths.auth,
-      name: RouteNames.auth,
-      builder: (context, state) => AuthScreen(),
-    ),
-
-    //signup
-    GoRoute(
-      path: RoutePaths.signup,
-      name: RouteNames.signup,
-      builder: (context, state) => SignUpScreen(),
-    ),
-    //signin
-    GoRoute(
-      path: RoutePaths.signin,
-      name: RouteNames.signin,
-      builder: (context, state) => const SignInScreen(),
-    ),
-
 
     GoRoute(
       path: RoutePaths.courseDetail,
