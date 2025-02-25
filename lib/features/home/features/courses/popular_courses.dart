@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
+import '../../../../core/common/widgets/custom_choice_chip_wg.dart';
 import '../../../../core/utils/responsiveness/app_responsive.dart';
-import '../widgets/category_button_widget.dart';
 import '../widgets/course_card_widget.dart';
 
 class PopularCourses extends StatefulWidget {
@@ -14,13 +14,14 @@ class PopularCourses extends StatefulWidget {
 }
 
 class _PopularCoursesState extends State<PopularCourses> {
-  String selectedCategory = "All";
+  int selectedIndex = 0;
 
-  void _onCategorySelected(String category) {
-    setState(() {
-      selectedCategory = category;
-    });
-  }
+  final List<String> options = [
+    '🔥 All',
+    '💡 3D Design',
+    '💰 Business',
+    '🎨 Design',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,44 +43,32 @@ class _PopularCoursesState extends State<PopularCourses> {
           child: Column(
             children: [
               SizedBox(height: appH(10)),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    CategoryButton(
-                      category: 'All',
-                      label: '🔥 All',
-                      onSelected: _onCategorySelected,
-                      selectedCategory: selectedCategory,
-                    ),
-                    CategoryButton(
-                      category: '3D Design',
-                      label: '💡 3D Design',
-                      onSelected: _onCategorySelected,
-                      selectedCategory: selectedCategory,
-                    ),
-                    CategoryButton(
-                      category: 'Business',
-                      label: '💰 Business',
-                      onSelected: _onCategorySelected,
-                      selectedCategory: selectedCategory,
-                    ),
-                    CategoryButton(
-                      category: 'Design',
-                      label: '🎨 Design',
-                      onSelected: _onCategorySelected,
-                      selectedCategory: selectedCategory,
-                    ),
-                  ],
+              // ! Category check bar
+              SizedBox(
+                height: appH(40),
+                child: ListView.builder(
+                  itemCount: options.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => CustomChoiceChipWg(
+                    index: index,
+                    label: options[index],
+                    selectedIndex: selectedIndex,
+                    onSelected: (selected) {
+                      setState(() {
+                        selectedIndex = selected ? index : selectedIndex;
+                      });
+                    },
+                  ),
                 ),
               ),
+              // ! Category check bar
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: 8,
                 itemBuilder: (context, index) {
                   return CourseCard(
-                    onTap: (){},
+                    onTap: () {},
                     imagePath: 'assets/images/Rectangle2.png',
                     category: 'Entrepreneurship',
                     title: 'Digital Entrepreneur...',

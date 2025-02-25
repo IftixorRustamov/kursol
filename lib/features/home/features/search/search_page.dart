@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/features/home/features/search/search_result_body.dart';
 import 'package:kursol/features/home/features/search/search_history_body.dart';
-import 'package:kursol/features/home/features/widgets/rating_button.dart';
 import '../../../../core/common/constants/colors/app_colors.dart';
+import '../../../../core/common/widgets/custom_choice_chip_wg.dart';
 import '../../../../core/utils/responsiveness/app_responsive.dart';
 import '../../../../core/utils/textstyles/urbanist_textstyles.dart';
-import '../widgets/category_button_widget.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _SearchPageState createState() => _SearchPageState();
 }
 
@@ -21,9 +19,26 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController _controller = TextEditingController();
   bool _isFocused = false;
   String _query = "";
-  String selectedCategory = "All";
-  String selectedRating = "All";
   RangeValues _currentRangeValues = const RangeValues(40, 80);
+  int selectedIndex = 0;
+
+  final List<String> options = [
+    '🔥 All',
+    '💡 3D Design',
+    '💰 Business',
+    '🎨 Design',
+  ];
+
+  int selectedRatingIndex = 0;
+
+  final List<String> optionsRating = [
+    'All',
+    '5',
+    '4',
+    '3',
+    '2',
+    '1',
+  ];
 
   @override
   void dispose() {
@@ -50,16 +65,14 @@ class _SearchPageState extends State<SearchPage> {
         title: Container(
           height: appH(53),
           decoration: BoxDecoration(
-            color:
-                _isFocused
-                    ? const Color(0xffEFF3FF)
-                    : AppColors.greyScale.grey100,
+            color: _isFocused
+                ? const Color(0xffEFF3FF)
+                : AppColors.greyScale.grey100,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color:
-                  _isFocused
-                      ? AppColors.primary.blue500
-                      : AppColors.greyScale.grey100,
+              color: _isFocused
+                  ? AppColors.primary.blue500
+                  : AppColors.greyScale.grey100,
               width: 2,
             ),
           ),
@@ -111,10 +124,9 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-      body:
-          _query.isEmpty
-              ? SearchHistoryBody()
-              : SearchResultBody(query: _query),
+      body: _query.isEmpty
+          ? SearchHistoryBody()
+          : SearchResultBody(query: _query),
     );
   }
 
@@ -155,53 +167,25 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                     SizedBox(height: appH(15)),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          CategoryButton(
-                            category: 'All',
-                            label: '🔥 All',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedCategory = category;
-                              });
-                            },
-                            selectedCategory: selectedCategory,
-                          ),
-                          CategoryButton(
-                            category: '3D Design',
-                            label: '💡 3D Design',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedCategory = category;
-                              });
-                            },
-                            selectedCategory: selectedCategory,
-                          ),
-                          CategoryButton(
-                            category: 'Business',
-                            label: '💰 Business',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedCategory = category;
-                              });
-                            },
-                            selectedCategory: selectedCategory,
-                          ),
-                          CategoryButton(
-                            category: 'Design',
-                            label: '🎨 Design',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedCategory = category;
-                              });
-                            },
-                            selectedCategory: selectedCategory,
-                          ),
-                        ],
+                    // ! Category check bar
+                    SizedBox(
+                      height: appH(40),
+                      child: ListView.builder(
+                        itemCount: options.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => CustomChoiceChipWg(
+                          index: index,
+                          label: options[index],
+                          selectedIndex: selectedIndex,
+                          onSelected: (selected) {
+                            setModalState(() {
+                              selectedIndex = selected ? index : selectedIndex;
+                            });
+                          },
+                        ),
                       ),
                     ),
+                    // ! Category check bar
                     SizedBox(height: appH(15)),
                     Text(
                       'Price',
@@ -234,7 +218,7 @@ class _SearchPageState extends State<SearchPage> {
                         },
                       ),
                     ),
-                
+
                     // SizedBox(height: appH(10)),
                     Text(
                       'Rating',
@@ -244,73 +228,27 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                     SizedBox(height: appH(15)),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          RatingButton(
-                            category: 'All',
-                            label: 'All',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedRating = category;
-                              });
-                            },
-                            selectedCategory: selectedRating,
-                          ),
-                          RatingButton(
-                            category: '5',
-                            label: '5',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedRating = category;
-                              });
-                            },
-                            selectedCategory: selectedRating,
-                          ),
-                          RatingButton(
-                            category: '4',
-                            label: '4',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedRating = category;
-                              });
-                            },
-                            selectedCategory: selectedRating,
-                          ),
-                          RatingButton(
-                            category: '3',
-                            label: '3',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedRating = category;
-                              });
-                            },
-                            selectedCategory: selectedRating,
-                          ),
-                          RatingButton(
-                            category: '2',
-                            label: '2',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedRating = category;
-                              });
-                            },
-                            selectedCategory: selectedRating,
-                          ),
-                          RatingButton(
-                            category: '1',
-                            label: '1',
-                            onSelected: (category) {
-                              setModalState(() {
-                                selectedRating = category;
-                              });
-                            },
-                            selectedCategory: selectedRating,
-                          ),
-                        ],
+                    //! Rating check bar
+                    SizedBox(
+                      height: appH(40),
+                      child: ListView.builder(
+                        itemCount: optionsRating.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => CustomChoiceChipWg(
+                          showIcon: true,
+                          index: index,
+                          label: optionsRating[index],
+                          selectedIndex: selectedRatingIndex,
+                          onSelected: (selected) {
+                            setModalState(() {
+                              selectedRatingIndex =
+                                  selected ? index : selectedRatingIndex;
+                            });
+                          },
+                        ),
                       ),
                     ),
+                    //! Rating check bar
                     SizedBox(height: appH(10)),
                     Divider(thickness: 1, color: AppColors.greyScale.grey200),
                     SizedBox(height: appH(10)),
@@ -320,14 +258,15 @@ class _SearchPageState extends State<SearchPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               setModalState(() {
-                                selectedCategory = "All";
-                                selectedRating = 'All';
+                                selectedIndex = 0;
+                                selectedRatingIndex = 0;
                                 _currentRangeValues = RangeValues(1, 100);
                               });
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary.blue100,
-                              padding: EdgeInsets.symmetric(horizontal: appW(30)),
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: appW(30)),
                               minimumSize: const Size(0, 58),
                             ),
                             child: Text(
@@ -347,7 +286,8 @@ class _SearchPageState extends State<SearchPage> {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary.blue500,
-                              padding: EdgeInsets.symmetric(horizontal: appW(30)),
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: appW(30)),
                               minimumSize: const Size(0, 58),
                             ),
                             child: Text(
