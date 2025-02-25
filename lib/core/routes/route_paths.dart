@@ -7,7 +7,10 @@ abstract class RoutePaths {
   static const String signin = '/sign-in';
   static const String onboarding = '/onboarding';
   static const String myCourse = '/my-course';
-  static const String inbox = '/inbox';
+  static const String test = '/test';
+  static const String testDetail = '/testDetail';
+  static const String testSolving = '/test-solving';
+  static const String testResult = '/test-result';
   static const String transactions = '/transactions';
   static const String courseDetail = '/course-detail/:id';
   static const String videoPlayer = '/video-player';

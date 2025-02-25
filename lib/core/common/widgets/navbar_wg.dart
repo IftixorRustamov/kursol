@@ -51,7 +51,7 @@ class NavbarWidget extends StatelessWidget {
     final String location = GoRouterState.of(context).uri.toString();
     if (location == RouteNames.home) return 0;
     if (location == RouteNames.myCourse) return 1;
-    if (location == RouteNames.inbox) return 2;
+    if (location == RouteNames.test) return 2;
     if (location == RouteNames.transactions) return 3;
     if (location == RouteNames.profile) return 4;
     return 0;
@@ -66,7 +66,7 @@ class NavbarWidget extends StatelessWidget {
         context.go(RouteNames.myCourse);
         break;
       case 2:
-        context.go(RouteNames.inbox);
+        context.go(RouteNames.test);
         break;
       case 3:
         context.go(RouteNames.transactions);
