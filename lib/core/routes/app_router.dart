@@ -24,6 +24,12 @@ import 'package:kursol/features/profile/features/payment/profile_payment_page.da
 import 'package:kursol/features/profile/features/privacy_policy/profile_policy_page.dart';
 import 'package:kursol/features/profile/features/security/profile_security_page.dart';
 import 'package:kursol/features/profile/profile_page.dart';
+
+import 'package:kursol/features/test/presentation/test_detail_page.dart';
+import 'package:kursol/features/test/presentation/test_page.dart';
+import 'package:kursol/features/test/presentation/test_result_page.dart';
+import 'package:kursol/features/test/presentation/test_solving_page.dart';
+
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
 import '../../features/auth/forget_reset_password/pages/create_new_password.dart';
@@ -129,10 +135,10 @@ final GoRouter appRouter = GoRouter(
             ]),
         // * Inbox
         GoRoute(
-          path: RoutePaths.inbox,
-          name: RouteNames.inbox,
+          path: RoutePaths.test,
+          name: RouteNames.test,
           parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => const MyCoursePage(),
+          builder: (context, state) => const TestPage(),
         ),
 
         // * My Course
@@ -234,6 +240,41 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+
+    GoRoute(
+      path: RoutePaths.testDetail,
+      name: RouteNames.testDetail,
+
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>?;
+        final testTitle = args?['testTitle'] ?? 'Unknown Test';
+        return TestDetailPage(testTitle: testTitle);
+      },
+    ),
+
+
+    GoRoute(
+      path: '/test-solving',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>?;
+        final subject = args?['subject'] ?? 'Unknown Subject';
+        return TestSolvingPage(subject: subject);
+      },
+    ),
+    GoRoute(
+      path: '/test-result',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>? ?? {};
+        return TestResultPage(
+          testTitle: args['testTitle'] ?? 'Test Results',
+          testImage: args['testImage'] ?? '',
+          correctAnswers: args['correctAnswers'] ?? 0,
+          incorrectAnswers: args['incorrectAnswers'] ?? 0,
+          unanswered: args['unanswered'] ?? 0,
+        );
+      },
+    ),
+
     GoRoute(
       path: RoutePaths.completedCourse,
       name: RouteNames.completedCourse,
@@ -242,6 +283,7 @@ final GoRouter appRouter = GoRouter(
         return CompletedCoursePage(courseId: courseId);
       },
     ),
+
 
     GoRoute(
       path: RoutePaths.courseDetail,

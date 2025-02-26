@@ -84,7 +84,7 @@ class CourseListView extends StatelessWidget {
               color: AppColors.greyScale.grey700,
               fontSize: 14,
             ),
-          ),
+          ), courseDuration: '40 / 114',
         );
       },
     );

@@ -8,6 +8,7 @@ class CourseCard extends StatelessWidget {
   final VoidCallback onTap;
   final String courseImg;
   final String courseTitle;
+  final String courseDuration;
   final Widget subWidget;
 
   const CourseCard({
@@ -15,6 +16,7 @@ class CourseCard extends StatelessWidget {
     required this.onTap,
     required this.courseImg,
     required this.courseTitle,
+    required this.courseDuration,
     required this.subWidget,
   });
 
@@ -80,10 +82,10 @@ class CourseCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        "${40} / 100",
+                        "$courseDuration",
                         style: AppTextStyles.urbanist.bold(
-                          color: isDarkMode ? AppColors.white : AppColors.black,
-                          fontSize: 18,
+                          color: isDarkMode ? AppColors.white : AppColors.greyScale.grey700,
+                          fontSize: 14,
                         ),
                       ),
                     ],

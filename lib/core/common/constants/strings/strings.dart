@@ -23,7 +23,7 @@ abstract class AppStrings {
   static const String continueWithApple = "Continue with Apple";
 
   static const String home = "Home";
-  static const String inbox = "Inbox";
+  static const String test = "Test";
   static const String transactions = "Transactions";
   static const String profile = "Profile";
   static const String myCourses = "My Courses";
@@ -63,6 +63,9 @@ abstract class AppStrings {
       "Select which contact details should we use to reset your password";
   static const String writeReview = "Write Review";
   static const String downloadCertificate = "Download Certificate";
+  static const String avaibleTests = "Avaible Tests";
+  static const String completedTests = "Completed Tests";
+  static const String startTest = "Start Test";
 
   static const String pleaseLeaveReview =
       "Please leave a review for your course";
