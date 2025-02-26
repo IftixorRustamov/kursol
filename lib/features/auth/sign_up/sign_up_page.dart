@@ -60,7 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: scaffoldPadding,
+          padding: scaffoldPadding48,
           child: Column(
             spacing: appH(48),
             children: [

@@ -15,7 +15,7 @@ void showLogoutModal(BuildContext context) {
     ),
     backgroundColor: AppColors.white,
     builder: (context) => Padding(
-      padding: scaffoldPadding,
+      padding: scaffoldPadding48,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         spacing: appH(20),

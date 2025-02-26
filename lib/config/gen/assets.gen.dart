@@ -43,15 +43,15 @@ class $AssetsCoursesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    a3d,
-    a3dIcons,
-    blender,
-    crm,
-    flutter,
-    pearsona,
-    ui,
-    wordpress,
-  ];
+        a3d,
+        a3dIcons,
+        blender,
+        crm,
+        flutter,
+        pearsona,
+        ui,
+        wordpress,
+      ];
 }
 
 class $AssetsIconsGen {
@@ -88,15 +88,15 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
-    facebook,
-    headphones,
-    instagram,
-    internet,
-    splash1,
-    splash2,
-    twitter,
-    whatsapp,
-  ];
+        facebook,
+        headphones,
+        instagram,
+        internet,
+        splash1,
+        splash2,
+        twitter,
+        whatsapp,
+      ];
 }
 
 class $AssetsImagesGen {
@@ -210,8 +210,8 @@ class $AssetsImagesGen {
   AssetGenImage get signature =>
       const AssetGenImage('assets/images/signature.png');
 
-  /// File path: assets/images/spalsh5.png
-  AssetGenImage get spalsh5 => const AssetGenImage('assets/images/spalsh5.png');
+  /// File path: assets/images/splash5.png
+  AssetGenImage get splash5 => const AssetGenImage('assets/images/splash5.png');
 
   /// File path: assets/images/splash-eclipse.png
   AssetGenImage get splashEclipse =>
@@ -228,43 +228,43 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    frame,
-    group,
-    rectangle2,
-    apple,
-    auth,
-    barcodeDummy,
-    boy,
-    cardDummy,
-    congratulations,
-    course,
-    createPassword,
-    emptyProfile,
-    error,
-    facebook,
-    fgCongratulation,
-    figmaLogo,
-    fingerprint,
-    forgotPassword,
-    fullScreen,
-    google,
-    group1,
-    group2,
-    group3,
-    img,
-    logo,
-    mastercard,
-    mentorAvatar,
-    paypal,
-    profile,
-    review,
-    signature,
-    spalsh5,
-    splashEclipse,
-    splash3,
-    splash4,
-    usa,
-  ];
+        frame,
+        group,
+        rectangle2,
+        apple,
+        auth,
+        barcodeDummy,
+        boy,
+        cardDummy,
+        congratulations,
+        course,
+        createPassword,
+        emptyProfile,
+        error,
+        facebook,
+        fgCongratulation,
+        figmaLogo,
+        fingerprint,
+        forgotPassword,
+        fullScreen,
+        google,
+        group1,
+        group2,
+        group3,
+        img,
+        logo,
+        mastercard,
+        mentorAvatar,
+        paypal,
+        profile,
+        review,
+        signature,
+        splash5,
+        splashEclipse,
+        splash3,
+        splash4,
+        usa,
+      ];
 }
 
 class Assets {

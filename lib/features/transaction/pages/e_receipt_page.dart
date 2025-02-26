@@ -30,7 +30,7 @@ class EReceiptPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: scaffoldPadding,
+        padding: scaffoldPadding48,
         child: SingleChildScrollView(
           child: Column(
             spacing: appH(24),
