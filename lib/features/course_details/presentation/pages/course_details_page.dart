@@ -8,6 +8,8 @@ import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 import 'package:kursol/features/course_details/presentation/widgets/CourseLessonWidget.dart';
 import 'package:kursol/features/course_details/presentation/widgets/course_info_widget.dart';
 import 'package:kursol/features/my_course/domain/entities/course_detail.dart';
+import '../../../../core/common/widgets/custom_choice_chip_wg.dart';
+import '../../../../core/utils/responsiveness/app_responsive.dart';
 import '../../../my_course/data/repositories/dummy_course_details.dart';
 
 class CourseDetailsPage extends StatefulWidget {
@@ -201,10 +203,9 @@ class _CourseDetailsPageState extends State<CourseDetailsPage>
                               'Jonathan Williams',
                               style: urbanistTextStyles.bold(
                                 fontSize: 22,
-                                color:
-                                    isDarkMode
-                                        ? AppColors.white
-                                        : AppColors.black,
+                                color: isDarkMode
+                                    ? AppColors.white
+                                    : AppColors.black,
                               ),
                             ),
                             subtitle: Text(
@@ -255,10 +256,9 @@ class _CourseDetailsPageState extends State<CourseDetailsPage>
                               "Figma",
                               style: urbanistTextStyles.semiBold(
                                 fontSize: 16,
-                                color:
-                                    isDarkMode
-                                        ? AppColors.white
-                                        : AppColors.black,
+                                color: isDarkMode
+                                    ? AppColors.white
+                                    : AppColors.black,
                               ),
                             ),
                           ],
@@ -280,10 +280,9 @@ class _CourseDetailsPageState extends State<CourseDetailsPage>
                                 '124 Lessons',
                                 style: urbanistTextStyles.bold(
                                   fontSize: 20,
-                                  color:
-                                      isDarkMode
-                                          ? AppColors.white
-                                          : AppColors.black,
+                                  color: isDarkMode
+                                      ? AppColors.white
+                                      : AppColors.black,
                                 ),
                               ),
                               GestureDetector(
@@ -415,7 +414,16 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
+    int selectedRatingIndex = 0;
 
+    final List<String> optionsRating = [
+      'All',
+      '5',
+      '4',
+      '3',
+      '2',
+      '1',
+    ];
     return SingleChildScrollView(
       padding: EdgeInsets.all(16.0),
       child: Column(
@@ -450,21 +458,42 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
             ],
           ),
           SizedBox(height: 16),
-
-          // Rating Filters
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _buildFilterButton('All', 0),
-                _buildFilterButton('5', 1),
-                _buildFilterButton('4', 2),
-                _buildFilterButton('3', 3),
-                _buildFilterButton('2', 4),
-                _buildFilterButton('1', 5),
-              ],
+          //! Rating check bar
+          SizedBox(
+            height: appH(40),
+            child: ListView.builder(
+              itemCount: optionsRating.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => CustomChoiceChipWg(
+                showIcon: true,
+                index: index,
+                label: optionsRating[index],
+                selectedIndex: selectedRatingIndex,
+                onSelected: (selected) {
+                  setState(() {
+                    selectedRatingIndex =
+                        selected ? index : selectedRatingIndex;
+                  });
+                },
+              ),
             ),
           ),
+          //! Rating check bar
+          // Rating Filters
+          // SingleChildScrollView(
+          //   scrollDirection: Axis.horizontal,
+          //   child: Row(
+          //     children: [
+          //       _buildFilterButton('All', 0),
+          //       _buildFilterButton('5', 1),
+          //       _buildFilterButton('4', 2),
+          //       _buildFilterButton('3', 3),
+          //       _buildFilterButton('2', 4),
+          //       _buildFilterButton('1', 5),
+          //     ],
+          //   ),
+          // ),
+
           SizedBox(height: 16),
 
           // Reviews List
@@ -481,55 +510,55 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
     );
   }
 
-  Widget _buildFilterButton(String text, int index) {
-    final theme = Theme.of(context);
-    final _ = theme.brightness == Brightness.dark;
-    UrbanistTextStyles urbanistTextStyles = UrbanistTextStyles();
-
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: ElevatedButton(
-        onPressed: () {
-          setState(() {
-            _selectedFilter = index;
-          });
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor:
-              _selectedFilter == index ? AppColors.blue : Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-            side:
-                _selectedFilter == index
-                    ? BorderSide.none
-                    : BorderSide(color: AppColors.blue, width: 2.0),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (text != 'All')
-              Icon(
-                Icons.star,
-                color:
-                    _selectedFilter == index ? AppColors.white : AppColors.blue,
-                size: 16,
-              ),
-            SizedBox(width: text != 'All' ? 4 : 0),
-            Text(
-              text,
-              style: urbanistTextStyles.bold(
-                color:
-                    _selectedFilter == index ? AppColors.white : AppColors.blue,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _buildFilterButton(String text, int index) {
+  //   final theme = Theme.of(context);
+  //   final _ = theme.brightness == Brightness.dark;
+  //   UrbanistTextStyles urbanistTextStyles = UrbanistTextStyles();
+  //
+  //   return Padding(
+  //     padding: const EdgeInsets.only(right: 8.0),
+  //     child: ElevatedButton(
+  //       onPressed: () {
+  //         setState(() {
+  //           _selectedFilter = index;
+  //         });
+  //       },
+  //       style: ElevatedButton.styleFrom(
+  //         backgroundColor:
+  //             _selectedFilter == index ? AppColors.blue : Colors.transparent,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(20.0),
+  //           side:
+  //               _selectedFilter == index
+  //                   ? BorderSide.none
+  //                   : BorderSide(color: AppColors.blue, width: 2.0),
+  //         ),
+  //         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+  //       ),
+  //       child: Row(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           if (text != 'All')
+  //             Icon(
+  //               Icons.star,
+  //               color:
+  //                   _selectedFilter == index ? AppColors.white : AppColors.blue,
+  //               size: 16,
+  //             ),
+  //           SizedBox(width: text != 'All' ? 4 : 0),
+  //           Text(
+  //             text,
+  //             style: urbanistTextStyles.bold(
+  //               color:
+  //                   _selectedFilter == index ? AppColors.white : AppColors.blue,
+  //               fontSize: 16,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildReviewCard(Map<String, dynamic> review) {
     final theme = Theme.of(context);
@@ -628,5 +657,4 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
       ),
     );
   }
-
 }
