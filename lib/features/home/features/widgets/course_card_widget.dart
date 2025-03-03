@@ -64,9 +64,9 @@ class _CourseCardState extends State<CourseCard> {
             ),
           ),
           SizedBox(width: appH(16)),
-          GestureDetector(
-            onTap: widget.onTap,
-            child: Expanded(
+          Expanded(
+            child: GestureDetector(
+              onTap: widget.onTap,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,12 +92,10 @@ class _CourseCardState extends State<CourseCard> {
                       ),
                       IconButton(
                         onPressed: toggleBookmark,
-                        // Toggle bookmark state on press
                         icon: Icon(
                           isBookmarked
                               ? IconlyBold.bookmark
                               : IconlyLight.bookmark,
-                          // Default to bookmark.png
                           color: AppColors.primary.blue500,
                         ),
                       ),
