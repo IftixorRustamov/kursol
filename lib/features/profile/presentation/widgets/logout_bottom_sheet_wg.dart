@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:kursol/core/common/sizes/sizes.dart';
 import 'package:kursol/core/routes/route_paths.dart';
 
-import '../../../core/common/constants/constants_export.dart';
-import '../../../core/utils/utils_export.dart';
+import '../../../../core/common/constants/constants_export.dart';
+import '../../../../core/utils/utils_export.dart';
 
 void showLogoutModal(BuildContext context) {
   showModalBottomSheet(

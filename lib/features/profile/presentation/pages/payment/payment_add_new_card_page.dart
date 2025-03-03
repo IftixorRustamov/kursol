@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:kursol/features/profile/widgets/profile_blank_container_wg.dart';
 
-import '../../../../core/common/constants/constants_export.dart';
-import '../../../../core/common/widgets/widgets_export.dart';
-import '../../../../core/utils/utils_export.dart';
+import '../../../../../core/common/constants/constants_export.dart';
+import '../../../../../core/common/widgets/widgets_export.dart';
+import '../../../../../core/utils/utils_export.dart';
+import '../../widgets/profile_blank_container_wg.dart';
 
 class PaymentAddNewCardPage extends StatelessWidget {
   const PaymentAddNewCardPage({super.key});

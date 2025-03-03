@@ -3,13 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/routes/route_names.dart';
 import 'package:kursol/core/routes/route_paths.dart';
-import 'package:kursol/features/profile/widgets/logout_bottom_sheet_wg.dart';
-import 'package:kursol/features/profile/widgets/profile_info_wg.dart';
-import 'package:kursol/features/profile/widgets/profile_setting_row_wg.dart';
 
-import '../../core/common/constants/constants_export.dart';
-import '../../core/common/widgets/widgets_export.dart';
-import '../../core/utils/utils_export.dart';
+import '../../../../core/common/constants/constants_export.dart';
+import '../../../../core/common/widgets/widgets_export.dart';
+import '../../../../core/utils/utils_export.dart';
+import '../widgets/logout_bottom_sheet_wg.dart';
+import '../widgets/profile_info_wg.dart';
+import '../widgets/profile_setting_row_wg.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

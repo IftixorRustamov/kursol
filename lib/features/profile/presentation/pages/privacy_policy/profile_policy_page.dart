@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/common/constants/constants_export.dart';
-import '../../../../core/common/widgets/widgets_export.dart';
-import '../../../../core/utils/utils_export.dart';
+import '../../../../../core/common/constants/constants_export.dart';
+import '../../../../../core/common/widgets/widgets_export.dart';
+import '../../../../../core/utils/utils_export.dart';
 
 class ProfilePrivacyPage extends StatelessWidget {
   const ProfilePrivacyPage({super.key});

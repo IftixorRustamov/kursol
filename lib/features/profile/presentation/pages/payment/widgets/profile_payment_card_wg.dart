@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../../core/common/constants/colors/app_colors.dart';
-import '../../../../../core/utils/responsiveness/app_responsive.dart';
-import '../../../../../core/utils/textstyles/app_textstyles.dart';
+import '../../../../../../core/common/constants/constants_export.dart';
+import '../../../../../../core/utils/utils_export.dart';
 
 class ProfilePaymentCardWg extends StatelessWidget {
   final String image;

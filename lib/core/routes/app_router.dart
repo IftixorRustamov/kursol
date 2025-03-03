@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
-import 'package:kursol/features/auth/presentation/pages/auth_page.dart';
 import 'package:kursol/features/home/features/bookmark/bookmark_page.dart';
 import 'package:kursol/features/home/features/courses/popular_courses.dart';
 import 'package:kursol/features/home/features/home_page.dart';
@@ -10,16 +9,6 @@ import 'package:kursol/features/home/features/notification/notification_page.dar
 import 'package:kursol/features/home/features/search/search_page.dart';
 import 'package:kursol/features/home/main_page.dart';
 import 'package:kursol/features/my_course/presentation/pages/completed_course_page.dart';
-import 'package:kursol/features/profile/features/edit_profile/edit_profile_page.dart';
-import 'package:kursol/features/profile/features/help_center/profile_help_center_page.dart';
-import 'package:kursol/features/profile/features/invite_friends/profile_invite_friends_page.dart';
-import 'package:kursol/features/profile/features/language/profile_language_page.dart';
-import 'package:kursol/features/profile/features/notification/profile_notification_page.dart';
-import 'package:kursol/features/profile/features/payment/payment_add_new_card_page.dart';
-import 'package:kursol/features/profile/features/payment/profile_payment_page.dart';
-import 'package:kursol/features/profile/features/privacy_policy/profile_policy_page.dart';
-import 'package:kursol/features/profile/features/security/profile_security_page.dart';
-import 'package:kursol/features/profile/profile_page.dart';
 
 import 'package:kursol/features/test/presentation/test_detail_page.dart';
 import 'package:kursol/features/test/presentation/test_page.dart';
@@ -28,21 +17,19 @@ import 'package:kursol/features/test/presentation/test_solving_page.dart';
 
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
+import '../../features/auth/presentation/pages/auth_pages_export.dart';
 import '../../features/auth/presentation/pages/forget_reset_password/pages/create_new_password.dart';
 import '../../features/auth/presentation/pages/forget_reset_password/pages/forgot_password.dart';
 import '../../features/auth/presentation/pages/forget_reset_password/pages/send_code_forgot_password.dart';
-import '../../features/auth/presentation/pages/onboarding/onboarding_page.dart';
 import '../../features/auth/presentation/pages/profile/pages/create_new_pin.dart';
 import '../../features/auth/presentation/pages/profile/pages/fill_your_profile.dart';
 import '../../features/auth/presentation/pages/profile/pages/finger_print.dart';
-import '../../features/auth/presentation/pages/sign_in/sign_in_page.dart';
-import '../../features/auth/presentation/pages/sign_up/sign_up_page.dart';
-import '../../features/auth/presentation/pages/splash/splash_page.dart';
 import '../../features/course_details/presentation/pages/course_details_page.dart';
 import '../../features/course_details/presentation/pages/mentor_profile.dart';
 import '../../features/my_course/presentation/pages/my_course_page.dart';
 import '../../features/my_course/presentation/pages/ongoing_course_page.dart';
 import '../../features/my_course/presentation/pages/video_player_page.dart';
+import '../../features/profile/presentation/pages/profile_pages_export.dart';
 import 'route_names.dart';
 import 'route_paths.dart';
 

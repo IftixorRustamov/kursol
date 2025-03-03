@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:kursol/features/test/presentation/test_result_page.dart';
 import '../../../../core/common/constants/colors/app_colors.dart';
 
 class CompletedCourseCard extends StatelessWidget {
