@@ -57,7 +57,7 @@ class _SignInPageState extends State<SignInPage> {
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: scaffoldPadding,
+          padding: scaffoldPadding48,
           child: Column(
             spacing: appH(48),
             children: [

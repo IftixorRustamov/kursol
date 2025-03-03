@@ -31,7 +31,7 @@ class _ProfileInviteFriendsPageState extends State<ProfileInviteFriendsPage> {
         titleText: AppStrings.inviteFriends,
       ),
       body: Padding(
-        padding: scaffoldPadding,
+        padding: scaffoldPadding48,
         child: ListView.builder(
           itemCount: 12,
           itemBuilder:

@@ -53,7 +53,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   observers: [MyNavigatorObserver()],
-  initialLocation: RoutePaths.home,
+  initialLocation: RoutePaths.splash,
   routes: [
     // *  Splash
     GoRoute(

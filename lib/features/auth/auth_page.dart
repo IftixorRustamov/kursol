@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sign_in_button/sign_in_button.dart';
+import 'package:kursol/config/gen/assets.gen.dart';
+import 'package:kursol/core/common/constants/constants.dart';
+import 'package:kursol/core/common/sizes.dart';
+import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
+import 'package:kursol/core/common/widgets/default_button_wg.dart';
+import 'package:kursol/core/routes/route_paths.dart';
+import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
+import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
+import 'package:kursol/features/auth/widgets/auth_sign_in_button_wg.dart';
+import 'package:kursol/features/auth/widgets/auth_sign_in_up_choice_wg.dart';
+
+final _divider = Expanded(child: Divider(color: AppColors.greyScale.grey200));
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -8,114 +19,65 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //TODO: Change This
-      backgroundColor: Colors.white,
+      appBar: ActionAppBarWg(onBackPressed: () {}),
+      backgroundColor: AppColors.white,
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: scaffoldPadding48,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset('assets/images/auth.png'),
-
-            SizedBox(height: 20),
-
-            Text(
-              "Let's you in",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff212121),
-              ),
-            ),
-
-            SizedBox(height: 20),
+            Assets.images.auth.image(),
+            Text(AppStrings.letsYouIn,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.urbanist
+                    .bold(color: AppColors.greyScale.grey900, fontSize: 48)),
+            // * Buttons
             Column(
-              spacing: 20,
+              spacing: appH(24),
               children: [
-                SignInButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 50),
-                  Buttons.facebook,
-                  text: "Continue with Facebook",
-                  onPressed: () {},
+                AuthSignInButtonWg(
+                  image: Assets.images.facebook
+                      .image(height: appH(24), width: appW(24)),
+                  text: AppStrings.continueWithFacebook,
+                  onTap: () {},
                 ),
-
-                SignInButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 50),
-                  Buttons.google,
-                  text: "Continue with Google",
-                  onPressed: () {},
+                AuthSignInButtonWg(
+                  image: Assets.images.google
+                      .image(height: appH(24), width: appW(24)),
+                  text: AppStrings.continueWithGoogle,
+                  onTap: () {},
                 ),
-
-                SignInButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 50),
-                  Buttons.apple,
-                  text: "Continue with Apple",
-                  onPressed: () {},
+                AuthSignInButtonWg(
+                  image: Assets.images.apple
+                      .image(height: appH(24), width: appW(24)),
+                  text: AppStrings.continueWithApple,
+                  onTap: () {},
                 ),
+                Row(
+                  spacing: appW(16),
+                  children: [
+                    _divider,
+                    Text(
+                      AppStrings.or,
+                      style: AppTextStyles.urbanist.semiBold(
+                          color: AppColors.greyScale.grey700, fontSize: 18),
+                    ),
+                    _divider,
+                  ],
+                ),
+                DefaultButtonWg(
+                    title: AppStrings.signInWithPassword,
+                    onPressed: () {
+                      context.go(RoutePaths.signin);
+                    }),
               ],
             ),
-            SizedBox(height: 10),
-
-            Row(
-              spacing: 20,
-              children: [
-                Expanded(child: Divider(color: Color(0xffEEEEEE))),
-                Text(
-                  "or continue with, ",
-                  style: TextStyle(color: Color(0xff616161)),
-                ),
-                Expanded(child: Divider(color: Color(0xffEEEEEE))),
-              ],
-            ),
-
-            SizedBox(height: 10),
-
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Color(0xff335EF7),
-                padding: EdgeInsets.symmetric(vertical: 18),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-              onPressed: () {
-                context.go("/sign-up");
-              },
-              child: Text(
-                "Sign in with password",
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-            ),
-
-            SizedBox(height: 10),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Don't have an account?",
-                  style: TextStyle(color: Color(0xff9E9E9E)),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Sign up",
-                    style: TextStyle(color: Color(0xff335EF7)),
-                  ),
-                ),
-              ],
-            ),
+            AuthSignInUpChoiceWg(
+                text: AppStrings.dontHaveAccount,
+                onPressed: () {
+                  context.go(RoutePaths.signup);
+                },
+                buttonText: AppStrings.signUp)
           ],
         ),
       ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kursol/config/gen/assets.gen.dart';
+import 'package:kursol/core/common/sizes.dart';
+import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -10,19 +13,21 @@ class SplashPage extends StatelessWidget {
     WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
     widgetsBinding.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 2), () {
-        // ignore: use_build_context_synchronously
         context.go('/onboarding');
       });
     });
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SvgPicture.asset('assets/icons/splash1.svg'),
-            SvgPicture.asset('assets/icons/splash2.svg'),
-          ],
+      body: Padding(
+        padding: EdgeInsets.only(bottom: appH(100)),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(child: SvgPicture.asset(Assets.icons.splash1)),
+              SvgPicture.asset(Assets.icons.splash2),
+            ],
+          ),
         ),
       ),
     );

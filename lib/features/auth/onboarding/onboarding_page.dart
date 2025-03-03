@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kursol/core/common/constants/constants.dart';
+import 'package:kursol/core/common/sizes.dart';
+import 'package:kursol/core/common/widgets/default_button_wg.dart';
+import 'package:kursol/core/routes/route_paths.dart';
+import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 
-import '../widgets/boarding_widget.dart';
-
+import '../../../config/gen/assets.gen.dart';
+import 'widgets/boarding_widget.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -21,72 +26,72 @@ class OnboardingPageState extends State<OnboardingPage> {
     "Let's improve your skills together with Elera right now!",
   ];
 
+  final List<Widget> images = [
+    Assets.images.splash3.image(),
+    Assets.images.splash4.image(),
+    Assets.images.splash5.image(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: texts.length,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
-              },
-              itemBuilder: (context, index) {
-                return BoardingWidget(text: texts[index]);
-              },
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(texts.length, (index) => buildDot(index)),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FilledButton(
-              onPressed: () {
-                if (_currentPage < texts.length - 1) {
-                  _pageController.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.ease,
-                  );
-                }
-                if (_currentPage == texts.length - 1) {
-                  context.go('/auth');
-                }
-              },
-              style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 18),
-                backgroundColor: Color(0xff335EF7),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+      backgroundColor: AppColors.white,
+      body: Padding(
+        padding: scaffoldPadding48,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          spacing: appH(60),
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: texts.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                },
+                itemBuilder: (context, index) => BoardingWidget(
+                  text: texts[index],
+                  image: images[index],
                 ),
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: Text(
-                _currentPage == texts.length - 1 ? "Get Started" : "Next",
-                style: TextStyle(color: Colors.white, fontSize: 18),
               ),
             ),
-          ),
-          const SizedBox(height: 40),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:
+                  List.generate(texts.length, (index) => _buildDot(index)),
+            ),
+            DefaultButtonWg(
+                title: _currentPage == texts.length - 1
+                    ? AppStrings.getStarted
+                    : AppStrings.next,
+                onPressed: () {
+                  if (_currentPage < texts.length - 1) {
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  }
+                  if (_currentPage == texts.length - 1) {
+                    context.go(RoutePaths.auth);
+                  }
+                }),
+          ],
+        ),
       ),
     );
   }
 
-  Widget buildDot(int index) {
+  Widget _buildDot(int index) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      width: _currentPage == index ? 32 : 8,
-      height: 8,
+      margin: EdgeInsets.symmetric(horizontal: appW(5)),
+      width: _currentPage == index ? appW(32) : appW(8),
+      height: appH(8),
       decoration: BoxDecoration(
-        color: _currentPage == index ? Color(0xff335EF7) : Color(0xffE0E0E0),
+        color: _currentPage == index
+            ? AppColors.primary()
+            : AppColors.greyScale.grey300,
         borderRadius: BorderRadius.circular(10),
       ),
     );

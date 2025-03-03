@@ -13,6 +13,14 @@ abstract class AppStrings {
   static const String orContinueWith = "or continue with";
   static const String dontHaveAccount = "Don’t have an account?";
   static const String alreadyHaveAccount = "Already have an account?";
+  static const String getStarted = "Get Started";
+  static const String next = "Next";
+  static const String letsYouIn = "Let's you in";
+  static const String signInWithPassword = "Sign in with password";
+  static const String or = "or";
+  static const String continueWithFacebook = "Continue with Facebook";
+  static const String continueWithGoogle = "Continue with Google";
+  static const String continueWithApple = "Continue with Apple";
 
   static const String home = "Home";
   static const String test = "Test";
