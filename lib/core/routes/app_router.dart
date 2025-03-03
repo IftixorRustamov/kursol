@@ -252,7 +252,6 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-
     GoRoute(
       path: '/test-solving',
       builder: (context, state) {
@@ -283,7 +282,6 @@ final GoRouter appRouter = GoRouter(
         return CompletedCoursePage(courseId: courseId);
       },
     ),
-
 
     GoRoute(
       path: RoutePaths.courseDetail,

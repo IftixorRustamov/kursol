@@ -19,47 +19,49 @@ class BaseCardWg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: appH(140),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(32),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.greyScale.grey300,
-              blurRadius: 2,
-            ),
-          ],
-        ),
-        padding: EdgeInsets.all(appH(20)),
-        margin: EdgeInsets.only(bottom: appH(20)),
-        child: Row(
-          spacing: appW(16),
-          children: [
-            // image
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                courseImg, // Replaced !!!
-                width: appW(100),
-                height: appH(100),
-                fit: BoxFit.cover,
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          height: appH(140),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(32),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.greyScale.grey300,
+                blurRadius: 2,
               ),
-            ),
-            // title, subtitle or any widget
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: mainWidgets,
+            ],
+          ),
+          padding: EdgeInsets.all(appH(20)),
+          margin: EdgeInsets.only(bottom: appH(20)),
+          child: Row(
+            spacing: appW(16),
+            children: [
+              // image
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  courseImg, // Replaced !!!
+                  width: appW(100),
+                  height: appH(100),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            // trailing widget
-            trailingWidget ?? SizedBox.shrink(),
-          ],
+              // title, subtitle or any widget
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: mainWidgets,
+                ),
+              ),
+              // trailing widget
+              trailingWidget ?? SizedBox.shrink(),
+            ],
+          ),
         ),
       ),
     );
