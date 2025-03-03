@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/config/gen/assets.gen.dart';
-import 'package:kursol/core/common/constants/constants.dart';
-import 'package:kursol/core/common/sizes.dart';
+import 'package:kursol/core/common/sizes/sizes.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/default_button_wg.dart';
 import 'package:kursol/core/routes/route_paths.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
-import 'package:kursol/features/auth/widgets/auth_sign_in_button_wg.dart';
-import 'package:kursol/features/auth/widgets/auth_sign_in_up_choice_wg.dart';
+
+import '../../../../core/common/constants/constants_export.dart';
+import '../widgets/auth_sign_in_button_wg.dart';
+import '../widgets/auth_sign_in_up_choice_wg.dart';
 
 final _divider = Expanded(child: Divider(color: AppColors.greyScale.grey200));
 

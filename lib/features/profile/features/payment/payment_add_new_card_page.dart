@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/features/profile/widgets/profile_blank_container_wg.dart';
 
-import '../../../../core/common/constants/strings/strings.dart';
-import '../../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
-import '../../../../core/common/widgets/default_button_wg.dart';
-import '../../../../core/utils/responsiveness/app_responsive.dart';
-import '../../../../core/utils/textstyles/app_textstyles.dart';
+import '../../../../core/common/constants/constants_export.dart';
+import '../../../../core/common/widgets/widgets_export.dart';
+import '../../../../core/utils/utils_export.dart';
 
 class PaymentAddNewCardPage extends StatelessWidget {
   const PaymentAddNewCardPage({super.key});
@@ -105,16 +102,16 @@ final _textStyle = AppTextStyles.urbanist.semiBold(
 );
 
 Widget _customLayout({required String title, required Widget widget}) => Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  spacing: appH(12),
-  children: [
-    Text(
-      title,
-      style: AppTextStyles.urbanist.bold(
-        color: AppColors.greyScale.grey900,
-        fontSize: 18,
-      ),
-    ),
-    widget,
-  ],
-);
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: appH(12),
+      children: [
+        Text(
+          title,
+          style: AppTextStyles.urbanist.bold(
+            color: AppColors.greyScale.grey900,
+            fontSize: 18,
+          ),
+        ),
+        widget,
+      ],
+    );

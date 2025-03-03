@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/constants/strings/strings.dart';
-import 'package:kursol/core/common/widgets/app_bar/default_app_bar_wg.dart';
 import 'package:kursol/core/routes/route_names.dart';
 import 'package:kursol/core/routes/route_paths.dart';
-import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
-import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
 import 'package:kursol/features/profile/widgets/logout_bottom_sheet_wg.dart';
 import 'package:kursol/features/profile/widgets/profile_info_wg.dart';
 import 'package:kursol/features/profile/widgets/profile_setting_row_wg.dart';
+
+import '../../core/common/constants/constants_export.dart';
+import '../../core/common/widgets/widgets_export.dart';
+import '../../core/utils/utils_export.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -31,9 +30,8 @@ class ProfilePage extends StatelessWidget {
             spacing: appH(20),
             children: [
               ProfileInfoWg(
-                onEdit:
-                    () =>
-                        context.go(RoutePaths.profile + RoutePaths.editProfile),
+                onEdit: () =>
+                    context.go(RoutePaths.profile + RoutePaths.editProfile),
                 name: "Iftixor Rustamov",
                 gmail: "iftixorrustamovv@gmail.com",
                 image: "assets/images/profile.png",
@@ -43,9 +41,8 @@ class ProfilePage extends StatelessWidget {
               ProfileSettingRowWg(
                 icon: IconlyLight.profile,
                 title: AppStrings.editProfile,
-                onPressed:
-                    () =>
-                        context.go(RoutePaths.profile + RoutePaths.editProfile),
+                onPressed: () =>
+                    context.go(RoutePaths.profile + RoutePaths.editProfile),
               ),
               // * Notification
               ProfileSettingRowWg(

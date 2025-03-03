@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:kursol/core/common/widgets/textfield/custom_text_field_wg.dart';
-import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/features/profile/features/help_center/widgets/help_center_container_wg.dart';
 
-import '../../../../../core/common/constants/colors/app_colors.dart';
-import '../../../../../core/common/constants/strings/strings.dart';
-import '../../../../../core/common/widgets/custom_choice_chip_wg.dart';
-import '../../../../../core/utils/textstyles/app_textstyles.dart';
+import '../../../../../core/common/constants/constants_export.dart';
+import '../../../../../core/common/widgets/widgets_export.dart';
+import '../../../../../core/utils/utils_export.dart';
 
 class FaqTab extends StatefulWidget {
   const FaqTab({super.key});

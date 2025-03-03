@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/constants/strings/strings.dart';
-import 'package:kursol/core/common/sizes.dart';
+import 'package:kursol/core/common/sizes/sizes.dart';
 import 'package:kursol/core/routes/route_paths.dart';
-import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
-import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
+
+import '../../../core/common/constants/constants_export.dart';
+import '../../../core/utils/utils_export.dart';
 
 void showLogoutModal(BuildContext context) {
   showModalBottomSheet(

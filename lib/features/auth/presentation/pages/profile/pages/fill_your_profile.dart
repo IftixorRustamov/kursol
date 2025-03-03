@@ -6,20 +6,19 @@ import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:kursol/core/routes/route_paths.dart' show RoutePaths;
 
-import '../../../../../core/common/constants/colors/app_colors.dart';
-import '../../../../../core/common/constants/strings/strings.dart';
-import '../../../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
-import '../../../../../core/common/widgets/default_button_wg.dart';
-import '../../../../../core/routes/route_paths.dart';
-import '../../../../../core/utils/responsiveness/app_responsive.dart';
-import '../../../../../core/utils/textstyles/app_textstyles.dart';
+import '../../../../../../core/common/constants/constants_export.dart';
+import '../../../../../../core/common/widgets/widgets_export.dart';
+import '../../../../../../core/utils/utils_export.dart';
 import '../widgets/build_date_field.dart';
 import '../widgets/build_text_field.dart';
 
 class FillProfilePage extends StatefulWidget {
+  const FillProfilePage({super.key});
+
   @override
-  _FillProfilePageState createState() => _FillProfilePageState();
+  State<FillProfilePage> createState() => _FillProfilePageState();
 }
 
 class _FillProfilePageState extends State<FillProfilePage> {

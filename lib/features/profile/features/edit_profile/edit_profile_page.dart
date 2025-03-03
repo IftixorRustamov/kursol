@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/constants/strings/strings.dart';
-import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
-import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
-import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
 
-import '../../../../core/common/widgets/default_button_wg.dart';
+import '../../../../core/common/constants/constants_export.dart';
+import '../../../../core/common/widgets/widgets_export.dart';
+import '../../../../core/utils/utils_export.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({super.key});
@@ -105,13 +102,13 @@ final _textStyle = AppTextStyles.urbanist.semiBold(
 );
 
 Widget _blankContainer(Widget widget) => Container(
-  alignment: Alignment.centerLeft,
-  padding: EdgeInsets.symmetric(horizontal: appW(20)),
-  width: double.infinity,
-  height: appH(56),
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(12),
-    color: AppColors.greyScale.grey50,
-  ),
-  child: widget,
-);
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.symmetric(horizontal: appW(20)),
+      width: double.infinity,
+      height: appH(56),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: AppColors.greyScale.grey50,
+      ),
+      child: widget,
+    );

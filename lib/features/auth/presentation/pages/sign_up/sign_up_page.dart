@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:kursol/core/common/constants/constants.dart';
-import 'package:kursol/core/common/sizes.dart';
-import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
-import 'package:kursol/core/common/widgets/default_button_wg.dart';
-import 'package:kursol/core/common/widgets/textfield/custom_text_field_wg.dart';
+import 'package:kursol/core/common/sizes/sizes.dart';
 import 'package:kursol/core/routes/route_paths.dart';
-import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
-import 'package:kursol/features/auth/widgets/auth_or_continue_with_wg.dart';
-import 'package:kursol/features/auth/widgets/auth_sign_in_up_choice_wg.dart';
 
-import '../../../core/utils/responsiveness/app_responsive.dart';
-import '../widgets/auth_checkbox_wg.dart';
+import '../../../../../core/common/constants/constants_export.dart';
+import '../../../../../core/common/widgets/widgets_export.dart';
+import '../../../../../core/utils/utils_export.dart';
+import '../../widgets/auth_checkbox_wg.dart';
+import '../../widgets/auth_or_continue_with_wg.dart';
+import '../../widgets/auth_sign_in_up_choice_wg.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _passwordFocusNode = FocusNode();
@@ -53,7 +50,9 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ActionAppBarWg(onBackPressed: () {}),
+      appBar: ActionAppBarWg(onBackPressed: () {
+        context.go(RoutePaths.auth);
+      }),
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Padding(
@@ -61,7 +60,7 @@ class _SignInPageState extends State<SignInPage> {
           child: Column(
             spacing: appH(48),
             children: [
-              Text(AppStrings.loginToYourAccount,
+              Text(AppStrings.createYourAccount,
                   maxLines: 2,
                   textAlign: TextAlign.left,
                   style: AppTextStyles.urbanist
@@ -110,29 +109,20 @@ class _SignInPageState extends State<SignInPage> {
                         });
                       }),
                   DefaultButtonWg(
-                      title: AppStrings.signIn,
+                      title: AppStrings.signUp,
                       onPressed: () {
                         context.go(RoutePaths.home);
                       }),
-                  TextButton(
-                      onPressed: () {
-                        context.go(RoutePaths.forgotPassword);
-                      },
-                      child: Text(
-                        AppStrings.forgotPassword,
-                        style: AppTextStyles.urbanist.semiBold(
-                            color: AppColors.primary.blue500, fontSize: 16),
-                      )),
                 ],
               ),
               AuthOrContinueWithWg(
                   onTapFacebook: () {}, onTapGoogle: () {}, onTapApple: () {}),
               AuthSignInUpChoiceWg(
-                  text: AppStrings.dontHaveAccount,
+                  text: AppStrings.alreadyHaveAccount,
                   onPressed: () {
                     context.go(RoutePaths.signup);
                   },
-                  buttonText: AppStrings.signUp),
+                  buttonText: AppStrings.signIn),
             ],
           ),
         ),

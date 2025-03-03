@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/sizes.dart';
+import 'package:kursol/core/common/sizes/sizes.dart';
+import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
+import 'package:kursol/core/common/widgets/default_button_wg.dart';
+import 'package:kursol/core/common/widgets/textfield/custom_text_field_wg.dart';
 import 'package:kursol/core/routes/route_paths.dart';
-import 'package:kursol/features/auth/widgets/auth_checkbox_wg.dart';
-import 'package:kursol/features/auth/widgets/auth_or_continue_with_wg.dart';
-import 'package:kursol/features/auth/widgets/auth_sign_in_up_choice_wg.dart';
 
-import '../../../core/common/constants/strings/strings.dart';
-import '../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
-import '../../../core/common/widgets/default_button_wg.dart';
-import '../../../core/common/widgets/textfield/custom_text_field_wg.dart';
-import '../../../core/utils/responsiveness/app_responsive.dart';
-import '../../../core/utils/textstyles/app_textstyles.dart';
+import '../../../../../core/common/constants/constants_export.dart';
+import '../../../../../core/utils/utils_export.dart';
+import '../../widgets/auth_checkbox_wg.dart';
+import '../../widgets/auth_or_continue_with_wg.dart';
+import '../../widgets/auth_sign_in_up_choice_wg.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _passwordFocusNode = FocusNode();
@@ -54,9 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ActionAppBarWg(onBackPressed: () {
-        context.go(RoutePaths.auth);
-      }),
+      appBar: ActionAppBarWg(onBackPressed: () {}),
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Padding(
@@ -64,7 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             spacing: appH(48),
             children: [
-              Text(AppStrings.createYourAccount,
+              Text(AppStrings.loginToYourAccount,
                   maxLines: 2,
                   textAlign: TextAlign.left,
                   style: AppTextStyles.urbanist
@@ -113,20 +109,29 @@ class _SignUpPageState extends State<SignUpPage> {
                         });
                       }),
                   DefaultButtonWg(
-                      title: AppStrings.signUp,
+                      title: AppStrings.signIn,
                       onPressed: () {
                         context.go(RoutePaths.home);
                       }),
+                  TextButton(
+                      onPressed: () {
+                        context.go(RoutePaths.forgotPassword);
+                      },
+                      child: Text(
+                        AppStrings.forgotPassword,
+                        style: AppTextStyles.urbanist.semiBold(
+                            color: AppColors.primary.blue500, fontSize: 16),
+                      )),
                 ],
               ),
               AuthOrContinueWithWg(
                   onTapFacebook: () {}, onTapGoogle: () {}, onTapApple: () {}),
               AuthSignInUpChoiceWg(
-                  text: AppStrings.alreadyHaveAccount,
+                  text: AppStrings.dontHaveAccount,
                   onPressed: () {
                     context.go(RoutePaths.signup);
                   },
-                  buttonText: AppStrings.signIn),
+                  buttonText: AppStrings.signUp),
             ],
           ),
         ),

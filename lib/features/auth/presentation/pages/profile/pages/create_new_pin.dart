@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/routes/route_paths.dart';
 
-import '../../../../../core/common/constants/colors/app_colors.dart';
-import '../../../../../core/common/constants/strings/strings.dart';
-import '../../../../../core/common/widgets/app_bar/action_app_bar_wg.dart';
-import '../../../../../core/common/widgets/default_button_wg.dart';
-import '../../../../../core/utils/responsiveness/app_responsive.dart';
-import '../../../../../core/utils/textstyles/app_textstyles.dart';
+import '../../../../../../core/common/constants/constants_export.dart';
+import '../../../../../../core/common/widgets/widgets_export.dart';
+import '../../../../../../core/utils/utils_export.dart';
 
 class CreateNewPin extends StatefulWidget {
+  const CreateNewPin({super.key});
+
   @override
-  _CreateNewPinState createState() => _CreateNewPinState();
+  State<CreateNewPin> createState() => _CreateNewPinState();
 }
 
 class _CreateNewPinState extends State<CreateNewPin> {
-  List<TextEditingController> controllers = List.generate(4, (_) => TextEditingController());
+  List<TextEditingController> controllers =
+      List.generate(4, (_) => TextEditingController());
   List<FocusNode> focusNodes = List.generate(4, (_) => FocusNode());
 
   @override
@@ -47,11 +47,10 @@ class _CreateNewPinState extends State<CreateNewPin> {
       backgroundColor: AppColors.white,
       appBar: ActionAppBarWg(
         onBackPressed: () {
-        context.go(RoutePaths.fillYourProfile);
-    },
-
-    titleText: AppStrings.createNewPin,
-    ),
+          context.go(RoutePaths.fillYourProfile);
+        },
+        titleText: AppStrings.createNewPin,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -59,13 +58,12 @@ class _CreateNewPinState extends State<CreateNewPin> {
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: appH(80),
           children: [
-
             Text(
               AppStrings.addPinNumber,
               textAlign: TextAlign.center,
-              style: AppTextStyles.urbanist.regular(color: AppColors.greyScale.grey900, fontSize: 18),
+              style: AppTextStyles.urbanist
+                  .regular(color: AppColors.greyScale.grey900, fontSize: 18),
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(4, (index) {
@@ -73,14 +71,17 @@ class _CreateNewPinState extends State<CreateNewPin> {
                   alignment: Alignment.center,
                   children: [
                     Container(
-
                       width: appW(83),
                       height: appH(63),
                       decoration: BoxDecoration(
-                        color: focusNodes[index].hasFocus ? AppColors.primary.blue100 : AppColors.greyScale.grey50,
+                        color: focusNodes[index].hasFocus
+                            ? AppColors.primary.blue100
+                            : AppColors.greyScale.grey50,
                         borderRadius: BorderRadius.circular(appH(12)),
                         border: Border.all(
-                          color: focusNodes[index].hasFocus ? AppColors.primary.blue500 : AppColors.greyScale.grey200,
+                          color: focusNodes[index].hasFocus
+                              ? AppColors.primary.blue500
+                              : AppColors.greyScale.grey200,
                           width: 1,
                         ),
                       ),
@@ -91,7 +92,8 @@ class _CreateNewPinState extends State<CreateNewPin> {
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         maxLength: 1,
-                        style: AppTextStyles.urbanist.bold(color: AppColors.greyScale.grey900, fontSize: 24),
+                        style: AppTextStyles.urbanist.bold(
+                            color: AppColors.greyScale.grey900, fontSize: 24),
                         decoration: const InputDecoration(
                           counterText: "",
                           border: InputBorder.none,
@@ -102,22 +104,23 @@ class _CreateNewPinState extends State<CreateNewPin> {
                             _onBackspace(index);
                           });
                         },
-
                       ),
                     ),
                     if (controllers[index].text.isNotEmpty)
                       Text(
                         '⚫',
-                        style: AppTextStyles.urbanist.bold(color: AppColors.greyScale.grey900, fontSize: 24),
+                        style: AppTextStyles.urbanist.bold(
+                            color: AppColors.greyScale.grey900, fontSize: 24),
                       ),
                   ],
                 );
               }),
             ),
-
-            DefaultButtonWg(title: AppStrings.profileContinue, onPressed: () {
-              context.go(RoutePaths.fingerPrint);
-            }),
+            DefaultButtonWg(
+                title: AppStrings.profileContinue,
+                onPressed: () {
+                  context.go(RoutePaths.fingerPrint);
+                }),
           ],
         ),
       ),

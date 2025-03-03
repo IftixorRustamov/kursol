@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
-import 'package:kursol/features/auth/auth_page.dart';
-import 'package:kursol/features/auth/onboarding/onboarding_page.dart';
-import 'package:kursol/features/auth/sign_in/sign_in_page.dart';
-import 'package:kursol/features/auth/sign_up/sign_up_page.dart';
-import 'package:kursol/features/auth/splash/splash_page.dart';
+import 'package:kursol/features/auth/presentation/pages/auth_page.dart';
 import 'package:kursol/features/home/features/bookmark/bookmark_page.dart';
 import 'package:kursol/features/home/features/courses/popular_courses.dart';
 import 'package:kursol/features/home/features/home_page.dart';
@@ -32,13 +28,16 @@ import 'package:kursol/features/test/presentation/test_solving_page.dart';
 
 import 'package:kursol/features/transaction/pages/e_receipt_page.dart';
 import 'package:kursol/features/transaction/pages/transactions_page.dart';
-import '../../features/auth/forget_reset_password/pages/create_new_password.dart';
-import '../../features/auth/forget_reset_password/pages/forgot_password.dart';
-import '../../features/auth/forget_reset_password/pages/send_code_forgot_password.dart';
-
-import '../../features/auth/profile/pages/create_new_pin.dart';
-import '../../features/auth/profile/pages/fill_your_profile.dart';
-import '../../features/auth/profile/pages/finger_print.dart';
+import '../../features/auth/presentation/pages/forget_reset_password/pages/create_new_password.dart';
+import '../../features/auth/presentation/pages/forget_reset_password/pages/forgot_password.dart';
+import '../../features/auth/presentation/pages/forget_reset_password/pages/send_code_forgot_password.dart';
+import '../../features/auth/presentation/pages/onboarding/onboarding_page.dart';
+import '../../features/auth/presentation/pages/profile/pages/create_new_pin.dart';
+import '../../features/auth/presentation/pages/profile/pages/fill_your_profile.dart';
+import '../../features/auth/presentation/pages/profile/pages/finger_print.dart';
+import '../../features/auth/presentation/pages/sign_in/sign_in_page.dart';
+import '../../features/auth/presentation/pages/sign_up/sign_up_page.dart';
+import '../../features/auth/presentation/pages/splash/splash_page.dart';
 import '../../features/course_details/presentation/pages/course_details_page.dart';
 import '../../features/course_details/presentation/pages/mentor_profile.dart';
 import '../../features/my_course/presentation/pages/my_course_page.dart';
@@ -244,7 +243,6 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RoutePaths.testDetail,
       name: RouteNames.testDetail,
-
       builder: (context, state) {
         final args = state.extra as Map<String, dynamic>?;
         final testTitle = args?['testTitle'] ?? 'Unknown Test';
