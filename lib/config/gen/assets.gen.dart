@@ -19,6 +19,10 @@ class $AssetsCoursesGen {
   AssetGenImage get a3dIcons =>
       const AssetGenImage('assets/courses/3d_icons.png');
 
+  /// File path: assets/courses/avtotest.png
+  AssetGenImage get avtotest =>
+      const AssetGenImage('assets/courses/avtotest.png');
+
   /// File path: assets/courses/blender.png
   AssetGenImage get blender =>
       const AssetGenImage('assets/courses/blender.png');
@@ -26,13 +30,22 @@ class $AssetsCoursesGen {
   /// File path: assets/courses/crm.png
   AssetGenImage get crm => const AssetGenImage('assets/courses/crm.png');
 
+  /// File path: assets/courses/dtm.png
+  AssetGenImage get dtm => const AssetGenImage('assets/courses/dtm.png');
+
   /// File path: assets/courses/flutter.png
   AssetGenImage get flutter =>
       const AssetGenImage('assets/courses/flutter.png');
 
+  /// File path: assets/courses/ielts.png
+  AssetGenImage get ielts => const AssetGenImage('assets/courses/ielts.png');
+
   /// File path: assets/courses/pearsona.png
   AssetGenImage get pearsona =>
       const AssetGenImage('assets/courses/pearsona.png');
+
+  /// File path: assets/courses/sat.png
+  AssetGenImage get sat => const AssetGenImage('assets/courses/sat.png');
 
   /// File path: assets/courses/ui.png
   AssetGenImage get ui => const AssetGenImage('assets/courses/ui.png');
@@ -43,15 +56,19 @@ class $AssetsCoursesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        a3d,
-        a3dIcons,
-        blender,
-        crm,
-        flutter,
-        pearsona,
-        ui,
-        wordpress,
-      ];
+    a3d,
+    a3dIcons,
+    avtotest,
+    blender,
+    crm,
+    dtm,
+    flutter,
+    ielts,
+    pearsona,
+    sat,
+    ui,
+    wordpress,
+  ];
 }
 
 class $AssetsIconsGen {
@@ -88,15 +105,15 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        facebook,
-        headphones,
-        instagram,
-        internet,
-        splash1,
-        splash2,
-        twitter,
-        whatsapp,
-      ];
+    facebook,
+    headphones,
+    instagram,
+    internet,
+    splash1,
+    splash2,
+    twitter,
+    whatsapp,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -210,9 +227,6 @@ class $AssetsImagesGen {
   AssetGenImage get signature =>
       const AssetGenImage('assets/images/signature.png');
 
-  /// File path: assets/images/splash5.png
-  AssetGenImage get splash5 => const AssetGenImage('assets/images/splash5.png');
-
   /// File path: assets/images/splash-eclipse.png
   AssetGenImage get splashEclipse =>
       const AssetGenImage('assets/images/splash-eclipse.png');
@@ -223,48 +237,51 @@ class $AssetsImagesGen {
   /// File path: assets/images/splash4.png
   AssetGenImage get splash4 => const AssetGenImage('assets/images/splash4.png');
 
+  /// File path: assets/images/splash5.png
+  AssetGenImage get splash5 => const AssetGenImage('assets/images/splash5.png');
+
   /// File path: assets/images/usa.png
   AssetGenImage get usa => const AssetGenImage('assets/images/usa.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        frame,
-        group,
-        rectangle2,
-        apple,
-        auth,
-        barcodeDummy,
-        boy,
-        cardDummy,
-        congratulations,
-        course,
-        createPassword,
-        emptyProfile,
-        error,
-        facebook,
-        fgCongratulation,
-        figmaLogo,
-        fingerprint,
-        forgotPassword,
-        fullScreen,
-        google,
-        group1,
-        group2,
-        group3,
-        img,
-        logo,
-        mastercard,
-        mentorAvatar,
-        paypal,
-        profile,
-        review,
-        signature,
-        splash5,
-        splashEclipse,
-        splash3,
-        splash4,
-        usa,
-      ];
+    frame,
+    group,
+    rectangle2,
+    apple,
+    auth,
+    barcodeDummy,
+    boy,
+    cardDummy,
+    congratulations,
+    course,
+    createPassword,
+    emptyProfile,
+    error,
+    facebook,
+    fgCongratulation,
+    figmaLogo,
+    fingerprint,
+    forgotPassword,
+    fullScreen,
+    google,
+    group1,
+    group2,
+    group3,
+    img,
+    logo,
+    mastercard,
+    mentorAvatar,
+    paypal,
+    profile,
+    review,
+    signature,
+    splashEclipse,
+    splash3,
+    splash4,
+    splash5,
+    usa,
+  ];
 }
 
 class Assets {
