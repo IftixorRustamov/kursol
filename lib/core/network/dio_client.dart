@@ -27,6 +27,7 @@ class DioClient {
       );
   }
 
+
   // GET
   Future<Response<dynamic>> get(
     String url, {
