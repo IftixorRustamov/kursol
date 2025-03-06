@@ -9,7 +9,6 @@ abstract class AuthRepository {
     List<String> newPassword,
     List<String> confirmPassword,
   );
-
   //? (POST /v1/auth/reset-password/phone)
   Future<ApiResponse<void>> resetPasswordViaPhone(String phone);
 
