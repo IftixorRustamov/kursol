@@ -4,7 +4,6 @@ import 'package:kursol/core/common/constants/colors/app_colors.dart';
 import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
 import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:kursol/features/my_course/domain/entities/course_detail.dart';
-import 'package:kursol/features/my_course/presentation/pages/video_player_page.dart';
 
 import '../presentation/test_detail_page.dart';
 

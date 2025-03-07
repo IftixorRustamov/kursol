@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
-import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/constants/strings/strings.dart';
-import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
-import 'package:kursol/core/common/widgets/custom_bottom_bar_wg.dart';
-import 'package:kursol/core/utils/textstyles/urbanist_textstyles.dart';
-import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../core/common/constants/constants_export.dart';
+import '../../../core/common/widgets/widgets_export.dart';
+import '../../../core/utils/utils_export.dart';
 
 class TestDetailPage extends StatelessWidget {
   final String testTitle;
@@ -32,13 +30,17 @@ class TestDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildSectionHeader("Majburiy fanlar", "15 mins", isDarkMode),
-              _buildLessonItem(context, "01", "Matematika", "10 mins", isDarkMode),
-              _buildLessonItem(context, "02", "Adabiyot & Ona tili", "5 mins", isDarkMode),
+              _buildLessonItem(
+                  context, "01", "Matematika", "10 mins", isDarkMode),
+              _buildLessonItem(
+                  context, "02", "Adabiyot & Ona tili", "5 mins", isDarkMode),
               SizedBox(height: appH(20)),
               _buildSectionHeader("Asosiy fanlar", "60 mins", isDarkMode),
-              _buildLessonItem(context, "03", "Matematika", "15 mins", isDarkMode),
+              _buildLessonItem(
+                  context, "03", "Matematika", "15 mins", isDarkMode),
               _buildLessonItem(context, "04", "Fizika", "15 mins", isDarkMode),
-              _buildLessonItem(context, "05", "Informatika", "15 mins", isDarkMode),
+              _buildLessonItem(
+                  context, "05", "Informatika", "15 mins", isDarkMode),
             ],
           ),
         ),
@@ -61,14 +63,14 @@ class TestDetailPage extends StatelessWidget {
         children: [
           Text(
             title,
-            style: UrbanistTextStyles().semiBold(
+            style: AppTextStyles.urbanist.semiBold(
               color: isDarkMode ? Colors.white : AppColors.black,
               fontSize: appH(18),
             ),
           ),
           Text(
             duration,
-            style: UrbanistTextStyles().semiBold(
+            style: AppTextStyles.urbanist.semiBold(
               color: AppColors.primary.blue500,
               fontSize: appH(16),
             ),
@@ -78,7 +80,8 @@ class TestDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildLessonItem(BuildContext context, String number, String title, String duration, bool isDarkMode) {
+  Widget _buildLessonItem(BuildContext context, String number, String title,
+      String duration, bool isDarkMode) {
     return GestureDetector(
       onTap: () {
         _onStartTest(context, title);
@@ -97,18 +100,22 @@ class TestDetailPage extends StatelessWidget {
               radius: appH(24),
               child: Text(
                 number,
-                style: UrbanistTextStyles().bold(color: AppColors.primary.blue500, fontSize: appH(18)),
+                style: AppTextStyles.urbanist
+                    .bold(color: AppColors.primary.blue500, fontSize: appH(18)),
               ),
             ),
             SizedBox(width: appW(16)),
             Expanded(
               child: Text(
                 title,
-                style: UrbanistTextStyles().semiBold(color: isDarkMode ? Colors.white : Colors.black87, fontSize: appH(18)),
+                style: AppTextStyles.urbanist.semiBold(
+                    color: isDarkMode ? Colors.white : Colors.black87,
+                    fontSize: appH(18)),
               ),
             ),
             IconButton(
-              icon: Icon(IconlyBold.play, size: appH(28), color: AppColors.primary.blue500),
+              icon: Icon(IconlyBold.play,
+                  size: appH(28), color: AppColors.primary.blue500),
               onPressed: () {
                 _onStartTest(context, title);
               },

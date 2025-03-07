@@ -19,23 +19,23 @@ class BaseCardWg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: appH(140),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(32),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.greyScale.grey300,
-              blurRadius: 2,
-            ),
-          ],
-        ),
-        padding: EdgeInsets.all(appH(20)),
-        margin: EdgeInsets.only(bottom: appH(20)),
+    return Container(
+      width: double.infinity,
+      height: appH(140),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(32),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.greyScale.grey300,
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(appH(20)),
+      margin: EdgeInsets.only(bottom: appH(20)),
+      child: GestureDetector(
+        onTap: onTap,
         child: Row(
           spacing: appW(16),
           children: [

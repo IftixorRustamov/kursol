@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kursol/core/common/constants/colors/app_colors.dart';
-import 'package:kursol/core/common/constants/strings/strings.dart';
+
+import '../../../../core/common/constants/constants_export.dart';
 
 class CourseCompletionDialog extends StatefulWidget {
   final VoidCallback onSubmit;
@@ -13,8 +13,7 @@ class CourseCompletionDialog extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CourseCompletionDialogState createState() => _CourseCompletionDialogState();
+  State<CourseCompletionDialog> createState() => _CourseCompletionDialogState();
 }
 
 class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
@@ -39,7 +38,6 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
           children: [
             Image.asset("assets/images/review.png", width: 120, height: 120),
             const SizedBox(height: 16),
-
             Text(
               AppStrings.courseCompleted,
               style: TextStyle(
@@ -49,20 +47,17 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
               ),
             ),
             const SizedBox(height: 8),
-
             Text(
               AppStrings.pleaseLeaveReview,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color:
-                    isDarkMode
-                        ? AppColors.greyScale.grey400
-                        : AppColors.greyScale.grey700,
+                color: isDarkMode
+                    ? AppColors.greyScale.grey400
+                    : AppColors.greyScale.grey700,
               ),
             ),
             const SizedBox(height: 16),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(5, (index) {
@@ -80,9 +75,7 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
                 );
               }),
             ),
-
             const SizedBox(height: 16),
-
             TextFormField(
               controller: _reviewController,
               decoration: InputDecoration(
@@ -95,16 +88,14 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
                   borderSide: BorderSide(color: AppColors.primary()),
                 ),
                 filled: true,
-                fillColor:
-                    isDarkMode
-                        ? AppColors.background.dark3
-                        : AppColors.greyScale.grey100,
+                fillColor: isDarkMode
+                    ? AppColors.background.dark3
+                    : AppColors.greyScale.grey100,
                 hintText: "The courses & mentors are great! 🔥",
                 hintStyle: TextStyle(
-                  color:
-                      isDarkMode
-                          ? AppColors.greyScale.grey400
-                          : AppColors.greyScale.grey600,
+                  color: isDarkMode
+                      ? AppColors.greyScale.grey400
+                      : AppColors.greyScale.grey600,
                 ),
               ),
               maxLines: 2,
@@ -112,9 +103,7 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
                 color: isDarkMode ? AppColors.white : AppColors.black,
               ),
             ),
-
             const SizedBox(height: 16),
-
             ElevatedButton(
               onPressed: widget.onSubmit,
               style: ElevatedButton.styleFrom(
@@ -132,7 +121,6 @@ class _CourseCompletionDialogState extends State<CourseCompletionDialog> {
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
-
             TextButton(
               onPressed: widget.onCancel,
               child: Text(

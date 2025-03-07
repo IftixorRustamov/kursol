@@ -10,7 +10,7 @@ class CustomTextFieldWg extends StatelessWidget {
   final FocusNode focusNode;
   final IconData prefixIcon;
   final String hintText;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Widget? trailingWidget;
   final bool obscureText;
 
@@ -21,7 +21,7 @@ class CustomTextFieldWg extends StatelessWidget {
       required this.focusNode,
       required this.prefixIcon,
       required this.hintText,
-      required this.onTap,
+      this.onTap,
       this.trailingWidget,
       this.obscureText = false});
 
