@@ -13,17 +13,20 @@ class CustomTextFieldWg extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? trailingWidget;
   final bool obscureText;
+  final ValueChanged<String>? onChanged;
 
-  const CustomTextFieldWg(
-      {super.key,
-      required this.isFocused,
-      required this.controller,
-      required this.focusNode,
-      required this.prefixIcon,
-      required this.hintText,
-      this.onTap,
-      this.trailingWidget,
-      this.obscureText = false});
+  const CustomTextFieldWg({
+    super.key,
+    required this.isFocused,
+    required this.controller,
+    required this.focusNode,
+    required this.prefixIcon,
+    required this.hintText,
+    this.onTap,
+    this.trailingWidget,
+    this.obscureText = false,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +35,12 @@ class CustomTextFieldWg extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: appW(20)),
       decoration: BoxDecoration(
-        color:
-            isFocused ? AppColors.primary.blue100 : AppColors.greyScale.grey50,
+        color: isFocused ? AppColors.primary.blue100 : AppColors.greyScale.grey50,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-            width: isFocused ? 2 : 0,
-            color:
-                isFocused ? AppColors.primary() : AppColors.greyScale.grey50),
+          width: isFocused ? 2 : 0,
+          color: isFocused ? AppColors.primary() : AppColors.greyScale.grey50,
+        ),
       ),
       child: TextField(
         obscureText: obscureText,
@@ -52,8 +54,7 @@ class CustomTextFieldWg extends StatelessWidget {
           icon: Icon(
             prefixIcon,
             size: appH(20),
-            color:
-                isFocused ? AppColors.primary() : AppColors.greyScale.grey500,
+            color: isFocused ? AppColors.primary() : AppColors.greyScale.grey500,
           ),
           hintText: hintText,
           hintStyle: AppTextStyles.urbanist.medium(
@@ -63,6 +64,7 @@ class CustomTextFieldWg extends StatelessWidget {
           border: InputBorder.none,
         ),
         onTap: onTap,
+        onChanged: onChanged, // Optional ishlatish mumkin ✅
         onSubmitted: (value) {
           FocusScope.of(context).unfocus();
         },

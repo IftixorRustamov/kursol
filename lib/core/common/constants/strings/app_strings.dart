@@ -24,6 +24,9 @@ abstract class AppStrings {
   static const String continueWithFacebook = "Continue with Facebook";
   static const String continueWithGoogle = "Continue with Google";
   static const String continueWithApple = "Continue with Apple";
+  static const String emailOrPhone = "Email or Phone";
+  static const String loginRequired = "Username and Password are required";
+  static const String failedLogin = "Failed login";
 
   static const String home = "Home";
   static const String test = "Test";

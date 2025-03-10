@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:dio/dio.dart';
 import 'package:iconly/iconly.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 
 import 'package:kursol/core/common/sizes/sizes.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
@@ -13,9 +14,9 @@ import 'package:kursol/core/routes/route_paths.dart';
 import 'package:kursol/core/utils/logger/app_logger.dart';
 import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
 import 'package:kursol/features/auth/presentation/providers/auth_provider.dart';
-import '../../../../../core/common/constants/constants_export.dart';
-import '../../../../../core/utils/responsiveness/app_responsive.dart';
-import '../../../../../core/utils/secure_storage.dart';
+import 'package:kursol/core/common/constants/constants_export.dart';
+import 'package:kursol/core/utils/responsiveness/app_responsive.dart';
+import 'package:kursol/core/utils/secure_storage.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../widgets/auth_checkbox_wg.dart';
 import '../../widgets/auth_or_continue_with_wg.dart';
@@ -36,7 +37,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   bool _isFocusedUsername = false;
   bool _isFocusedPassword = false;
   bool _rememberMe = false;
-  String? _errorMessage;
 
   @override
   void dispose() {
@@ -47,65 +47,58 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     super.dispose();
   }
 
-  /// **Google orqali tizimga kirish (Firebase ishlatmasdan)**
+  void _showSnackBar(BuildContext context, String message, AnimatedSnackBarType type) {
+    AnimatedSnackBar.material(
+      message,
+      type: type,
+      duration: const Duration(seconds: 3),
+    ).show(context);
+  }
+
   Future<void> _handleGoogleSignIn(WidgetRef ref) async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
-        return; // Foydalanuvchi tizimga kirishni bekor qildi
+        return;
       }
 
       final GoogleSignInAuthentication googleAuth =
       await googleUser.authentication;
-
       final idToken = googleAuth.idToken;
 
       if (idToken == null) {
         throw Exception("Google ID Token topilmadi!");
       }
 
-      // 🔗 Google ID Token ni backend API ga yuborish
       final response = await Dio().get(
         "https://api.kursol.uz/v1/auth/grant-code",
         queryParameters: {"code": idToken},
       );
 
-      logger.i("✅ Serverdan javob: ${response.data}");
-
       if (response.data["success"] == true) {
         final accessToken = response.data["data"]["accessToken"];
-
-        // 🔐 Tokenni saqlash
         await SecureStorage.saveAccessToken(accessToken);
-
-        // 🔀 Tizimga kirgandan keyin bosh sahifaga yo‘naltirish
         context.go(RoutePaths.home);
       } else {
         throw Exception("Google Sign-in failed: ${response.data["error"]["message"]}");
       }
     } catch (e) {
-      logger.e("🔥 Google Sign-in xatosi: $e");
-      setState(() {
-        _errorMessage = "Google orqali tizimga kirish muvaffaqiyatsiz: $e";
-      });
+      _showSnackBar(context, 'Google orqali tizimga kirish muvaffaqiyatsiz: $e', AnimatedSnackBarType.error);
     }
   }
 
   void _handleLogin(WidgetRef ref) async {
-    setState(() { _errorMessage = null; });
-
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
 
     if (username.isEmpty || password.isEmpty) {
-      setState(() { _errorMessage = "Username va Parol talab qilinadi"; });
+      _showSnackBar(context, AppStrings.loginRequired, AnimatedSnackBarType.warning);
       return;
     }
 
     final authNotifier = ref.read(authNotifierProvider.notifier);
-
     try {
       await authNotifier.login(username, password);
       final authState = ref.read(authNotifierProvider);
@@ -113,12 +106,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       if (authState.value == true) {
         context.go(RoutePaths.home);
       }
-    } on Exception catch (e) {
-      logger.e("🔥 Login xatosi: $e");
-
-      setState(() {
-        _errorMessage = "Login muvaffaqiyatsiz: ${e.toString()}";
-      });
+    } catch (e) {
+      _showSnackBar(context, '${AppStrings.failedLogin}', AnimatedSnackBarType.error);
     }
   }
 
@@ -148,7 +137,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                       controller: _usernameController,
                       focusNode: _usernameFocusNode,
                       prefixIcon: IconlyBold.message,
-                      hintText: "Username",
+                      hintText: AppStrings.emailOrPhone,
                       onTap: () {
                         setState(() {
                           _isFocusedUsername = true;
@@ -173,14 +162,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                           _rememberMe = value!;
                         });
                       }),
-
-                  if (_errorMessage != null) ...[
-                    Text(
-                      _errorMessage!,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ],
-
                   authState.maybeWhen(
                     loading: () => const CircularProgressIndicator(),
                     orElse: () => DefaultButtonWg(
@@ -188,13 +169,11 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                       onPressed: () => _handleLogin(ref),
                     ),
                   ),
-
                   AuthOrContinueWithWg(
                     onTapFacebook: () {},
-                    onTapGoogle: () => _handleGoogleSignIn(ref), // ✅ Google Sign-in
+                    onTapGoogle: () => _handleGoogleSignIn(ref),
                     onTapApple: () {},
                   ),
-
                   AuthSignInUpChoiceWg(
                       text: AppStrings.dontHaveAccount,
                       onPressed: () {
