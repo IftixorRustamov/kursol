@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:dio/dio.dart';
 import 'package:iconly/iconly.dart';
+
 import 'package:kursol/core/common/sizes/sizes.dart';
 import 'package:kursol/core/common/widgets/app_bar/action_app_bar_wg.dart';
 import 'package:kursol/core/common/widgets/default_button_wg.dart';
 import 'package:kursol/core/common/widgets/textfield/custom_text_field_wg.dart';
 import 'package:kursol/core/routes/route_paths.dart';
-import 'package:kursol/core/common/constants/constants_export.dart';
-import 'package:kursol/core/utils/utils_export.dart';
-import '../../providers/auth_provider.dart';
+import 'package:kursol/core/utils/logger/app_logger.dart';
+import 'package:kursol/core/utils/textstyles/app_textstyles.dart';
+import 'package:kursol/features/auth/presentation/providers/auth_provider.dart';
+import '../../../../../core/common/constants/constants_export.dart';
+import '../../../../../core/utils/responsiveness/app_responsive.dart';
+import '../../../../../core/utils/secure_storage.dart';
+import '../../../data/repositories/auth_repository.dart';
 import '../../widgets/auth_checkbox_wg.dart';
 import '../../widgets/auth_or_continue_with_wg.dart';
 import '../../widgets/auth_sign_in_up_choice_wg.dart';
@@ -22,48 +29,102 @@ class SignInPage extends ConsumerStatefulWidget {
 }
 
 class _SignInPageState extends ConsumerState<SignInPage> {
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _passwordFocusNode = FocusNode();
-  final FocusNode _emailFocusNode = FocusNode();
-  bool _isFocusedEmail = false;
+  final FocusNode _usernameFocusNode = FocusNode();
+  bool _isFocusedUsername = false;
   bool _isFocusedPassword = false;
   bool _rememberMe = false;
+  String? _errorMessage;
 
   @override
   void dispose() {
     _passwordFocusNode.dispose();
     _passwordController.dispose();
-    _emailFocusNode.dispose();
-    _emailController.dispose();
+    _usernameFocusNode.dispose();
+    _usernameController.dispose();
     super.dispose();
   }
 
-  void _handleSignIn() async {
-    final notifier = ref.read(signInProvider.notifier);
-    await notifier.signIn(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+  /// **Google orqali tizimga kirish (Firebase ishlatmasdan)**
+  Future<void> _handleGoogleSignIn(WidgetRef ref) async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-    final state = ref.read(signInProvider);
+      if (googleUser == null) {
+        return; // Foydalanuvchi tizimga kirishni bekor qildi
+      }
 
-    state.when(
-      data: (_) {
+      final GoogleSignInAuthentication googleAuth =
+      await googleUser.authentication;
+
+      final idToken = googleAuth.idToken;
+
+      if (idToken == null) {
+        throw Exception("Google ID Token topilmadi!");
+      }
+
+      // 🔗 Google ID Token ni backend API ga yuborish
+      final response = await Dio().get(
+        "https://api.kursol.uz/v1/auth/grant-code",
+        queryParameters: {"code": idToken},
+      );
+
+      logger.i("✅ Serverdan javob: ${response.data}");
+
+      if (response.data["success"] == true) {
+        final accessToken = response.data["data"]["accessToken"];
+
+        // 🔐 Tokenni saqlash
+        await SecureStorage.saveAccessToken(accessToken);
+
+        // 🔀 Tizimga kirgandan keyin bosh sahifaga yo‘naltirish
         context.go(RoutePaths.home);
-      },
-      error: (message, _) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(message.toString())),
-        );
-      },
-      loading: () {},
-    );
+      } else {
+        throw Exception("Google Sign-in failed: ${response.data["error"]["message"]}");
+      }
+    } catch (e) {
+      logger.e("🔥 Google Sign-in xatosi: $e");
+      setState(() {
+        _errorMessage = "Google orqali tizimga kirish muvaffaqiyatsiz: $e";
+      });
+    }
+  }
+
+  void _handleLogin(WidgetRef ref) async {
+    setState(() { _errorMessage = null; });
+
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (username.isEmpty || password.isEmpty) {
+      setState(() { _errorMessage = "Username va Parol talab qilinadi"; });
+      return;
+    }
+
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+
+    try {
+      await authNotifier.login(username, password);
+      final authState = ref.read(authNotifierProvider);
+
+      if (authState.value == true) {
+        context.go(RoutePaths.home);
+      }
+    } on Exception catch (e) {
+      logger.e("🔥 Login xatosi: $e");
+
+      setState(() {
+        _errorMessage = "Login muvaffaqiyatsiz: ${e.toString()}";
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final signInState = ref.watch(signInProvider);
+    final authState = ref.watch(authNotifierProvider);
 
     return Scaffold(
       appBar: ActionAppBarWg(onBackPressed: () {}),
@@ -74,80 +135,73 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           child: Column(
             spacing: appH(48),
             children: [
-              Text(
-                AppStrings.loginToYourAccount,
-                maxLines: 2,
-                textAlign: TextAlign.left,
-                style: AppTextStyles.urbanist.bold(
-                  color: AppColors.greyScale.grey900,
-                  fontSize: 48,
-                ),
-              ),
+              Text(AppStrings.loginToYourAccount,
+                  maxLines: 2,
+                  textAlign: TextAlign.left,
+                  style: AppTextStyles.urbanist
+                      .bold(color: AppColors.greyScale.grey900, fontSize: 48)),
               Column(
                 spacing: appH(24),
                 children: [
                   CustomTextFieldWg(
-                    isFocused: _isFocusedEmail,
-                    controller: _emailController,
-                    focusNode: _emailFocusNode,
-                    prefixIcon: IconlyBold.message,
-                    hintText: AppStrings.email,
-                    onTap: () {
-                      setState(() {
-                        _isFocusedEmail = true;
-                      });
-                    },
-                  ),
+                      isFocused: _isFocusedUsername,
+                      controller: _usernameController,
+                      focusNode: _usernameFocusNode,
+                      prefixIcon: IconlyBold.message,
+                      hintText: "Username",
+                      onTap: () {
+                        setState(() {
+                          _isFocusedUsername = true;
+                        });
+                      }),
                   CustomTextFieldWg(
-                    isFocused: _isFocusedPassword,
-                    obscureText: true,
-                    controller: _passwordController,
-                    focusNode: _passwordFocusNode,
-                    prefixIcon: IconlyBold.lock,
-                    hintText: AppStrings.password,
-                    onTap: () {
-                      setState(() {
-                        _isFocusedPassword = true;
-                      });
-                    },
-                  ),
+                      isFocused: _isFocusedPassword,
+                      obscureText: true,
+                      controller: _passwordController,
+                      focusNode: _passwordFocusNode,
+                      prefixIcon: IconlyBold.lock,
+                      hintText: AppStrings.password,
+                      onTap: () {
+                        setState(() {
+                          _isFocusedPassword = true;
+                        });
+                      }),
                   AuthCheckboxWg(
-                    rememberMe: _rememberMe,
-                    onChanged: (value) {
-                      setState(() {
-                        _rememberMe = value!;
-                      });
-                    },
-                  ),
-                  DefaultButtonWg(
-                    title: signInState is AsyncLoading ? "Signing In..." : AppStrings.signIn,
-                    onPressed: _handleSignIn,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.go(RoutePaths.forgotPassword);
-                    },
-                    child: Text(
-                      AppStrings.forgotPassword,
-                      style: AppTextStyles.urbanist.semiBold(
-                        color: AppColors.primary.blue500,
-                        fontSize: 16,
-                      ),
+                      rememberMe: _rememberMe,
+                      onChanged: (value) {
+                        setState(() {
+                          _rememberMe = value!;
+                        });
+                      }),
+
+                  if (_errorMessage != null) ...[
+                    Text(
+                      _errorMessage!,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ],
+
+                  authState.maybeWhen(
+                    loading: () => const CircularProgressIndicator(),
+                    orElse: () => DefaultButtonWg(
+                      title: AppStrings.signIn,
+                      onPressed: () => _handleLogin(ref),
                     ),
                   ),
+
+                  AuthOrContinueWithWg(
+                    onTapFacebook: () {},
+                    onTapGoogle: () => _handleGoogleSignIn(ref), // ✅ Google Sign-in
+                    onTapApple: () {},
+                  ),
+
+                  AuthSignInUpChoiceWg(
+                      text: AppStrings.dontHaveAccount,
+                      onPressed: () {
+                        context.go(RoutePaths.signup);
+                      },
+                      buttonText: AppStrings.signUp),
                 ],
-              ),
-              AuthOrContinueWithWg(
-                onTapFacebook: () {},
-                onTapGoogle: () {},
-                onTapApple: () {},
-              ),
-              AuthSignInUpChoiceWg(
-                text: AppStrings.dontHaveAccount,
-                onPressed: () {
-                  context.go(RoutePaths.signup);
-                },
-                buttonText: AppStrings.signUp,
               ),
             ],
           ),

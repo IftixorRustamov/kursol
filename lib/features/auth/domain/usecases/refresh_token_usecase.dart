@@ -1,17 +1,11 @@
-import 'package:kursol/features/auth/domain/entities/token_entity.dart';
-
-import '../entities/api_response_entity.dart';
-import '../repositories/auth_repository.dart';
+import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
 
 class RefreshTokenUseCase {
-  final AuthRepository _authRepository;
+  final AuthRepository repository;
 
-  RefreshTokenUseCase(this._authRepository);
+  RefreshTokenUseCase(this.repository);
 
-  Future<ApiResponse<TokenEntity>> call(String refreshToken) async {
-    if (refreshToken.isEmpty) {
-      throw Exception('Refresh token cannot be empty');
-    }
-    return await _authRepository.refreshToken(refreshToken);
+  Future<String?> call(String refreshToken) async {
+    return await repository.refreshAccessToken(refreshToken);
   }
 }

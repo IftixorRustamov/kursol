@@ -1,10 +1,11 @@
-import 'package:kursol/features/auth/domain/entities/api_response_entity.dart';
 import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
 
-class LogoutUsecase {
-  final AuthRepository _authRepository;
+class LogoutUseCase {
+  final AuthRepository repository;
 
-  LogoutUsecase(this._authRepository);
+  LogoutUseCase(this.repository);
 
-  Future<ApiResponse<void>> call() async => await _authRepository.logout();
+  Future<bool> call() async {
+    return await repository.logout();
+  }
 }

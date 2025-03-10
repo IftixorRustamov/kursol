@@ -27,9 +27,9 @@ class OnboardingPageState extends State<OnboardingPage> {
   ];
 
   final List<Widget> images = [
-    Assets.images.splash3.image(),
-    Assets.images.splash4.image(),
-    Assets.images.splash5.image(),
+    Assets.images.splash3.image(height: appH(320), width: appW(320)),
+    Assets.images.splash4.image(height: appH(320), width: appW(320)),
+    Assets.images.splash5.image(height: appH(320), width: appW(320)),
   ];
 
   @override

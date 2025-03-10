@@ -1,17 +1,12 @@
-import 'package:kursol/features/auth/domain/entities/token_entity.dart';
+import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
+import 'package:kursol/features/auth/domain/entities/user_entity.dart';
 
-import '../entities/api_response_entity.dart';
-import '../repositories/auth_repository.dart';
+class GetGrantCodeUseCase {
+  final AuthRepository repository;
 
-class GetGrantCodeUsecase {
-  final AuthRepository _authRepository;
+  GetGrantCodeUseCase(this.repository);
 
-  GetGrantCodeUsecase(this._authRepository);
-
-  Future<ApiResponse<TokenEntity>> call(String grantCode) async {
-    if (grantCode.isEmpty) {
-      throw Exception('Grant code cannot be empty');
-    }
-    return await _authRepository.getGrantCode(grantCode);
+  Future<User> call(String code) async {
+    return await repository.processGoogleGrantCode(code);
   }
 }

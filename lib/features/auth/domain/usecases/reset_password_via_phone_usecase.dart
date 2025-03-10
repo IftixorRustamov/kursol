@@ -1,15 +1,11 @@
-import '../entities/api_response_entity.dart';
-import '../repositories/auth_repository.dart';
+import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
 
-class ResetPasswordViaPhoneUsecase {
-  final AuthRepository _authRepository;
+class ResetPasswordViaPhoneUseCase {
+  final AuthRepository repository;
 
-  ResetPasswordViaPhoneUsecase(this._authRepository);
+  ResetPasswordViaPhoneUseCase(this.repository);
 
-  Future<ApiResponse<void>> call(String phone) async {
-    if (phone.isEmpty) {
-      throw Exception('Phone number cannot be empty');
-    }
-    return await _authRepository.resetPasswordViaPhone(phone);
+  Future<bool> call(String phone) async {
+    return await repository.sendOtpForPasswordReset(phone, true);
   }
 }

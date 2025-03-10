@@ -21,6 +21,7 @@ import '../../features/auth/presentation/pages/auth_pages_export.dart';
 import '../../features/auth/presentation/pages/forget_reset_password/pages/create_new_password.dart';
 import '../../features/auth/presentation/pages/forget_reset_password/pages/forgot_password.dart';
 import '../../features/auth/presentation/pages/forget_reset_password/pages/send_code_forgot_password.dart';
+import '../../features/auth/presentation/pages/otp/otp_verification_page.dart';
 import '../../features/auth/presentation/pages/profile/pages/create_new_pin.dart';
 import '../../features/auth/presentation/pages/profile/pages/fill_your_profile.dart';
 import '../../features/auth/presentation/pages/profile/pages/finger_print.dart';
@@ -333,12 +334,20 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: RoutePaths.sendCodeForgotPassword,
-      name: RouteNames.sendCodeForgotPassword,
+      path: RoutePaths.otpVerification,
+      name: RouteNames.otpVerification,
       builder: (context, state) {
-        return SendCodeForgotPassword();
+        final extra = state.extra as Map<String, dynamic>?;
+        final identifier = extra?['identifier'] ?? '';
+        final isSignUp = extra?['isSignUp'] ?? false;
+
+        return OtpVerificationPage(
+          identifier: identifier,
+          isSignUp: isSignUp,
+        );
       },
     ),
+
     GoRoute(
       path: RoutePaths.createNewPassword,
       name: RouteNames.createNewPassword,

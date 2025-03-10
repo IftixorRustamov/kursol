@@ -31,7 +31,21 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
+build/
+ios/build/
+*.dSYM
+*.ipa
+*.apk
+*.aab
+
+# Xcode
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/
+
+# Other common ignores
+*.log
+.DS_Store
+*.lock
 
 # Symbolication related
 app.*.symbols

@@ -1,22 +1,15 @@
-import '../entities/api_response_entity.dart';
-import '../repositories/auth_repository.dart';
+import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
 
 class ResetPasswordUseCase {
-  final AuthRepository _authRepository;
+  final AuthRepository repository;
 
-  ResetPasswordUseCase(this._authRepository);
+  ResetPasswordUseCase(this.repository);
 
-  Future<ApiResponse<void>> call(
-      String otpCode,
-      String newPassword, 
-      String confirmPassword,
-      ) async {
-    if (otpCode.isEmpty || newPassword.isEmpty || confirmPassword.isEmpty) {
-      return ApiResponse(success: false, error: ApiError(code: "400", message: "All fields must be non-empty"));
-    }
-    if (newPassword != confirmPassword) {
-      return ApiResponse(success: false, error: ApiError(code: "400", message: "Passwords do not match"));
-    }
-    return await _authRepository.resetPassword(otpCode, newPassword, confirmPassword);
+  Future<bool> call(String otp, String newPassword, String confirmPassword) async {
+    return await repository.resetPassword({
+      "otp": otp,
+      "newPassword": newPassword,
+      "confirmPassword": confirmPassword
+    });
   }
 }

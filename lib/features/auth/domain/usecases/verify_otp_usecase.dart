@@ -1,15 +1,11 @@
-import '../entities/api_response_entity.dart';
-import '../repositories/auth_repository.dart';
+import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
 
 class VerifyOtpUseCase {
-  final AuthRepository _authRepository;
+  final AuthRepository repository;
 
-  const VerifyOtpUseCase(this._authRepository);
+  VerifyOtpUseCase(this.repository);
 
-  Future<ApiResponse<void>> call(String otpCode) async {
-    if (otpCode.isEmpty) {
-      throw Exception('OTP code cannot be empty');
-    }
-    return await _authRepository.verifyOtp(otpCode);
+  Future<bool> call(String otp) async {
+    return await repository.verifyOtp(otp);
   }
 }

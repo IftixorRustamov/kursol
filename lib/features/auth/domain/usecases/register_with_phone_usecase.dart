@@ -1,30 +1,21 @@
-import 'package:kursol/features/auth/domain/entities/user_entity.dart';
-
-import '../entities/api_response_entity.dart';
-import '../repositories/auth_repository.dart';
+import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
 
 class RegisterWithPhoneUseCase {
-  final AuthRepository _authRepository;
+  final AuthRepository repository;
 
-  RegisterWithPhoneUseCase(this._authRepository);
+  RegisterWithPhoneUseCase(this.repository);
 
-  Future<ApiResponse<UserEntity>> call(
-    String phoneNumber,
-    String password,
-    String firstName,
-    String lastName,
-  ) async {
-    if (phoneNumber.isEmpty ||
-        password.isEmpty ||
-        firstName.isEmpty ||
-        lastName.isEmpty) {
-      throw Exception('All fields must be non-empty');
-    }
-    return await _authRepository.registerWithPhone(
-      phoneNumber,
-      password,
-      firstName,
-      lastName,
-    );
+  Future<bool> call({
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    required String password,
+  }) async {
+    return await repository.register({
+      "firstName": firstName,
+      "lastName": lastName,
+      "phoneNumber": phoneNumber,
+      "password": password,
+    }, false);
   }
 }

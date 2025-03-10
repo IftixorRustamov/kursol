@@ -1,21 +1,21 @@
-import 'package:kursol/features/auth/domain/entities/api_response_entity.dart';
-import 'package:kursol/features/auth/domain/entities/user_entity.dart';
 import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
 
-class RegisterWithEmailUsecase {
-  final AuthRepository _authRepository;
+class RegisterWithEmailUseCase {
+  final AuthRepository repository;
 
-  RegisterWithEmailUsecase(this._authRepository);
+  RegisterWithEmailUseCase(this.repository);
 
-  Future<ApiResponse<UserEntity>> call(
-      String email,
-      String password,
-      String firstName,
-      String lastName,
-      ) async {
-    if (email.isEmpty || password.isEmpty || firstName.isEmpty || lastName.isEmpty) {
-      return ApiResponse(success: false, error: ApiError(code: "400", message: "All fields must be non-empty"));
-    }
-    return await _authRepository.registerWithEmail(email, password, firstName, lastName);
+  Future<bool> call({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
+    return await repository.register({
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "password": password,
+    }, true);
   }
 }

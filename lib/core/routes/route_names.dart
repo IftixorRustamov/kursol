@@ -26,6 +26,7 @@ abstract class RouteNames {
   static const String forgotPassword = 'forgotPassword';
   static const String sendCodeForgotPassword = 'sendCodeForgotPassword';
   static const String createNewPassword = 'createNewPassword';
+  static const String otpVerification = 'otpVerification';
 
 
   // * Home

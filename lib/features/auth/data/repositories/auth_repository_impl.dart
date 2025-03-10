@@ -1,185 +1,129 @@
-import 'package:dio/dio.dart';
-import 'package:kursol/core/network/dio_client.dart';
-import 'package:kursol/features/auth/domain/entities/api_response_entity.dart';
-import 'package:kursol/features/auth/domain/entities/token_entity.dart';
-import 'package:kursol/features/auth/domain/entities/user_entity.dart';
+import 'package:kursol/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
-import 'package:kursol/core/common/constants/api_urls.dart';
+import 'package:kursol/core/utils/secure_storage.dart';
+import '../../../../core/utils/logger/app_logger.dart';
+import '../../domain/entities/user_entity.dart';
 
-class AuthRepositoryImpl extends AuthRepository {
-  final DioClient _dioClient;
 
-  AuthRepositoryImpl(this._dioClient);
+class AuthRepositoryImpl implements AuthRepository {
+  final AuthRemoteDataSource _remoteDataSource;
 
-  @override
-  Future<ApiResponse<void>> resetPassword(
-      String otpCode, String newPassword, String confirmPassword) async {
-    try {
-      final response = await _dioClient.put(ApiUrls.resetPassword, data: {
-        "otp": otpCode,
-        "newPassword": [newPassword],
-        "confirmPassword": [confirmPassword],
-      });
-
-      return ApiResponse(success: response.statusCode == 200);
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
-    }
-  }
+  AuthRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<ApiResponse<void>> resetPasswordViaEmail(String email) async {
+  Future<User> login(String username, String password) async {
     try {
-      final response = await _dioClient.post(ApiUrls.resetPasswordEmail, data: {
-        "email": email,
-      });
+      final response = await _remoteDataSource.login(username, password);
 
-      return ApiResponse(success: response.statusCode == 200);
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
-    }
-  }
+      logger.i("📢 Server javobi: $response");
 
-  @override
-  Future<ApiResponse<void>> resetPasswordViaPhone(String phone) async {
-    try {
-      final response = await _dioClient.post(ApiUrls.resetPasswordPhone, data: {
-        "phone": phone,
-      });
-
-      return ApiResponse(success: response.statusCode == 200);
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
-    }
-  }
-
-  @override
-  Future<ApiResponse<TokenEntity>> refreshToken(String refreshToken) async {
-    try {
-      final response = await _dioClient.post(ApiUrls.refreshToken, data: {
-        "refreshToken": refreshToken,
-      });
-
-      if (response.statusCode == 200) {
-        return ApiResponse(success: true, data: TokenEntity.fromJson(response.data));
-      } else {
-        return ApiResponse(success: false, error: ApiError.fromJson(response.data));
+      final data = response["data"];
+      if (data == null) {
+        throw Exception("Login failed: 'data' bo'limi yo'q!");
       }
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
-    }
-  }
 
-  @override
-  Future<ApiResponse<TokenEntity>> login(String username, String password) async {
-    try {
-      final response = await _dioClient.post(ApiUrls.login, data: {
-        "username": username,
-        "password": password,
-      });
-
-      if (response.statusCode == 200) {
-        return ApiResponse(success: true, data: TokenEntity.fromJson(response.data));
-      } else {
-        return ApiResponse(success: false, error: ApiError.fromJson(response.data));
+      if (!data.containsKey("accessToken") || !data.containsKey("user")) {
+        throw Exception("Login failed: Kerakli ma'lumotlar yo'q!");
       }
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
+
+      final userData = data["user"];
+
+      final user = User(
+        uuid: userData["uuid"] ?? "",
+        firstName: userData["firstName"] ?? "",
+        lastName: userData["lastName"] ?? "",
+        username: userData["username"] ?? "",
+        email: userData["email"] ?? "",
+        phoneNumber: userData["phoneNumber"] ?? "",
+        roles: List<String>.from(userData["roles"] ?? []),
+      );
+
+      await SecureStorage.saveAccessToken(data["accessToken"]);
+
+      logger.i("✅ Login muvaffaqiyatli: ${user.username}");
+      return user;
+    } catch (e, stacktrace) {
+      logger.e("🔥 Login xatosi: $e", error: e, stackTrace: stacktrace);
+      throw Exception("Login failed: ${e.toString()}");
     }
   }
 
-  @override
-  Future<ApiResponse<void>> logout() async {
-    try {
-      final response = await _dioClient.post(ApiUrls.logout);
 
-      return ApiResponse(success: response.statusCode == 200);
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
-    }
+
+  @override
+  Future<bool> register(Map<String, dynamic> data, bool useEmail) {
+    return _remoteDataSource.register(data, useEmail);
   }
 
   @override
-  Future<ApiResponse<UserEntity>> registerWithEmail(
-      String email, String password, String firstName, String lastName) async {
-    try {
-      final response = await _dioClient.post(ApiUrls.registerWithEmail, data: {
-        "email": email,
-        "password": password,
-        "firstName": firstName,
-        "lastName": lastName,
-      });
+  Future<bool> verifyOtp(String otp) async {
+    return await _remoteDataSource.verifyOtp(otp);
+  }
 
-      if (response.statusCode == 200) {
-        return ApiResponse(success: true, data: UserEntity.fromJson(response.data["data"]));
-      } else {
-        return ApiResponse(success: false, error: ApiError.fromJson(response.data));
+  @override
+  Future<bool> logout() async {
+    final success = await _remoteDataSource.logout();
+    if (success) {
+      await SecureStorage.clearTokens();
+    }
+    return success;
+  }
+
+  @override
+  Future<String?> refreshAccessToken(String refreshToken) {
+    return _remoteDataSource.refreshAccessToken(refreshToken);
+  }
+
+  @override
+  Future<bool> resetPassword(Map<String, dynamic> data) {
+    return _remoteDataSource.resetPassword(data);
+  }
+
+  @override
+  Future<bool> sendOtpForPasswordReset(String identifier, bool isPhone) {
+    return _remoteDataSource.sendOtpForPasswordReset(identifier, isPhone);
+  }
+
+  @override
+  Future<User> processGoogleGrantCode(String code) async {
+    try {
+      final response = await _remoteDataSource.processGoogleGrantCode(code);
+
+      logger.i("📢 Google Login javobi: $response");
+
+      // ✅ Serverdan kelgan ma'lumotni olish
+      final data = response["data"];
+      if (data == null) {
+        throw Exception("Google Sign-in failed: 'data' bo'limi yo'q!");
       }
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
-    }
-  }
 
-  @override
-  Future<ApiResponse<UserEntity>> registerWithPhone(
-      String phoneNumber, String password, String firstName, String lastName) async {
-    try {
-      final response = await _dioClient.post(ApiUrls.registerWithPhone, data: {
-        "phoneNumber": phoneNumber,
-        "password": password,
-        "firstName": firstName,
-        "lastName": lastName,
-      });
-
-      if (response.statusCode == 200) {
-        return ApiResponse(success: true, data: UserEntity.fromJson(response.data["data"]));
-      } else {
-        return ApiResponse(success: false, error: ApiError.fromJson(response.data));
+      // ✅ Token va foydalanuvchi ma'lumotlarini tekshirish
+      if (!data.containsKey("accessToken") || !data.containsKey("user")) {
+        throw Exception("Google Sign-in failed: Kerakli ma'lumotlar yetishmayapti!");
       }
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
+
+      final userData = data["user"];
+
+      final user = User(
+        uuid: userData["uuid"] ?? "",
+        firstName: userData["firstName"] ?? "",
+        lastName: userData["lastName"] ?? "",
+        username: userData["username"] ?? "",
+        email: userData["email"] ?? "",
+        phoneNumber: userData["phoneNumber"] ?? "",
+        roles: List<String>.from(userData["roles"] ?? []),
+      );
+
+      // ✅ Tokenlarni saqlash
+      await SecureStorage.saveAccessToken(data["accessToken"]);
+      await SecureStorage.saveRefreshToken(data["refreshToken"]); // 🆕 Refresh token ham saqlanadi
+
+      logger.i("✅ Google Sign-in muvaffaqiyatli: ${user.username}");
+      return user;
+    } catch (e, stacktrace) {
+      logger.e("🔥 Google Sign-in xatosi: $e", error: e, stackTrace: stacktrace);
+      throw Exception("Google Sign-in failed: ${e.toString()}");
     }
   }
 
-  @override
-  Future<ApiResponse<TokenEntity>> getGrantCode(String grantCode) async {
-    try {
-      final response = await _dioClient.get(ApiUrls.getGrantCode, queryParameters: {
-        "code": grantCode,
-      });
-
-      if (response.statusCode == 200) {
-        return ApiResponse(success: true, data: TokenEntity.fromJson(response.data["data"]));
-      } else {
-        return ApiResponse(success: false, error: ApiError.fromJson(response.data));
-      }
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
-    }
-  }
-
-  @override
-  Future<ApiResponse<void>> verifyOtp(String otpCode) async {
-    try {
-      final response = await _dioClient.post(ApiUrls.verifyOtp, data: {
-        "otp": otpCode,
-      });
-
-      return ApiResponse(success: response.statusCode == 200);
-    } on DioException catch (e) {
-      return ApiResponse(success: false, error: ApiError(code: "500", message: e.message ?? "Unknown error"));
-    }
-  }
-
-  @override
-  UserEntity? getCurrentUser() {
-    // TODO: Implement local storage logic to get saved user
-    throw UnimplementedError();
-  }
-
-  @override
-  bool isUserLoggedIn() {
-    // TODO: Implement logic to check if user is logged in
-    throw UnimplementedError();
-  }
 }

@@ -19,6 +19,7 @@ abstract class RoutePaths {
   static const String eReceipt = '/e-receipt';
   static const String completedCourses = '/completed-courses';
   static const String completedCourse = '/completed-course/:id';
+  static const String otpVerification  = '/otp-verification';
 
   // * home
   static const String homeNotification = '/home-notification';

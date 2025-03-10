@@ -1,18 +1,14 @@
-import 'package:kursol/features/auth/domain/entities/token_entity.dart';
+
 import 'package:kursol/features/auth/domain/repositories/auth_repository.dart';
 
-import '../entities/api_response_entity.dart';
+import '../entities/user_entity.dart';
 
-class LoginUsecase {
-  final AuthRepository _authRepository;
+class LoginUseCase {
+  final AuthRepository repository;
 
-  LoginUsecase(this._authRepository);
+  LoginUseCase(this.repository);
 
-  Future<ApiResponse<TokenEntity>> call(
-      String username, String password) async {
-    if (username.isEmpty || password.isEmpty) {
-      throw Exception('Username and password cannot be empty');
-    }
-    return await _authRepository.login(username, password);
+  Future<User> call(String email, String password) async {
+    return await repository.login(email, password);
   }
 }

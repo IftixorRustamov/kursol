@@ -1,17 +1,8 @@
-import 'package:kursol/features/auth/domain/entities/user_entity.dart';
-
-import '../repositories/auth_repository.dart';
+import 'package:kursol/core/utils/secure_storage.dart';
 
 class CheckAuthStatusUseCase {
-  final AuthRepository _authRepository;
-
-  CheckAuthStatusUseCase(this._authRepository);
-
-  bool call() {
-    return _authRepository.isUserLoggedIn();
-  }
-
-  UserEntity? getCurrentUser() {
-    return _authRepository.getCurrentUser();
+  Future<bool> call() async {
+    final accessToken = await SecureStorage.getAccessToken();
+    return accessToken != null;
   }
 }

@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:kursol/core/common/sizes/sizes.dart';
 import 'package:kursol/core/routes/route_paths.dart';
-import 'package:kursol/core/common/constants/constants_export.dart';
-import 'package:kursol/core/common/widgets/widgets_export.dart';
-import 'package:kursol/core/utils/utils_export.dart';
+import '../../../../../core/common/constants/constants_export.dart';
+import '../../../../../core/common/widgets/widgets_export.dart';
+import '../../../../../core/utils/responsiveness/app_responsive.dart';
+import '../../../../../core/utils/textstyles/app_textstyles.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/auth_checkbox_wg.dart';
 import '../../widgets/auth_or_continue_with_wg.dart';
@@ -52,34 +53,39 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     });
   }
 
-  void _handleSignUp() async {
-    final notifier = ref.read(signUpProvider.notifier);
-    await notifier.signUp(
-      firstName: _firstNameController.text.trim(),
-      lastName: _lastNameController.text.trim(),
-      emailOrPhone: _emailOrPhoneController.text.trim(),
-      password: _passwordController.text.trim(),
+  Future<void> _registerUser() async {
+    final registerNotifier = ref.read(registerProvider.notifier);
+
+    final success = await registerNotifier.register(
+      firstName: _firstNameController.text,
+      lastName: _lastNameController.text,
+      emailOrPhone: _emailOrPhoneController.text,
+      password: _passwordController.text,
       useEmail: _useEmail,
     );
 
-    final state = ref.read(signUpProvider);
+    if (success) {
+      context.go(RoutePaths.otpVerification, extra: {
+        "identifier": _emailOrPhoneController.text,
+        "isSignUp": true,
+      });
+    } else {
+      final errorMessage = ref.read(registerProvider).when(
+        data: (_) => null,
+        loading: () => null,
+        error: (error, _) => error.toString(),
+      );
 
-    state.when(
-      data: (_) {
-        context.go(RoutePaths.home); // ✅ HomePage ga o'tish
-      },
-      error: (message, _) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(message.toString())),
-        );
-      },
-      loading: () {},
-    );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage ?? "Registration failed. Try again.")),
+      );
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
-    final signUpState = ref.watch(signUpProvider);
+    final registerState = ref.watch(registerProvider);
 
     return Scaffold(
       appBar: ActionAppBarWg(onBackPressed: () {
@@ -92,15 +98,11 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
           child: Column(
             spacing: appH(20),
             children: [
-              Text(
-                AppStrings.createYourAccount,
-                maxLines: 2,
-                textAlign: TextAlign.left,
-                style: AppTextStyles.urbanist.bold(
-                  color: AppColors.greyScale.grey900,
-                  fontSize: 48,
-                ),
-              ),
+              Text(AppStrings.createYourAccount,
+                  maxLines: 2,
+                  textAlign: TextAlign.left,
+                  style: AppTextStyles.urbanist
+                      .bold(color: AppColors.greyScale.grey900, fontSize: 48)),
               Column(
                 spacing: appH(16),
                 children: [
@@ -118,22 +120,31 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     prefixIcon: IconlyBold.profile,
                     hintText: AppStrings.lastName,
                   ),
-                  CustomTextFieldWg(
-                    isFocused: _emailOrPhoneFocusNode.hasFocus,
-                    controller: _emailOrPhoneController,
-                    focusNode: _emailOrPhoneFocusNode,
-                    prefixIcon: _useEmail ? IconlyBold.message : IconlyBold.call,
-                    hintText: _useEmail ? AppStrings.email : AppStrings.phoneNumber,
-                  ),
-                  GestureDetector(
-                    onTap: _toggleInputMode,
-                    child: Text(
-                      _useEmail ? 'Use phone instead' : 'Use email instead',
-                      style: AppTextStyles.urbanist.semiBold(
-                        color: AppColors.primary(),
-                        fontSize: 14,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: appH(10),
+                    children: [
+                      CustomTextFieldWg(
+                        isFocused: _emailOrPhoneFocusNode.hasFocus,
+                        controller: _emailOrPhoneController,
+                        focusNode: _emailOrPhoneFocusNode,
+                        prefixIcon:
+                        _useEmail ? IconlyBold.message : IconlyBold.call,
+                        hintText: _useEmail
+                            ? AppStrings.email
+                            : AppStrings.phoneNumber,
                       ),
-                    ),
+                      GestureDetector(
+                        onTap: _toggleInputMode,
+                        child: Text(
+                          _useEmail ? 'Use phone instead' : 'Use email instead',
+                          style: AppTextStyles.urbanist.semiBold(
+                            color: AppColors.primary(),
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   CustomTextFieldWg(
                     isFocused: _passwordFocusNode.hasFocus,
@@ -142,13 +153,54 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     focusNode: _passwordFocusNode,
                     prefixIcon: IconlyBold.lock,
                     hintText: AppStrings.password,
+                    trailingWidget: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: Icon(
+                        _obscureText ? IconlyBold.hide : IconlyBold.show,
+                        size: appH(20),
+                        color: _passwordFocusNode.hasFocus
+                            ? AppColors.primary()
+                            : AppColors.greyScale.grey500,
+                      ),
+                    ),
                   ),
-                  DefaultButtonWg(
-                    title: signUpState is AsyncLoading ? "Signing Up..." : AppStrings.signUp,
-                    onPressed: _handleSignUp,
+                  AuthCheckboxWg(
+                      rememberMe: _rememberMe,
+                      onChanged: (value) {
+                        setState(() {
+                          _rememberMe = value!;
+                        });
+                      }),
+                  registerState.when(
+                    data: (isRegistered) => DefaultButtonWg(
+                      title: AppStrings.signUp,
+                      onPressed: _registerUser,
+                    ),
+                    loading: () => const CircularProgressIndicator(),
+                    error: (error, _) => Column(
+                      children: [
+                        Text(error.toString(), style: TextStyle(color: Colors.red)),
+                        DefaultButtonWg(
+                          title: AppStrings.signUp,
+                          onPressed: _registerUser,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
+              AuthOrContinueWithWg(
+                  onTapFacebook: () {}, onTapGoogle: () {}, onTapApple: () {}),
+              AuthSignInUpChoiceWg(
+                  text: AppStrings.alreadyHaveAccount,
+                  onPressed: () {
+                    context.go(RoutePaths.signin);
+                  },
+                  buttonText: AppStrings.signIn),
             ],
           ),
         ),
